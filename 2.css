@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Estilos para el encabezado */
+header {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.title {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 18px;
+    color: #777;
+}
+
+/* Estilos para los pasos */
+.steps .step {
+    background-color: white;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.steps .step-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.steps .step-description {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.steps .step-image {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Estilos para la sección de video */
+.video {
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.video-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.video-content {
+    max-width: 100%;
+}
+
+/* Estilos para el pie de página */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
+
+.footer-container p {
+    margin: 0;
+}
