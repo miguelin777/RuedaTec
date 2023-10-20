@@ -739,13 +739,13 @@ header {
     height: auto;
 }
 
-.about-content .left-details .project,
+
 .about-content .left-details .years {
     position: absolute;
-    width: 570px;
-    height: 100px;
+    width: 200px;
+    height: 90px;
     background-color: #fff;
-    border-radius: 30px 30px 30px 0px;
+    border-radius: 30px 30px 0px 30px;
     display: flex;
     align-items: center;
     line-height: 23px;
@@ -756,9 +756,27 @@ header {
 
 }
 
+.about-content .left-details .project{
+    position: absolute;
+    width: 570px;
+    height: 150px;
+    background-color: #fff;
+    border-radius: 30px 30px 0px 30px;
+    display: flex;
+    align-items: center;
+    line-height: 23px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .2);
+    padding: 0 20px;
+    font-weight: 500;
+    color: var(--description-color);
+
+    
+}
+
+
 .about-content .left-details .years {
-    top: 140px;
-    left: -20px;
+    top: 120px;
+    left: 550px;
 }
 
 .about-content .left-details .project span,
@@ -773,9 +791,9 @@ header {
 }
 
 .about-content .left-details .project {
-    bottom: 420px;
+    bottom: 350px;
     right: 0;
-    left: 220px;
+    left: 170px;
 }
 
 .about-content .left-details .project span {
@@ -1880,14 +1898,41 @@ footer .social-icon a {
     .about-content {
         column-gap: 50px;
     }
+    .about-content .left-details .project{
+    
+        border-radius: 30px 30px 30px 0px;
+        
+
+    }
+    .about-content .left-details .years{
+    
+        border-radius: 30px 30px 30px 0px;
+        
+
+    }
     .about-content .left-details img {
         max-width: 310px;
     }
-    .about-content .left-details .years,
+    .about-content .left-details .years {
+        top: 348px;
+        left: 140px;
+    }
+
     .about-content .left-details .project {
-        width: 140px;
-        height: 60px;
+        width: 306px;
+        height: 204px;
         font-size: 14px;
+    }
+
+    .about-content .left-details .years{
+        width: 200px;
+        height: 100px;
+        font-size: 14px;
+    }
+    .about-content .left-details .project {
+        bottom: 231px;
+        right: 24;
+        left: 14px;
     }
     .about-content .left-details .years span,
     .about-content .left-details .project span {
@@ -1907,6 +1952,26 @@ footer .social-icon a {
         margin-bottom: 40px;
     }
 }
+/* CSS */
+
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;  /* Establece el ancho máximo del contenedor del video */
+    margin: auto;  /* Centra el contenedor del video */
+    aspect-ratio: 16 / 9;  /* Establece la relación de aspecto del video */
+    overflow: hidden;  /* Oculta cualquier contenido que se salga del contenedor */
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;  /* Elimina el borde del iframe */
+}
+
 
 @media only screen and (max-width: 568px) {
     .about-content .right-detailss {
