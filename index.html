@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Talent | Club 100%</title>
+    <title>RuedaTec</title>
     <!-- fontawesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -14,6 +14,12 @@
 
     <!-- css  -->
     <link rel="stylesheet" href="./assets/css/style.css">
+    <style>
+        /* Ocultar una de las imágenes inicialmente */
+        #imagen2 {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,8 +28,8 @@
     <header class="header">
         <nav class="nav container">
             <div class="nav__data">
-                <a href="#" class="nav__logo">
-                    <i class="ri-code-s-slash-line"></i> Club del 100%
+                <a href="./index.html" class="nav__logo">
+                    <i class="ri-code-s-slash-"><img src="./assets/image/logoP1.png" alt style="width: 45px;"></i> 
                 </a>
 
                 <div class="nav__toggle" id="nav-toggle">
@@ -36,99 +42,29 @@
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li>
-                        <a href="#" class="nav__link">Inicio</a>
+                        <a href="./index.html" class="nav__link">Inicio</a>
                     </li>
                     
 
                     <!--=============== DROPDOWN 1 ===============-->
-                    <li class="dropdown__item">
-                        <div class="nav__link dropdown__button">
-                            Temas <i class="ri-arrow-down-s-line dropdown__arrow"></i>
-                        </div>
-
-                        <div class="dropdown__container">
-                            <div class="dropdown__content">
-                                <div class="dropdown__group">
-                                    <div class="dropdown__icon">
-                                        <i class="ri-flashlight-line"></i>
-                                    </div>
-
-                                    <span class="dropdown__title">Oneshape</span>
-
-                                    <ul class="dropdown__list">
-                                        <li>
-                                            <a href="./OneshapeMain.html" class="dropdown__link">Iniciar Oneshape</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown__link">Práctica </a>
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-
-                                <div class="dropdown__group">
-                                    <div class="dropdown__icon">
-                                        <i class="ri-heart-3-line"></i>
-                                    </div>
-
-                                    <span class="dropdown__title">Excel</span>
-
-                                    <ul class="dropdown__list">
-                                        <li>
-                                            <a href="#" class="dropdown__link">Iniciar Excel</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown__link">Práctica</a>
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-
-                                <div class="dropdown__group">
-                                    <div class="dropdown__icon">
-                                        <i class="ri-book-mark-line"></i>
-                                    </div>
-
-                                    <span class="dropdown__title">PowerBI</span>
-
-                                    <ul class="dropdown__list">
-                                        <li>
-                                            <a href="#" class="dropdown__link">Iniciar Power Bi</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown__link">Práctica</a>
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-
-                                <div class="dropdown__group">
-                                    <div class="dropdown__icon">
-                                        <i class="ri-file-paper-2-line"></i>
-                                    </div>
-
-                                    <span class="dropdown__title">Redes Neuronales Python</span>
-
-                                    <ul class="dropdown__list">
-                                        <li>
-                                            <a href="#" class="dropdown__link">Inicia Redes Neuronales</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown__link">Práctica</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    
 
                     <!--=============== DROPDOWN 2 ===============-->
-                    <li>
-                        <a href="#" class="nav__link">Nosotros</a>
-                    </li>
+                    <!-- <li>
+                        <a href="./Nosotros.html" class="nav__link">Experiencias</a>
+                    </li> -->
 
                     <li>
-                        <a href="#" class="nav__link">Instrucciones</a>
+                        <a href="./Instrucciones.html" class="nav__link">Miguel</a>
+                    </li>
+                    <li>
+                        <a href="./resultados.html" class="nav__link">Jesús</a>
+                    </li>
+                    <li>
+                        <a href="./Instrucciones.html" class="nav__link">Carlos</a>
+                    </li>
+                    <li>
+                        <a href="./resultados.html" class="nav__link">David</a>
                     </li>
 
                     <!--=============== DROPDOWN 3 ===============-->
@@ -145,18 +81,18 @@
                 <div class="left-details">
                     <h4>Hola amigos</h4>
                     <h2>Nosotros somos</h2>
-                    <h1>El <span id="typed"></span></h1>
-                    <p>Estamos aquí para ayudarte a desarrollar <br> tu idea de negocio con las mejores tecnologías.
+                    <h1> <span id="typed"></span></h1>
+                    <p>Les queremos mostrar un poco más sobre <br> nosotros y que sepan lo que hemos vivido.
                     </p>
-                    <a href="#Tem" class="btn">Ir a los Cursos</a>
+                    <a href="#Tem" class="btn">Conócenos</a>
                 </div>
 
                 <div class="right-details">
-                    <img src="./assets/image/LOGOPRINCIPAL.png" alt="">
+                    <img src="./assets/image/rtcircular.jpg" alt="">
                     <div class="img-tools">
-                        <img src="./assets/image/company/SCR.png" alt="">
-                        <img src="./assets/image/company/OS.png" alt="">
-                        <img src="./assets/image/company/ep.png" alt="">
+                        <img src="./assets/image/csc.jpg" alt="">
+                        <img src="./assets/image/invention.jpg" alt="">
+                        <img src="./assets/image/entix.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -165,12 +101,7 @@
                     <i class="uil uil-mouse-alt"></i>
                     <span>Da scroll</span>
                 </a>
-                <div class="social-icon">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                </div>
+                
             </div>
         </div>
     </section>
@@ -179,19 +110,19 @@
         <div class="container">
             <div class="about-content">
                 <div class="left-details">
-                    <img src="./assets/image/fix.png" alt="" width="20px">
+                    <img id="imagen1" src="./assets/image/fixito.png" alt="Imagen 1">
+                    <img id="imagen2" src="./assets/image/fix2.png" alt="Imagen 2">
                     
-                    <div class="project">Hola amigos, Bienvenidos!</div>
+                    <div class="project">Hola amigos, Bienvenidos!!</div>
                 </div>
                 <div class="right-details">
-                    <h4>Hola soy Fix</h4>
-                    <h3>Te guiaré en tu camino del negocio</h3>
-                    <p>Hola, en estos cursos te estare guiando, junto con mi equipo para que logres
-                        desarrollar al 100% tus habilidades del negocio. Al final del curso tendrás la
-                        capacidad de desarrollar tu propio negocio, aplicando la metodología enseñada
-                        por nosotros, desde Redes Neuronales con Python, Excel, PowerBI, OneShape y demás...</p>
+                    
+                    <h3>¿Te interesa saber de nuestra trayectoria? </h3>
+                    <p>Hola, somos unos jóvenes estudiantes, egresados de la carrera de programación en el CECyTE Guanajuato 
+                        Plantel Cortazar, siempre nos han apasionado los retos, uno de nuestros proyectos más detacados es “RuedaTec”, 
+                        que nos ha llevado a los podios de los primeros lugares en muchos concursos.</p>
                         <br>
-                    <a href="#Tem" class="btn">Ir a los Cursos</a>
+                    <a href="#Tem" class="btn">¡Conócenos!</a>
                 </div>
             </div>
         </div>
@@ -200,58 +131,58 @@
     <section class="companies">
         <div class="container">
             <div class="content-companies">
-                <img src="./assets/image/company/ep.png" alt="">
-                <img src="./assets/image/company/PB.webp" alt="">
-                <img src="./assets/image/company/p1.png" alt="">
-                <img src="./assets/image/company/os.png" alt="">
-                <img src="./assets/image/company/scr.png" alt="">
+                <img src="./assets/image/invention.png" alt="">
+                <img src="./assets/image/entix.jpg"     alt= "">
+                <img src="./assets/image/company/P1.png" alt="">
+                <img src="./assets/image/company/OS.png" alt="">
+                
             </div>
         </div>
     </section>
 
     <section id="portfolio" class="portfolio">
-        <h4 class="section-top-title" id="Tem">Temas</h4>
-        <h3 class="section-title">Aprende con nosotros</h3>
-        <p class="section-description-title">Elige el curso que más prefieras <br> y que quede a tu conveniencia</p>
+        <h4 class="section-top-title" id="Tem">Work Team</h4>
+        <h3 class="section-title">Conoce nuestras experiencias</h3>
+        <p class="section-description-title">Ve una parte de lo que hemos conseguido <br> y de lo que nos ha hecho llegar a este punto</p>
         <div class="filter-portfolio">
             <button data-filter="all" class="active-portfolio">Todos</button>
-            <button data-filter=".app">OneShape</button>
-            <button data-filter=".web">Excel</button>
-            <button data-filter=".design">PowerBi</button>
-            <button data-filter=".py">Redes Neuronales</button>
+            <button data-filter=".app">Miguel</button>
+            <button data-filter=".web">Jesús</button>
+            <button data-filter=".design">Carlos</button>
+            <button data-filter=".py">David</button>
 
         </div>
         <div class="portfolio-container container">
-            <a href="./OneshapeMain.html" class="portfolio-link portfolio-item mix app">
+            <a href="./MiguelCV/index.html" class="portfolio-link portfolio-item mix app">
                 <div class="portfolio-item mix app">
-                    <img src="./assets/image/company/OS.png" alt="">
+                    <img src="./assets/image/MIg.jpg" alt="">
                     <div class="item-content">
-                        <span>OneShape</span>
+                        <span>Huizache</span>
                     </div>
                 </div>
             </a>
 
-            <a href="#" class="portfolio-link portfolio-item mix web">
+            <a href="./Excel.html" class="portfolio-link portfolio-item mix web">
                 <div class="portfolio-item mix web">
-                    <img src="./assets/image/company/ep.png" alt="">
+                    <img src="./assets/image/chucas.jpg" alt="">
                     <div class="item-content">
-                        <span>Excel</span>
+                        <span>Jiménez</span>
                     </div>
                 </div>
             </a>
-            <a href="#" class="portfolio-link portfolio-item mix design">
+            <a href="./PowerBi.html" class="portfolio-link portfolio-item mix design">
                 <div class="portfolio-item mix design">
-                    <img src="./assets/image/company/PB.webp" alt="">
+                    <img src="./assets/image/eddy.jpg" alt="">
                     <div class="item-content">
-                        <span>Power Bi</span>
+                        <span> Anaya</span>
                     </div>
                 </div>
             </a>
-            <a href="./OneshapeMain.html" class="portfolio-link portfolio-item mix py">
+            <a href="./redesN.html" class="portfolio-link portfolio-item mix py">
                 <div class="portfolio-item mix py">
-                    <img src="./assets/image/company/P1.png" alt="">
+                    <img src="./assets/image/David.jpg" alt="">
                     <div class="item-content">
-                        <span>Redes Neuronales</span>
+                        <span>Rodríguez</span>
                     </div>
                 </div>
             </a>
@@ -278,7 +209,7 @@
             </div>
             <div class="main-content">
                 <div id="education" class="resume-item education">
-                    <h3 class="title">OneShape</h3>
+                    <h3 class="title">OnShape</h3>
                     <div class="box">
                         
                         <h3>Desarrollo Conceptual y Diseño</h3>
@@ -298,12 +229,12 @@
                     
                 </div>
                 <div id="experience" class="resume-item experience">
-                    <h3 class="title">Power Bi</h3>
+                    <h3 class="title">Power BI</h3>
                     <div class="box">
                         
-                        <h3>Gestión y Análisis de Datos:</h3>
+                        <h3>Análisis y Visualización de Datos</h3>
                         <span>Mario Vidales</span>
-                        <p>Importa los datos relevantes, como costos, precios, y demanda potencial a Excel. Utiliza sus herramientas de análisis para entender las tendencias y hacer proyecciones iniciales.</p>
+                        <p>Utiliza Power BI para visualizar datos y compartir insights a través de informes y dashboards interactivos. Conéctate a diversas fuentes de datos, transformándolos para descubrir tendencias y apoyar la toma de decisiones informadas.</p>
                     </div>
                     
                 </div>
@@ -369,9 +300,9 @@
                 <div id="awards" class="resume-item awards">
                     <h3 class="title">Redes Neuronales Python</h3>
                     <div class="box">
-                        <h3>Gestión y Análisis de Datos:</h3>
+                        <h3>Desarrollo y Visualización de Modelos Neuronales</h3>
                         <span>Luis Antonio</span>
-                        <p>Importa los datos relevantes, como costos, precios, y demanda potencial a Excel. Utiliza sus herramientas de análisis para entender las tendencias y hacer proyecciones iniciales.</p>
+                        <p>Utiliza Python para desarrollar y entrenar redes neuronales, analizando patrones complejos en grandes conjuntos de datos. Grafica la arquitectura de la red y el desempeño del modelo, facilitando la interpretación y optimización de tus soluciones de aprendizaje profundo.</p>
                     </div>
                     
                 </div>
@@ -412,7 +343,7 @@
         </div>
     </section> -->
 
-    <section id="testimonial" class="testimonial">
+    <!-- <section id="testimonial" class="testimonial">
         <h4 class="section-top-title">Experiencias</h4>
         <h3 class="section-title">Del Club Del 100%</h3>
         <p class="section-description-title">Estamos muy felices por compartir nuestros conocimientos <br>
@@ -432,7 +363,7 @@
 
                 <div data-id="text2" class="card">
                     <div class="con-img">
-                        <img src="./assets/image/MARIO.jpg" alt="">
+                        <img src="./assets/image/Mario.jpg" alt="">
                     </div>
                     <div class="name-job">
                         <span class="name">Mario Vidales</span>
@@ -533,7 +464,7 @@
 
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- <section class="blog">
         <h4 class="section-top-title">From My Blog</h4>
@@ -636,22 +567,17 @@
     <footer>
         <div class="container">
             <div class="list">
-                <img src="./assets/image/LOGOP1.png" alt="">
+                <img src="./assets/image/logoP1.png" alt="">
                 <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Nosotros</a></li>
-                    <li><a href="#">Instrucciones</a></li>
+                    <li><a href="./index.html">Inicio</a></li>
+                    <li><a href="./Nosotros.html">Nosotros</a></li>
+                    <li><a href="./Instrucciones.html">Instrucciones</a></li>
                     
                 </ul>
             </div>
             <div class="copyright">
-                <p>&#169; El Club Del 100%</p>
-                <div class="social-icon">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                </div>
+                <p>&#169; El Club Del 100% CELULA XVII</p>
+                
             </div>
         </div>
     </footer>
@@ -664,6 +590,7 @@
     <script src="https://unpkg.com/typed.js@2.0.15/dist/typed.umd.js"></script>
     <script src="./assets/js/main.js"></script>
     <script src="assets/js/main2.js"></script>
+    <script src="./prueba.js"></script>
 </body>
 
 </html>

@@ -37,6 +37,9 @@
   padding: 0;
   margin: 0;
 }
+#imagen2 {
+    display: none;
+}
 
 body {
   font-family: var(--body-font);
@@ -540,7 +543,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 200px;
+    padding-top: 260px;
 }
 
 .content_home .left-details h4 {
@@ -702,7 +705,7 @@ header {
 
 @media only screen and (max-width: 568px) {
     .home {
-        background: linear-gradient(to right, rgba(255,255,255,0.5), rgba(255,255,255,.5)), url(../image/cel1.png);
+        background: linear-gradient(to right, rgba(255,255,255,0.5), rgba(255,255,255,.5)), url(../image/bgHome.jpg);
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -773,9 +776,9 @@ header {
 }
 
 .about-content .left-details .project {
-    bottom: 400px;
+    bottom: 414px;
     right: 0;
-    left: 240px;
+    left: 229px;
 }
 
 .about-content .left-details .project span {
