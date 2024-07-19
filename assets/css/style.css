@@ -987,7 +987,7 @@ header {
 
 .resume .container .sidebar {
     background: var(--bg-light);
-    height: 280px;
+    height: 680px;
     padding: 50px 50px;
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
