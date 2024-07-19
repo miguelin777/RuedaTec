@@ -19,7 +19,7 @@
   --header-height: 3.5rem;
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
-  --first-color: hsl(220, 68%, 54%);
+  --first-color: hsl(219, 40%, 16%);
   --first-color-lighten: hsl(220, 68%, 97%);
   --title-color: hsl(220, 48%, 28%);
   --text-color: hsl(220, 12%, 45%);
@@ -125,19 +125,21 @@ a {
   opacity: 0;
 }
 @media screen and (max-width: 1118px) {
-  .nav__menu {
-    background-color: var(--body-color);
-    position: absolute;
-    left: 0;
-    top: 2.5rem;
-    width: 100%;
-    height: calc(100vh - 3.5rem);
-    overflow: auto;
-    padding-block: 1.5rem 4rem;
-    pointer-events: none;
-    opacity: 0;
-    transition: top 0.4s, opacity 0.3s;
-  }
+	.nav__menu {
+		background-color: var(--body-color);
+		position: absolute;
+		left: 0;
+		top: 2.5rem;
+		width: 100%;
+		height: calc(100vh - 3.5rem);
+		overflow: auto;
+		padding-block: 1.5rem 4rem;
+		pointer-events: none;
+		opacity: 0;
+		transition: top 0.4s, opacity 0.3s;
+	}
+	
+	
   .nav__menu::-webkit-scrollbar {
     width: 0.5rem;
   }
@@ -559,6 +561,10 @@ header {
     color: var(--main-color);
     font-size: 20px;
 }
+.header {
+    transition: top 0.3s ease; /* Ajusta la duración y el tipo de transición según prefieras */
+}
+
 
 .content_home .left-details h2 {
     margin: 10px 0 20px 0;
@@ -1862,7 +1868,7 @@ footer .social-icon a {
         <nav class="nav container">
             <div class="nav__data">
                 <a href="./../index.html" class="nav__logo">
-                    <i class="ri-code-s-slash-"><img src="./../assets/image/logoP1.png" alt style="width: 45px;"></i> 
+                    <i class="ri-code-s-slash-"><img src="./../assets/image/rtcircular-modified.png" alt style="width: 45px;"></i> 
                 </a>
 
                 <div class="nav__toggle" id="nav-toggle">
@@ -1888,7 +1894,7 @@ footer .social-icon a {
                     </li> -->
 
                     <li>
-                        <a href="./MiguelCV/index.html" class="nav__link">Miguel</a>
+                        <a href="./../MiguelCV/index.html" class="nav__link">Miguel</a>
                     </li>
                     <li>
                         <a href="./resultados.html" class="nav__link">Jesús</a>
@@ -2137,7 +2143,25 @@ footer .social-icon a {
 	<script src="https://unpkg.com/typed.js@2.0.15/dist/typed.umd.js"></script>
 	<script src="./../assets/js/main.js"></script>
 	<script src="./../assets/js/main2.js"></script>
-	<script src="./../prueba.js"></script>
+<script>
+	let lastScrollTop = 0; // Variable para almacenar la última posición del scroll
+const navbar = document.querySelector('.header'); // Selecciona el header que contiene la barra de navegación
+
+window.addEventListener('scroll', function() {
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (currentScroll > lastScrollTop) {
+        // Scrolling down
+        navbar.style.top = "-5rem"; // Ajusta este valor según la altura de tu navbar
+    } else {
+        // Scrolling up
+        navbar.style.top = "0";
+    }
+
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Para Mobile o scrolling negativo
+});
+
+</script>
 </body>
 
 </html>
