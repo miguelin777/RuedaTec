@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Fotos - Leo Muebles</title>
+    <title>Fotos</title>
     <link rel="shortcut icon" href="../../img/logo.png" />
     <link rel="stylesheet" href="../../../styles.css" />
     <link
@@ -56,7 +56,7 @@
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-auto-rows: minmax(200px, auto);
+  grid-auto-rows: minmax(350px, auto);
   gap: 20px;
   padding: 20px;
   grid-auto-flow: dense;
@@ -70,7 +70,13 @@
   .tall {
     grid-row: span 2;
   }
+
 } 
+@media (max-width: 420px) {
+    .jew{
+    height: 540px;
+  }
+}
     </style>
   </head>
   <body>
@@ -81,46 +87,43 @@
           background-image: url(../../img/GaleriaP.jpg);
         "
       >
-        <h1>Galeria</h1>
-        <h3 style="text-align: center; margin-top: 20px;">Hola, bienvendo, en esta página encontrarás todo :)</h3>
+        <h1>Bienvenido</h1>
+        <h3 style="text-align: center; margin-top: 20px;">Hola, en esta página encontrarás todo :)</h3>
       </div>
-    </header>
-
-    
+    </header>    
     <div class="grid-container">
       <div
         class="grid-item tall"
-        style="background-image: url(./../../img/t1.jpg)"
+        style="background-image: url(./imgs/2321.jpeg)"
       ></div>
       <div
         class="grid-item"
         style="
-          background-image: url(../../img/r13.jpg);
+          background-image: url(./imgs/11.jpeg);
         "
       ></div>
-
       <div
         class="grid-item wide"
         style="
-          background-image: url(../../img/s11.jpg);
+          background-image: url(./imgs/43.jpeg);
         "
       ></div>
       <div
         class="grid-item"
         style="
-          background-image: url(../../img/c10.jpg);
+          background-image: url(./imgs/78.jpeg);
         "
       ></div>
       <div
         class="grid-item"
         style="
-          background-image: url(../../img/r11.jpg);
+          background-image: url(./imgs/345.jpeg);
         "
       ></div>
       <div
-        class="grid-item"
+        class="grid-item jew"
         style="
-          background-image: url(../../img/LPC.jpg);
+          background-image: url(./imgs/44.jpeg);
         "
       ></div>
       <div
