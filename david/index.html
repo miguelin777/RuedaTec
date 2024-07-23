@@ -1,11 +1,265 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>David</title>
-</head>
-<body>
-    <h1>Hola les dejo mi trayectoria destacada en estas fotos... *disponible en 2 horas aprox*</h1>
-</body>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fotos - Leo Muebles</title>
+    <link rel="shortcut icon" href="../../img/logo.png" />
+    <link rel="stylesheet" href="../../../styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Noto+Sans:wght@100&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .header-imagen {
+        height: 200px;
+      }
+    .sas{
+      font-size: 3rem;
+      
+    }
+    body{
+        background-color: #edefe7;
+    }
+      .grid-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #03afff;
+  border-radius: 4px;
+  transition: transform 0.3s ease-in-out;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.grid-item:hover {
+  filter: opacity(0.9);
+  transform: scale(1.04);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: minmax(200px, auto);
+  gap: 20px;
+  padding: 20px;
+  grid-auto-flow: dense;
+}
+
+@media (min-width: 600px) {  /* ese no va si se vera bien en el celular (600)*/
+  .wide {
+    grid-column: span 2;
+  }
+
+  .tall {
+    grid-row: span 2;
+  }
+} 
+    </style>
+  </head>
+  <body>
+    <header>
+      <div
+        class="covers d-flex justify-content-center align-items-center flex-column header-imagen p-4"
+        style="
+          background-image: url(../../img/GaleriaP.jpg);
+        "
+      >
+        <h1>Galeria</h1>
+        <h3 style="text-align: center; margin-top: 20px;">Hola, bienvendo, en esta página encontrarás todo :)</h3>
+      </div>
+    </header>
+
+    
+    <div class="grid-container">
+      <div
+        class="grid-item tall"
+        style="background-image: url(./../../img/t1.jpg)"
+      ></div>
+      <div
+        class="grid-item"
+        style="
+          background-image: url(../../img/r13.jpg);
+        "
+      ></div>
+
+      <div
+        class="grid-item wide"
+        style="
+          background-image: url(../../img/s11.jpg);
+        "
+      ></div>
+      <div
+        class="grid-item"
+        style="
+          background-image: url(../../img/c10.jpg);
+        "
+      ></div>
+      <div
+        class="grid-item"
+        style="
+          background-image: url(../../img/r11.jpg);
+        "
+      ></div>
+      <div
+        class="grid-item"
+        style="
+          background-image: url(../../img/LPC.jpg);
+        "
+      ></div>
+      <div
+        class="grid-item tall"
+        style="
+          background-image: url(../../img/t11.jpg);
+        "
+      ></div>
+      <div
+        class="grid-item"
+        style="background-image: url(../../img/r6.jpg);
+        "
+      ></div>
+      
+      
+      <div
+        class="grid-item tall wide tall"
+        style="
+          background-image: url(../../img/s4.jpg);
+        "
+      ></div>
+      <div
+        class="grid-item wide"
+        style="
+          background-image: url(../../img/s8.jpg);
+        "
+      ></div>
+      <div
+        class="grid-item"
+        style="
+          background-image: url(../../img/r5.jpg);
+        "
+      ></div>
+      <div
+        class="grid-item tall"
+        style="
+          background-image: url(../../img/ro2.jpg);
+        "
+      ></div>
+      <div
+        class="grid-item"
+        style="
+          background-image: url(../../img/r9.jpg);
+        "
+      ></div>
+      <div
+        class="grid-item tall"
+        style="
+          background-image: url(../../img/t6.jpg);
+        "
+      ></div>
+      <div
+      class="grid-item "
+      style="
+        background-image: url(../../img/c12.jpg);
+      "
+    ></div>
+
+      <div
+        class="grid-item wide tall"
+        style="
+          background-image: url(../../img/r8.jpg);
+        "
+      ></div>
+      <div
+      class="grid-item "
+      style="
+        background-image: url(../../img/LPR.jpg);
+      "
+    ></div>
+    <div
+      class="grid-item "
+      style="
+        background-image: url(../../img/r12.jpg);
+      "
+    ></div>
+    <div
+    class="grid-item wide"
+    style="
+      background-image: url(../../img/s13.jpg);
+    "
+  ></div>
+  <div
+      class="grid-item "
+      style="
+        background-image: url(../../img/c6.jpg);
+      "
+    ></div>
+    <div
+      class="grid-item tall"
+      style="
+        background-image: url(../../img/ro10.jpg);
+      "
+    ></div>
+    <div
+      class="grid-item "
+      style="
+        background-image: url(../../img/r9.jpg);
+      "
+    ></div>
+    <div
+      class="grid-item "
+      style="
+        background-image: url(../../img/c2.jpg);
+      "
+    ></div>
+    
+
+    <div
+      class="grid-item wide tall "
+      style="
+        background-image: url();
+      "
+    ></div>
+    <div
+    class="grid-item "
+    style="
+      background-image: url(../../img/c3.jpg);
+    "
+  ></div>
+  <div
+    class="grid-item "
+    style="
+      background-image: url();
+    "
+  ></div>
+  <div
+    class="grid-item wide"
+    style="
+      background-image: url(../../img/s9.jpg);
+    "
+  ></div>
+
+    </div>
+
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBud6b5sE4pRf4R4euEoe9zU1QeUjmiYw+2Nnl/6gDz6T/5K" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5wzl7G5ordl7z9PAPl5syx//D2xyF5J5U9Z2On2E" crossorigin="anonymous"></script>
+  </body>
+  
 </html>
