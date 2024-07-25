@@ -16,6 +16,16 @@ body{
 nav{
 	font-size: 17px;
 }
+.resume_item .resume_info ul li a {
+	color: black; /* Cambia el color del texto del enlace a negro */
+	text-decoration: underline; /* Subraya el texto del enlace */
+	font-weight: bold; /* Pone en negrita el texto del enlace */
+	transition: color 0.3s ease; /* Añade una transición suave para el color */
+}
+
+.resume_item .resume_info ul li a:hover {
+	color: rgb(61, 158, 237); /* Cambia el color del texto a azul cuando se pasa el cursor sobre el enlace */
+}
 .resume_wrapper{
 	display: flex;
 	width: 800px;
