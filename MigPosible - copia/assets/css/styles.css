@@ -601,7 +601,7 @@ body.dark-theme {
 }
 .button__ghost {
   
-  padding: 7px 8px 12px 18px;
+  padding: 7rem;
   color: var(--black-color);
   -webkit-transition: border 0.4s, color 0.4s;
   -moz-transition: border 0.4s, color 0.4s;
