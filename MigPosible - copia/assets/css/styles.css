@@ -627,7 +627,7 @@ body.dark-theme {
 }
 
 /*==================== MOBILE VIEW ====================*/
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .button,
   .button__ghost {
     width: 2.5rem; /* Ajusta el tamaño en dispositivos móviles */
