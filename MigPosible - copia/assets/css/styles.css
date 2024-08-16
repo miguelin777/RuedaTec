@@ -574,13 +574,13 @@ body.dark-theme {
   }
 }
 @media screen and (max-width: 576px) {
-  /* Ajusta el tamaño de los iconos */
-  .nav__buttons i, .home__social-link i {
+  /* Ajusta el tamaño de los iconos en la sección social */
+  .home__social-link i {
     font-size: 1rem;
   }
 
-  /* Asegura que los contenedores de los iconos sean cuadrados */
-  .nav__buttons i, .home__social-link i {
+  /* Asegura que los contenedores de los iconos sociales sean cuadrados */
+  .home__social-link i {
     width: 32px;
     height: 32px;
     line-height: 32px;
@@ -591,19 +591,20 @@ body.dark-theme {
     padding: 4px;
   }
 
-  /* Cambia la disposición a vertical */
-  .nav__buttons, .home__social {
+  /* Cambia la disposición a vertical solo en la sección social */
+  .home__social {
     display: flex;
     flex-direction: column; /* Cambia la disposición a vertical */
     align-items: center;
     justify-content: center;
   }
 
-  /* Reducir el espacio entre los iconos */
+  /* Reducir el espacio entre los iconos en la sección social */
   .home__social {
     row-gap: 0.5rem; /* Reduce el espacio vertical entre los iconos */
   }
 }
+
 
 /*=============== BUTTON ===============*/
 .button,
