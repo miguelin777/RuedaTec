@@ -575,43 +575,71 @@ body.dark-theme {
 }
 
 /*=============== BUTTON ===============*/
+/*=============== BUTTON ===============*/
 .button,
 .button__ghost {
   display: flex;
   justify-content: center;
   align-items: center;
   column-gap: 0.5rem;
+  padding: 0.5rem; /* Ajusta el padding para evitar que se estiren demasiado */
+  border-radius: 0.5rem; /* Agrega un borde redondeado si deseas */
+  text-align: center; /* Asegúrate de que el texto y los íconos estén centrados */
+  box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total */
 }
+
+/* Botón normal */
 .button {
   background-color: var(--black-color);
-  padding: 1.1rem 1.5rem;
   color: var(--white-color);
   font-weight: var(--font-medium);
-  -webkit-transition: background-color 0.4s;
-  -moz-transition: background-color 0.4s;
-  -ms-transition: background-color 0.4s;
-  -o-transition: background-color 0.4s;
   transition: background-color 0.4s;
+  width: 3rem; /* Ajusta el ancho según sea necesario */
+  height: 3rem; /* Ajusta la altura para mantener un tamaño cuadrado */
 }
+
 .button i {
   font-size: 1.5rem;
 }
+
+/* Hover efecto para botón normal */
 .button:hover {
   background-color: var(--first-color);
 }
+
+/* Botón fantasma */
 .button__ghost {
-  
-  padding: 7rem;
+  border: 3px solid var(--black-color);
   color: var(--black-color);
-  -webkit-transition: border 0.4s, color 0.4s;
-  -moz-transition: border 0.4s, color 0.4s;
-  -ms-transition: border 0.4s, color 0.4s;
-  -o-transition: border 0.4s, color 0.4s;
   transition: border 0.4s, color 0.4s;
+  width: 3rem; /* Ajusta el ancho según sea necesario */
+  height: 3rem; /* Ajusta la altura para mantener un tamaño cuadrado */
 }
+
 .button__ghost i {
   font-size: 1.25rem;
 }
+
+/* Hover efecto para botón fantasma */
+.button__ghost:hover {
+  border: 3px solid var(--first-color);
+  color: var(--first-color); /* Descomenta esta línea si deseas cambiar el color en hover */
+}
+
+/*==================== MOBILE VIEW ====================*/
+@media (max-width: 600px) {
+  .button,
+  .button__ghost {
+    width: 2.5rem; /* Ajusta el tamaño en dispositivos móviles */
+    height: 2.5rem;
+  }
+
+  .button i,
+  .button__ghost i {
+    font-size: 1.25rem; /* Ajusta el tamaño del ícono */
+  }
+}
+
 .button__ghost:hover {
   border: 3px solid var(--first-color);
   /* color: var(--first-color); */
