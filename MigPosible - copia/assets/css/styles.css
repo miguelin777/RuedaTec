@@ -600,8 +600,8 @@ body.dark-theme {
   background-color: var(--first-color);
 }
 .button__ghost {
-  border: 3px solid var(--black-color);
-  padding: 7px;
+  
+  padding: 7px 8px 12px 18px;
   color: var(--black-color);
   -webkit-transition: border 0.4s, color 0.4s;
   -moz-transition: border 0.4s, color 0.4s;
