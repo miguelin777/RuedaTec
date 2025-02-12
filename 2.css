@@ -622,6 +622,88 @@ header {
     padding: 0 200px 0 100px;
 }
 
+
+
+
+
+
+/************ GALLERY SECTION ************/
+.gallery {
+    margin-top: 4rem; /* Ajusta según tu diseño */
+  }
+  
+  /* Título de la galería (puedes reutilizar estilos que ya tienes en tu .section__title-1) */
+  .gallery .section__title-1 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  /* Contenedor principal */
+  .gallery__container {
+    /* Ya tienes un .container que max-width: 1120px o similar */
+  }
+  
+  /* Grid principal */
+  .gallery__grid {
+    display: grid;
+    /* Ajusta el número de columnas que quieras en pantallas grandes */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem; /* Espacio entre imágenes */
+  }
+  
+  /* Cada item */
+  .gallery__item {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 0.5rem; /* Curvatura opcional de bordes */
+  }
+  
+  .gallery__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta la imagen para que siempre llene el contenedor */
+    display: block;
+  }
+  
+  /*======== Tamaños especiales ========*/
+  /* 1x1: por defecto no hacemos nada porque cada item ocupa 1 columna x 1 fila */
+  .gallery__item--1x1 {
+    grid-row: span 1;
+    grid-column: span 1;
+  }
+  
+  /* 1x2: ocupa 1 columna y 2 filas (imagen "alta") */
+  .gallery__item--1x2 {
+    grid-row: span 2;
+    grid-column: span 1;
+  }
+  
+  /* 2x1: ocupa 2 columnas y 1 fila (imagen "ancha") */
+  .gallery__item--2x1 {
+    grid-row: span 1;
+    grid-column: span 2;
+  }
+  
+  /* 2x2: ocupa 2 columnas y 2 filas (imagen "grande") */
+  .gallery__item--2x2 {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  
+  /* Puedes seguir agregando reglas para 3x1, 3x2, etc. si lo deseas */
+  
+
+
+
+
+
+
+
+
+
+
 .footer-home .social-icon {
     display: flex;
     column-gap: 20px;
