@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fotos</title>
+    <link rel="shortcut icon" href="../../img/logo.png" />
+    <link rel="stylesheet" href="../../../styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Noto+Sans:wght@100&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .header-imagen {
+        height: 200px;
+      }
+    .sas{
+      font-size: 3rem;
+      
+    }
+    body{
+        background-color: #edefe7;
+    }
+      .grid-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #03afff;
+  border-radius: 4px;
+  transition: transform 0.3s ease-in-out;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.grid-item:hover {
+  filter: opacity(0.9);
+  transform: scale(1.04);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: minmax(350px, auto);
+  gap: 20px;
+  padding: 20px;
+  grid-auto-flow: dense;
+}
+
+@media (min-width: 600px) {  /* ese no va si se vera bien en el celular (600)*/
+  .wide {
+    grid-column: span 2;
+  }
+
+  .tall {
+    grid-row: span 2;
+  }
+
+} 
+@media (max-width: 420px) {
+    .jew{
+    height: 540px;
+  }
+
+}
+@media (max-width: 1100px) {
+  .asd{
+    width: 500px; 
+
+  }
+  .container{
+    width: auto;
+    margin-inline: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+    </style>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+        <!--=============== FAVICON ===============-->
+        <link
+          rel="shortcut icon"
+          href="../../assets/img/faviM.png"
+          type="image/x-icon"
+        />
+    
+        
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.4.0/remixicon.css"
+          crossorigin=""
+        />
+    
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="../../assets/css/styles.css" />
+    
+        <title>David Martinez</title>
+  </head>
+  <body>
+    <header>
+
+      </div>
+    </header>    
+    <header class="header" id="header">
+      <nav class="nav container">
+        <a href="#" class="nav__logo">
+          <span class="nav__logo-circle">D</span>
+          <span class="nav__logo-name">David Martinez.</span>
+        </a>
+
+        <div class="nav__menu" id="nav-menu">
+          <span class="nav__title">Menu</span>
+
+          <h3 class="nav__name">David</h3>
+
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a href="../../index.html" class="nav__link">Home</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="../../index.html#about" class="nav__link">About me</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="../../index.html#projects" class="nav__link">Projects</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="#" class="nav__link">CV</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="../../index.html#contact" class="nav__link nav__link-button">Contact me</a>
+            </li>
+          </ul>
+
+          <!-- Close button -->
+          <div class="nav__close" id="nav-close">
+            <i class="ri-close-line"></i>
+          </div>
+        </div>
+
+        <div class="nav__buttons">
+          <!-- Theme button -->
+
+          <!-- Toggle button -->
+          <div class="nav__toggle" id="nav-toggle">
+            <i class="ri-menu-4-line"></i>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+      <!--==================== HOME ====================-->
+      <section class="home section" id="home">
+        <div class="">
+   
+    <div class=" my-4 d-flex flex-column align-items-center">
+
+      <img class="no" src="./resume.png" width="800px" style="border: none;" alt="Currículum PDF">
+    </div>
+    <div class="text-center my-4">
+      <a href="./resume.pdf" target="_blank" class="btn btn-primary">
+        See resumé (PDF)
+      </a>
+    </div>
+    

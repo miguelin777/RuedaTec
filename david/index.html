@@ -1,278 +1,846 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
-    <meta charset="utf-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Fotos</title>
-    <link rel="shortcut icon" href="../../img/logo.png" />
-    <link rel="stylesheet" href="../../../styles.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-      crossorigin="anonymous"
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!--=============== FAVICON ===============-->
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"
+      rel="shortcut icon"
+      href="assets/img/faviM.png"
+      type="image/x-icon"
     />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
     <link
-      href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Noto+Sans:wght@100&display=swap"
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.4.0/remixicon.css"
+      crossorigin=""
     />
-    <style>
-      .header-imagen {
-        height: 200px;
-      }
-    .sas{
-      font-size: 3rem;
-      
-    }
-    body{
-        background-color: #edefe7;
-    }
-      .grid-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  background-color: #03afff;
-  border-radius: 4px;
-  transition: transform 0.3s ease-in-out;
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css" />
 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.grid-item:hover {
-  filter: opacity(0.9);
-  transform: scale(1.04);
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-auto-rows: minmax(350px, auto);
-  gap: 20px;
-  padding: 20px;
-  grid-auto-flow: dense;
-}
-
-@media (min-width: 600px) {  /* ese no va si se vera bien en el celular (600)*/
-  .wide {
-    grid-column: span 2;
-  }
-
-  .tall {
-    grid-row: span 2;
-  }
-
-} 
-@media (max-width: 420px) {
-    .jew{
-    height: 540px;
-  }
-}
-    </style>
+    <title>David Martinez</title>
   </head>
   <body>
-    <header>
-      <div
-        class="covers d-flex justify-content-center align-items-center flex-column header-imagen p-4"
-        style="
-          background-image: url(../../img/GaleriaP.jpg);
-        "
-      >
-        <h1>Welcome</h1>
-        <h3 style="text-align: center; margin-top: 20px;">Hi, in this website you can find more things about me! (mostly photos)</h3>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+      <nav class="nav container">
+        <a href="#" class="nav__logo">
+          <span class="nav__logo-circle">D</span>
+          <span class="nav__logo-name">David Martinez.</span>
+        </a>
+
+        <div class="nav__menu" id="nav-menu">
+          <span class="nav__title">Menu</span>
+
+          <h3 class="nav__name">David</h3>
+
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a href="#" class="nav__link">Home</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="#about" class="nav__link">About me</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="#projects" class="nav__link">Projects</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="./assets/davidcv/index.html" class="nav__link">CV</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="#contact" class="nav__link nav__link-button">Contact me</a>
+            </li>
+          </ul>
+
+          <!-- Close button -->
+          <div class="nav__close" id="nav-close">
+            <i class="ri-close-line"></i>
+          </div>
+        </div>
+
+        <div class="nav__buttons">
+          <!-- Theme button -->
+          <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+          <!-- Toggle button -->
+          <div class="nav__toggle" id="nav-toggle">
+            <i class="ri-menu-4-line"></i>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+      <!--==================== HOME ====================-->
+      <section class="home section" id="home">
+        <div class="home__container container grid">
+          <h1 class="home__name">David Martinez</h1>
+
+          <div class="home__perfil">
+            <div class="home__image">
+              <img
+                src="./assets/img/yo1.jpg"
+                alt="image"
+                class="home__img"
+              />
+              <div class="home__shadow"></div>
+
+              <img
+                src="./assets/img/curved-arrow.svg"
+                alt=""
+                class="home__arrow"
+              />
+              <img
+                src="./assets/img/random-lines.svg"
+                alt=""
+                class="home__line"
+              />
+
+              <div class="geometric-box"></div>
+            </div>
+
+            <div class="home__social">
+              <a
+                href="https://www.instagram.com/david.zzzr/"
+                target="_blank"
+                class="button__ghost"
+              >
+                <i class="ri-instagram-line"></i>
+
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/davidmr321"
+                target="_blank"
+                class="button__ghost"
+              >
+                <i class="ri-linkedin-line"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="home__info">
+            <p class="home__description">
+              <b>CS student</b>, passionate in innovation and entrepreneuship, ready to transform ideas into reality, and create a better world.
+            </p>
+
+            <a href="#about" class="home__scroll">
+              <div class="home__scroll-box">
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+
+              <span class="home__scroll-text">Scroll</span>
+            </a>          
+          </div>
+        </div>
+      </section>
+      <!--==================== ABOUT ====================-->
+      <section class="about section" id="about">
+        <div class="about__container container grid">
+          <h2 class="section__title-1">
+            <span>About me.</span>
+          </h2>
+
+          <div class="about__perfil">
+            <div class="about__image">
+              <img
+                src="./assets/img/yo2.jpg"
+                alt="image"
+                class="about__img"
+              />
+
+              <div class="about__shadow"></div>
+
+              <div class="geometric-box"></div>
+
+              <img
+                src="./assets/img/random-lines.svg"
+                alt=""
+                class="about__line"
+              />
+              <div class="about__box"></div>
+            </div>
+          </div>
+
+          <div class="about__info">
+            <p class="about__description">
+              
+              Hello, I’m  <b>David Martinez</b> a driven student and tech enthusiast with experience in the development of
+              <b> Social, Technological, and Entrepreneurial Projects</b> such as  <a href="https://ruedatec.com"><b> RuedaTec</b></a> y <a href="https://www.instagram.com/sonrie_cortazargto?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><b> Sonríe</b></a>.
+     
+            </p>
+
+            <ul class="about__list">
+              <li class="about__item">
+                <b>Skilled in:</b> HTML, CSS, JavaScript, Git & GitHub, Tailwind, Next.js, React, PHP, Python, C++, Java, SQL, Firebase, MongoDB, Arduino, and deployment tools like Vercel and Netlify.
+              </li>
+            </ul>
+
+            <div class="about__buttons">
+              <a href="./assets/davidcv/index.html" class="button">
+                <i class="ri-send-plane-line"></i> See my CV
+              </a>
+
+              <a
+                href="https://www.instagram.com/miguelhuizache_/"
+                target="_blank"
+                class="button__ghost"
+              >
+                <i class="ri-instagram-line"></i>
+
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+      
+
+
+
+
+      
+      <!--==================== SERVICES ====================-->
+      <section class="services section">
+        <h2 class="section__title-2"><span>I like</span></h2>
+
+        <div class="services__container container grid">
+
+          <article class="services__card">
+            <div class="services__border"></div>
+
+            <div class="services__content">
+              <div class="services__icon">
+                <div class="services__box"></div>
+                <i class="ri-layout-5-line"></i>
+   </div>
+
+              <h2 class="services__title">Full-Stack Web Development</h2>
+
+              <p class="services__description">
+                I build dynamic, scalable websites using modern stacks like React, Next.js, and Tailwind — handling both front-end and back-end with clean code and high performance.
+              </p>
+            </div>
+          </article>
+
+          <article class="services__card">
+            <div class="services__border"></div>
+
+            <div class="services__content">
+              <div class="services__icon">
+                <div class="services__box"></div>
+                <i class="ri-cpu-line"></i>
+              </div>
+
+              <h2 class="services__title">AI & Disruptive Tech</h2>
+
+              <p class="services__description">
+                I create innovative solutions powered by Artificial Intelligence, automation, and next-gen technologies to challenge the norm and solve real-world problems.
+              </p>
+            </div>
+          </article>
+
+          <article class="services__card">
+            <div class="services__border"></div>
+
+            <div class="services__content">
+              <div class="services__icon">
+                <div class="services__box"></div>
+                <i class="ri-lightbulb-flash-line"></i>
+              </div>
+
+              <h2 class="services__title">Product & UX Thinking</h2>
+
+              <p class="services__description">
+                I focus on building products that people love to use — intuitive interfaces, smart user flows, and designs shaped by real user feedback.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+<!--==================== PROJECTS ====================-->
+<section class="projects section" id="projects">
+  <h2 class="section__title-1">
+    <span>Projects.</span>
+  </h2>
+
+  <div class="projects__container container grid">
+    <article class="projects__card">
+      <div class="projects__image">
+        <img
+          class="projects__img"
+          src="assets/img/23_1x_shots_so.png"
+          alt="image"
+        />
+
+        <a href="https://miguelin777.github.io/Clubdel100/" class="projects__button button">
+          <i class="ri-arrow-right-up-line"></i>
+        </a>
       </div>
-    </header>    
 
-    <div class="container my-4 d-flex flex-column align-items-center">
-      <h4 class="text-center mb-3">Mi Currículum</h4>
-      <img src="./resume.png" width="800px" style="border: none;" alt="Currículum PDF">
-    </div>
-    <div class="text-center my-4">
-      <a href="./resume.pdf" target="_blank" class="btn btn-primary">
-        See resumé (PDF)
-      </a>
-    </div>
-    <div class="grid-container">
-      <div
-        class="grid-item tall"
-        style="background-image: url(./imgs/2321.jpeg)"
-      ></div>
-      <div
-        class="grid-item"
-        style="
-          background-image: url(./imgs/11.jpeg);
-        "
-      ></div>
-      <div
-        class="grid-item wide"
-        style="
-          background-image: url(./imgs/43.jpeg);
-        "
-      ></div>
-      <div
-        class="grid-item"
-        style="
-          background-image: url(./imgs/78.jpeg);
-        "
-      ></div>
-      <div
-        class="grid-item"
-        style="
-          background-image: url(./imgs/4543.jpeg);
-        "
-      ></div>
-      <div
-        class="grid-item jew"
-        style="
-          background-image: url(./imgs/44.jpeg);
-        "
-      ></div>
-      <div
-        class="grid-item tall"
-        style="
-          background-image: url(./imgs/6.jpeg);
-        "
-      ></div>
-      <div
-        class="grid-item jew"
-        style="background-image: url(./imgs/959.jpeg);
-        "
-      ></div>
+      <div class="projects__content">
+        <h3 class="projects__subtitle">Website</h3>
+        <h2 class="projects__title">Build Your Business</h2>
+
+        <p class="projects__description">
+          Learn how to build your own business from scratch using neural networks with Python, Excel, Power BI, Onshape, and more.
+        </p>
+      </div>
+
+      <div class="projects__buttons">
+        <a
+          href="https://miguelin777.github.io/Clubdel100/"
+          target="_blank"
+          class="projects__link"
+        >
+          <i class="ri-github-line"></i> View
+        </a>
+        <a
+          href="https://miguelin777.github.io/Clubdel100/"
+          target="_blank"
+          class="projects__link"
+        >
+          <i class="ri-dribbble-line"></i> View
+        </a>
+      </div>
+    </article>
+
+    <article class="projects__card">
+      <div class="projects__image">
+        <img
+          class="projects__img"
+          src="assets/img/337_1x_shots_so.png"
+          alt="image"
+        />
+
+        <a
+          href="https://www.ruedatec.com/"
+          class="projects__button button"
+        >
+          <i class="ri-arrow-right-up-line"></i>
+        </a>
+      </div>
+
+      <div class="projects__content">
+        <h3 class="projects__subtitle">Website</h3>
+        <h2 class="projects__title">RuedaTec</h2>
+
+        <p class="projects__description">
+          Official site for my project and startup RuedaTec, showcasing its specifications and offering the possibility to purchase the product.
+        </p>
+      </div>
+
+      <div class="projects__buttons">
+        <a
+          href="https://www.ruedatec.com/"
+          target="_blank"
+          class="projects__link"
+        >
+          <i class="ri-github-line"></i> View
+        </a>
+        <a
+          href="https://www.ruedatec.com/"
+          target="_blank"
+          class="projects__link"
+        >
+          <i class="ri-dribbble-line"></i> View
+        </a>
+      </div>
+    </article>
+
+    <article class="projects__card">
+      <div class="projects__image">
+        <img
+          class="projects__img"
+          src="./assets/img/sonriem2.png"
+          alt="image"
+        />
+
+        <a
+          href="https://sonriemexico.org/"
+          class="projects__button button"
+        >
+          <i class="ri-arrow-right-up-line"></i>
+        </a>
+      </div>
+
+      <div class="projects__content">
+        <h3 class="projects__subtitle">Website</h3>
+        <h2 class="projects__title">Sonríe</h2>
+
+        <p class="projects__description">
+          I developed this site for my social project "Sonríe," where I showcase all the campaigns and community events we've led since the beginning.
+        </p>
+      </div>
+
+      <div class="projects__buttons">
+        <a
+          href="https://sonriemexico.org/"
+          target="_blank"
+          class="projects__link"
+        >
+          <i class="ri-github-line"></i> View
+        </a>
+        <a
+          href="https://sonriemexico.org/"
+          target="_blank"
+          class="projects__link"
+        >
+          <i class="ri-dribbble-line"></i> View
+        </a>
+      </div>
+    </article>
+
+    <article class="projects__card">
+      <div class="projects__image">
+        <img
+          class="projects__img"
+          src="assets/img/771_1x_shots_so.png"
+          alt="image"
+        />
+
+        <a
+          href="https://miguelin777.github.io/proyectoFatima/"
+          class="projects__button button"
+        >
+          <i class="ri-arrow-right-up-line"></i>
+        </a>
+      </div>
+
+      <div class="projects__content">
+        <h3 class="projects__subtitle">Website</h3>
+        <h2 class="projects__title">Leo Muebles</h2>
+
+        <p class="projects__description">
+          Website for a furniture store built to client specifications. This was my first commercial website and marked the beginning of my web development journey.
+        </p>
+      </div>
+
+      <div class="projects__buttons">
+        <a
+          href="https://miguelin777.github.io/proyectoFatima/"
+          target="_blank"
+          class="projects__link"
+        >
+          <i class="ri-github-line"></i> View
+        </a>
+        <a
+          href="https://miguelin777.github.io/proyectoFatima/"
+          target="_blank"
+          class="projects__link"
+        >
+          <i class="ri-dribbble-line"></i> View
+        </a>
+      </div>
+    </article>
+
+    <article class="projects__card">
+      <div class="projects__image">
+        <img
+          class="projects__img"
+          src="assets/img/gif.gif"
+          alt="image"
+        />
+
+        <a
+          href="https://ai-knows.me/"
+          class="projects__button button"
+        >
+          <i class="ri-arrow-right-up-line"></i>
+        </a>
+      </div>
+
+      <div class="projects__content">
+        <h3 class="projects__subtitle">AI Platform</h3>
+        <h2 class="projects__title">AI-knows.me</h2>
+
+        <p class="projects__description">
+          An interactive web platform that uses AI to ask questions and uncover your personality, skills, and preferences. Built during a live hackathon using Next.js and Google cloud for the service.
+        </p>
+      </div>
+
+      <div class="projects__buttons">
+        <a
+          href="https://aiknows.me/"
+          target="_blank"
+          class="projects__link"
+        >
+          <i class="ri-github-line"></i> View
+        </a>
+        <a
+          href="https://aiknows.me/"
+          target="_blank"
+          class="projects__link"
+        >
+          <i class="ri-dribbble-line"></i> View
+        </a>
+      </div>
+    </article>
+
+    <article class="projects__card">
+      <div class="projects__image">
+        <img
+          class="projects__img"
+          src="assets/img/251_1x_shots_so.png"
+          alt="image"
+        />
+
+        <a
+          href="https://play.google.com/store/apps/details?id=com.miguelin.elbichosiono&hl=es_419"
+          class="projects__button button"
+        >
+          <i class="ri-arrow-right-up-line"></i>
+        </a>
+      </div>
+
+      <div class="projects__content">
+        <h3 class="projects__subtitle">App</h3>
+        <h2 class="projects__title">SIUU-NO El Bicho</h2>
+
+        <p class="projects__description">
+          A fun app where Cristiano Ronaldo answers your questions with either a "SIUU" or a "No" — sending a meme based on your answer. Built for entertainment.
+        </p>
+      </div>
+
+      <div class="projects__buttons">
+        <a
+          href="https://play.google.com/store/apps/details?id=com.miguelin.elbichosiono&hl=es_419"
+          target="_blank"
+          class="projects__link"
+        >
+          <i class="ri-github-line"></i> View
+        </a>
+        <a
+          href="https://play.google.com/store/apps/details?id=com.miguelin.elbichosiono&hl=es_419"
+          target="_blank"
+          class="projects__link"
+        >
+          <i class="ri-dribbble-line"></i> View
+        </a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+
+        <!-- Sección de Galería -->
+        <section class="gallery section" id="gallery">
+          <div class="container gallery-custom-container">
+            <h2 class="section__title-1">
+              <span>Galery</span>
+            </h2>
+        
+            <!-- Tu contenedor Grid para las imágenes -->
+            <div class="gallery-grid-container">
+              <!-- Ejemplos de imágenes con clases "tall", "wide" y "jew" -->
+
+              <div
+                class="gallery-grid-item gallery-wide gallery-tall"
+                style="background-image: url('./assets/img/43534.jpeg');"
+              ></div>
+              <div
+                class="gallery-grid-item gallery-jew"
+                style="background-image: url('./assets/img/2321.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item"
+                style="background-image: url('./assets/img/11.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item gallery-wide"
+                style="background-image: url('./assets/img/43.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item"
+                style="background-image: url('./assets/img/78.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item"
+                style="background-image: url('./assets/img/4543.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item gallery-jew"
+                style="background-image: url('./assets/img/44.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item gallery-tall gallery-wide"
+                style="background-image: url('./assets/img/6.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item gallery-jew"
+                style="background-image: url('./assets/img/959.jpeg');"
+              ></div>
+
+              
+
+              <div
+                class="gallery-grid-item gallery-wide"
+                style="background-image: url('./assets/img/3543.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item"
+                style="background-image: url('./assets/img/9348.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item gallery-tall"
+                style="background-image: url('./assets/img/345.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item gallery-wide"
+                style="background-image: url('./assets/img/2123.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item gallery-jew"
+                style="background-image: url('./assets/img/543.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item"
+                style="background-image: url('./assets/img/434.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item gallery-tall"
+                style="background-image: url('./assets/img/453.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item"
+                style="background-image: url('./assets/img/323.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item"
+                style="background-image: url('./assets/img/321.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item gallery-wide"
+                style="background-image: url('./assets/img/45.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item"
+                style="background-image: url('./assets/img/232.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item gallery-tall gallery-wide"
+                style="background-image: url('./assets/img/22.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item gallery-jew"
+                style="background-image: url('./assets/img/123.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item"
+                style="background-image: url('./assets/img/55.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item  gallery-tall"
+                style="background-image: url('./assets/img/33.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item"
+                style="background-image: url('./assets/img/45.jpeg');"
+              ></div>
+
+              <div
+                class="gallery-grid-item "
+                style="background-image: url('./assets/img/4.jpg');"
+              ></div>
+
+              
+            </div>
+          </div>
+        </section>
+
+
       
-      
-      <div
-        class="grid-item tall wide tall"
-        style="
-          background-image: url(./imgs/43534.jpeg);
-        "
-      ></div>
-      <div
-        class="grid-item wide"
-        style="
-          background-image: url(./imgs/3543.jpeg);
-        "
-      ></div>
-      <div
-        class="grid-item"
-        style="
-          background-image: url(./imgs/9348.jpeg);
-        "
-      ></div>
-      <div
-        class="grid-item tall"
-        style="
-          background-image: url(./imgs/345.jpeg);
-        "
-      ></div>
-      <div
-        class="grid-item"
-        style="
-          background-image: url(./imgs/2123.jpeg);
-        "
-      ></div>
-      <div
-        class="grid-item tall"
-        style="
-          background-image: url(./imgs/543.jpeg);
-        "
-      ></div>
-      <div
-      class="grid-item "
-      style="
-        background-image: url(./imgs/434.jpeg);
-      "
-    ></div>
 
-      <div
-        class="grid-item wide tall"
-        style="
-          background-image: url(./imgs/453.jpeg);
-        "
-      ></div>
-      <div
-      class="grid-item "
-      style="
-        background-image: url(./imgs/323.jpeg);
-      "
-    ></div>
-    <div
-      class="grid-item "
-      style="
-        background-image: url(./imgs/321.jpeg);
-      "
-    ></div>
-    <div
-    class="grid-item wide"
-    style="
-      background-image: url(./imgs/45.jpeg);
-    "
-  ></div>
-  <div
-      class="grid-item "
-      style="
-        background-image: url(./imgs/232.jpeg);
-      "
-    ></div>
-    <div
-      class="grid-item tall"
-      style="
-        background-image: url(./imgs/22.jpeg);
-      "
-    ></div>
-    <div
-      class="grid-item "
-      style="
-        background-image: url(./imgs/123.jpeg);
-      "
-    ></div>
-    <div
-      class="grid-item "
-      style="
-        background-image: url(./imgs/55.jpeg);
-      "
-    ></div>
-    
+<!--==================== CONTACT ====================-->
+<section class="contact section" id="contact">
+  <div class="contact__container grid">
+    <div class="contact__data">
+      <h2 class="section__title-2">
+        <span>Contact Me.</span>
+      </h2>
 
-    <div
-      class="grid-item wide tall "
-      style="
-        background-image: url(./imgs/33.jpeg);
-      "
-    ></div>
-    <div
-    class="grid-item "
-    style="
-      background-image: url(./imgs/45.jpeg);
-    "
-  ></div>
-  <div
-    class="grid-item "
-    style="
-      background-image: url(./imgs/4.jpg);
-    "
-  ></div>
-  <div
-    class="grid-item wide"
-    style="
-      background-image: url(./imgs/5.jpeg);
-    "
-  ></div>
+      <p class="contact__description-1">
+        Feel free to send me any questions or messages — I’ll get back to you.
+      </p>
+
+      <p class="contact__description-2">
+        Just include your <b>Name</b> and <b>Email</b>, or reach out directly through my social media.
+      </p>
+
+      <div class="geometric-box"></div>
     </div>
 
-    <h3 style="text-align: center; margin-top: 20px;">Aún sigo trabajando en buscar más fotos y certificados para mostrarlos aqui</h3>
+    <div class="contact__mail">
+      <h2 class="contact__title">Send me a message</h2>
 
-   
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBud6b5sE4pRf4R4euEoe9zU1QeUjmiYw+2Nnl/6gDz6T/5K" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5wzl7G5ordl7z9PAPl5syx//D2xyF5J5U9Z2On2E" crossorigin="anonymous"></script>
-  </body>
+      <form action="" class="contact__form" id="contact-form">
+        <div class="contact__group">
+          <div class="contact__box">
+            <input
+              type="text"
+              class="contact__input"
+              id="name"
+              name="user_name"
+              required
+              placeholder="First Name"
+            />
+            <label for="name" class="contact__label">Name</label>
+          </div>
+
+          <div class="contact__box">
+            <input
+              type="email"
+              class="contact__input"
+              id="email"
+              name="user_email"
+              required
+              placeholder="Email Address"
+            />
+            <label for="email" class="contact__label">Email</label>
+          </div>
+        </div>
+
+        <div class="contact__box">
+          <input
+            type="text"
+            class="contact__input"
+            id="subject"
+            name="user_subject"
+            required
+            placeholder="Subject"
+          />
+          <label for="subject" class="contact__label">Subject</label>
+        </div>
+
+        <div class="contact__box contact__area">
+          <textarea
+            name="user_message"
+            id="message"
+            class="contact__input"
+            required
+            placeholder="Message"
+          ></textarea>
+          <label for="message" class="contact__label">Message</label>
+        </div>
+
+        <p class="contact__message" id="contact-message"></p>
+
+        <button type="submit" class="contact__button button">
+          <i class="ri-send-plane-line"></i> Send Message
+        </button>
+      </form>
+    </div>
+
+    <div class="contact__social">
+      <img
+        src="./assets/img/curved-arrow.svg"
+        alt="image"
+        class="contact__social-arrow"
+      />
+
+      <div class="contact__social-data">
+        <div>
+          <p class="contact__social-description-1">
+            Anytime
+          </p>
+
+          <p class="contact__social-description-2">
+            Reach out on my social media
+          </p>
+        </div>
+
+        <div class="contact__social-links">
+ 
+
+          <a
+            href="https://www.instagram.com/david.zzzr/"
+            target="_blank"
+            class="contact__social-link"
+          ><i class="ri-instagram-line"></i></a>
+
+          <a
+            href="https://www.linkedin.com/in/davidmr321"
+            target="_blank"
+            class="contact__social-link"
+          ><i class="ri-linkedin-line"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!--==================== FOOTER ====================-->
+<footer class="footer">
+<div class="footer__container container grid">
+  <ul class="footer__links">
+    <li><a href="#about" class="footer__link">About</a></li>
+    <li><a href="#projects" class="footer__link">Projects</a></li>
+    <li><a href="./assets/DavidCV/index.html" class="footer__link">Resume</a></li>
+  </ul>
+
+  <span class="footer__copy">
+    &#169; 
+    <a href="">Sonríe </a>
   
+  </span>
+</div>
+</footer>
+
+<!--========== SCROLL UP ==========-->
+<a href="#" class="scrollup" id="scroll-up">
+<i class="ri-arrow-up-s-line"></i>
+</a>
+<!--=============== SCROLLREVEAL ===============-->
+<script src="./assets/js/scrollreveal.min.js"></script>
+
+<!--=============== EMAIL JS ===============-->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<!--=============== MAIN JS ===============-->
+<script src="assets/js/main.js"></script>
+</body>
 </html>
