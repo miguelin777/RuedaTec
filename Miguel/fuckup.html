@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fuckup Night – Jorge Plascencia | Audio & Foto</title>
+  <meta name="description" content="Audio y foto de la Fuckup Night de Jorge Plascencia, más preguntas y respuestas clave.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b0b0f; --card: #12121a; --ink: #eaeaf1; --muted: #b7b7c7;
+      --brand: #6ee7ff; --brand-2: #a78bfa; --ring: #2b2b3a;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(111, 226, 255, .15), transparent 60%),
+        radial-gradient(900px 500px at 100% 0%, rgba(167, 139, 250, .15), transparent 60%),
+        var(--bg);
+    }
+    .wrap{max-width:1000px;margin:0 auto;padding:24px}
+    .hero{display:grid; gap:20px; align-items:center; grid-template-columns: 1fr}
+    .title{font-size: clamp(28px, 5vw, 44px); line-height:1.05; font-weight:800; letter-spacing:-0.02em}
+    .subtitle{color:var(--muted); margin-top:8px; font-size:clamp(14px, 2.5vw, 16px)}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border:1px solid var(--ring); border-radius:999px; background:rgba(255,255,255,.02); color:var(--muted); font-size:12px}
+    .badge-dot{width:8px;height:8px;border-radius:999px;background:linear-gradient(135deg, var(--brand), var(--brand-2))}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid var(--ring); border-radius:18px; padding:18px; box-shadow: 0 10px 30px rgba(0,0,0,.35)}
+    .media{border-radius:16px; overflow:hidden; border:1px solid var(--ring); background:#0f0f15}
+    .media img{display:block; width:100%; height:auto; object-fit:cover; max-height:520px}
+    .audio{width:100%; border-radius:10px; background:#0b0b0f; border:1px solid var(--ring); padding:12px}
+    .section{margin-top:36px}
+    .section h2{font-size: clamp(20px, 3.5vw, 26px); margin:0 0 16px 0; letter-spacing:-0.01em}
+    .qa{display:grid; gap:12px}
+    details{background: rgba(255,255,255,.03); border:1px solid var(--ring); border-radius:14px; padding:14px 16px}
+    summary{cursor:pointer; list-style:none; font-weight:600}
+    summary::-webkit-details-marker{display:none}
+    .q{display:flex; align-items:center; gap:10px}
+    .q .dot{width:8px;height:8px;border-radius:999px;background:linear-gradient(135deg, var(--brand), var(--brand-2))}
+    .answer{color:var(--muted); margin-top:10px; line-height:1.6}
+    .footer{margin:36px 0 16px; color:var(--muted); font-size:12px; text-align:center}
+    .btn{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--ring); background:rgba(255,255,255,.03); padding:10px 14px; border-radius:12px; color:var(--ink); text-decoration:none; transition: transform .12s ease, background .12s ease; user-select:none}
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.05)}
+    .toolbar{display:flex; gap:10px; flex-wrap:wrap}
+    @media (min-width: 860px){
+      .hero{grid-template-columns: 1.1fr .9fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <span class="badge"><span class="badge-dot"></span> Audio oficial</span>
+        <h1 class="title">Audio de la Fuckup Night – <span style="background:linear-gradient(135deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent">Jorge Plascencia</span></h1>
+        <p class="subtitle">Reproducción del audio y acceso a la foto del evento. Abajo también encontrarás las preguntas y respuestas clave.</p>
+        <div class="toolbar" style="margin-top:12px">
+          <a class="btn" href="assets/img/JorgeWithUs.jpg" target="_blank" rel="noopener">Abrir foto en pestaña</a>
+          <a class="btn" href="assets/audio/JorgeAudio.mp3" download>Descargar audio</a>
+        </div>
+      </div>
+
+      <!-- FOTO VISIBLE EN LA PÁGINA -->
+      <div class="card media">
+        <img src="assets/img/JorgeWithUs.jpg" alt="Foto del evento Fuckup Night con Jorge Plascencia" loading="lazy">
+      </div>
+    </div>
+
+    <!-- REPRODUCTOR (inicia en 13s al darle play) -->
+    <div class="card" style="margin-top:18px">
+      <div style="font-weight:600; margin:0 0 10px">Reproductor</div>
+      <audio id="player" class="audio" controls preload="metadata">
+        <source src="assets/audio/JorgeAudio.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio HTML5. <a href="assets/audio/JorgeAudio.mp3">Descargar</a>
+      </audio>
+    </div>
+
+    <div class="section">
+      <h2>Preguntas y respuestas</h2>
+      <div class="qa">
+        <details>
+          <summary class="q"><span class="dot"></span> 1) Si tuvieras a disposición un equipo de desarrollo de una app como idea de negocio que resuelva una problemática real, ¿qué app le pedirías que desarrollen?</summary>
+          <div class="answer">
+            “Hoy todo es muy normal, tu mamá le habla a una señora que la recomienda, no la conoce, no sabe si es la persona que la está robando y aparte la gente que está en la dificultad, no le dan saludo, no le quitan, creo que puede cuidar a las dos partes. Yo creo que lo que más se van a enfrentar es que mucha gente va a preferir seguir contratada por fuera para no tener que pagar seguro, etc.”
+          </div>
+        </details>
+
+        <details>
+          <summary class="q"><span class="dot"></span> 2) ¿Cuál puede ser el mayor obstáculo que crees que se va a enfrentar y cómo se podría reducir su impacto?</summary>
+          <div class="answer">
+            “El mayor obstáculo es que mucha gente va a preferir seguir contratada por fuera para no tener que pagar seguro, etc. Creo que las personas les va a costar trabajo irse subiendo a formalizarse.”
+          </div>
+        </details>
+
+        <details>
+          <summary class="q"><span class="dot"></span> 3) ¿Qué debería tener mi idea de emprendimiento de base tecnológica para que estés dispuesto a apoyarme?</summary>
+          <div class="answer">
+            “Que conozca al equipo fundador, que haya confianza en las personas que están detrás del proyecto. Eso es lo más importante para poder apoyar.”
+          </div>
+        </details>
+
+        <details>
+          <summary class="q"><span class="dot"></span> Extra) ¿Cuál es el nicho de mercado que prefieres?</summary>
+          <div class="answer">
+            “Hay un sweet spot en el consumo que no es el nicho de high ticket y no es el nicho de volumen, donde hay muy poquitito margen. Hay un nicho intermedio donde hay… Zara es ese nicho… Entonces, el nicho que a mí me gusta en México es el intermedio.”
+          </div>
+        </details>
+
+        <details>
+          <summary class="q"><span class="dot"></span> Extra) ¿Qué papel juega el ego/perseverancia en el emprendimiento?</summary>
+          <div class="answer">
+            “Está bien difícil porque es bien fácil pensar que ya le estás pegando cuando realmente te está rajando… A mí, mi personal me ha dicho, ya, güey, ya salte, ya. Ya no estás jalando esto… Pero la verdad es, tú dices que es hasta aquí. Tú dices, de aquí hasta aquí está bien. De aquí hasta aquí es terqueada. Yo digo que es de aquí hasta aquí, hasta aquí. O sea, le terqueas un poquito más y ahí decides si te sigues o no.”<br><br>
+            “Hay un libro muy bueno que se llama <em>Cultivate</em>… y dice, lo único que cambia entre las grandes y las no es que nunca dejaron de ocupar la suelda. Nunca se bajaron, siempre se iban a ocupar.”
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <p class="footer">Archivo de la Fuckup Night de Jorge Plascencia. Hecho con cariño.</p>
+  </div>
+
+  <!-- Iniciar audio en 13s cuando ya cargó la metadata -->
+  <script>
+    const player = document.getElementById('player');
+    player.addEventListener('loadedmetadata', () => {
+      try { player.currentTime = 23; } catch (e) {}
+    });
+    // Si quieres que empiece a sonar de inmediato desde el 13, quita el comentario de abajo:
+    // player.addEventListener('canplay', () => player.play(), { once: true });
+  </script>
+</body>
+</html>
