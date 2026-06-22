@@ -98,6 +98,11 @@
       .gallery-sub { color: #d7e2ea; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; font-size: clamp(1.2rem, 3.2vw, 2.2rem); margin: 3rem 0 1.25rem; opacity: .92; }
       .gallery-sub:first-of-type { margin-top: .5rem; }
       .projects__img { width: 100%; height: 220px; object-fit: cover; display: block; }
+      /* Botón "Contáctame" del menú: pastilla limpia y alineada (escritorio) */
+      @media screen and (min-width: 1150px) {
+        .nav__link-button { padding: 0.6rem 1.4rem !important; border-radius: 999px !important; line-height: 1.15 !important; display: inline-flex !important; align-items: center !important; }
+        .nav__link-button::after { display: none !important; }
+      }
     </style>
 
     <title>Miguel Huizache</title>
@@ -131,10 +136,6 @@
 
             <li class="nav__item">
               <a href="#logros" class="nav__link">Logros</a>
-            </li>
-
-            <li class="nav__item">
-              <a href="#videos" class="nav__link">Videos</a>
             </li>
 
             <li class="nav__item">
@@ -886,21 +887,6 @@
                 </div>
               </div>
             </article>
-          </div>
-        </div>
-      </section>
-
-      <!--==================== VIDEOS ====================-->
-      <section class="section" id="videos">
-        <h2 class="section__title-1" style="text-align:center;">
-          <span>Videos.</span>
-        </h2>
-        <div class="container" style="display:grid; gap:1.5rem; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); max-width:1000px; margin:2rem auto 0;">
-          <div style="position:relative; aspect-ratio:16/9; border-radius:24px; overflow:hidden; border:2px solid #d7e2ea; background:#0c0c0c;">
-            <iframe src="https://drive.google.com/file/d/1rSpHKDplpsAethXlKBxzmgOweuQxiJbm/preview" allow="autoplay; fullscreen" allowfullscreen loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; border:0;"></iframe>
-          </div>
-          <div style="position:relative; aspect-ratio:16/9; border-radius:24px; overflow:hidden; border:2px solid #d7e2ea; background:#0c0c0c;">
-            <iframe src="https://drive.google.com/file/d/1kihWF_3lt-1w3o-OPTEKKExwnRGCGC_7/preview" allow="autoplay; fullscreen" allowfullscreen loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; border:0;"></iframe>
           </div>
         </div>
       </section>
