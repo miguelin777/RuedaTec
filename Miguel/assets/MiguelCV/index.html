@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+      content="width=device-width, initial-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
@@ -40,6 +40,27 @@
             
             font-size: 14px;
             line-height: 20px;
+        }
+
+        /* ===== Acciones / Exportar PDF ===== */
+        .cv-actions { text-align: center; margin: 2rem auto 1rem; }
+        .cv-pdf-btn { display: inline-flex; align-items: center; gap: .5rem; background: #0175b2; color: #fff;
+            border: none; border-radius: 999px; padding: .85rem 1.9rem; font-size: 1rem; font-weight: 700;
+            cursor: pointer; transition: background .2s, transform .2s; box-shadow: 0 6px 18px rgba(1,117,178,.35); font-family: 'Roboto', sans-serif; }
+        .cv-pdf-btn:hover { background: #015e90; transform: translateY(-2px); }
+        .resume_wrapper { box-shadow: 0 20px 50px rgba(0,0,0,.18); border-radius: 10px; overflow: hidden; }
+
+        /* ===== Impresion / PDF profesional ===== */
+        @media print {
+            @page { size: A4; margin: 12mm; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            html, body { background: #fff !important; }
+            .header, .nav, .footer, .scrollup, #theme-button, .cv-actions, .contact__form { display: none !important; }
+            body > br { display: none !important; }
+            .resume_wrapper { width: 100% !important; max-width: 100% !important; margin: 0 !important;
+                padding: 0 !important; box-shadow: none !important; border-radius: 0 !important; }
+            .resume_item, .resume_info li, .skills_list { break-inside: avoid; page-break-inside: avoid; }
+            .resume_wrapper .resume_right .resume_item a { color: #0175b2 !important; }
         }
     </style>
   </head>
@@ -109,7 +130,7 @@
             <div class="resume_bottom">
                 <div class="resume_item resume_namerole">
                     <div class="name">Miguel Huizache Vázquez</div>
-                    <div class="role">Técnico en Programación</div>
+                    <div class="role">Estudiante de Mecatrónica · Fundador de RuedaTec</div>
                 </div>
                 <div class="resume_item resume_profile">
                     <div class="resume_title">Perfil Profesional</div>
@@ -176,7 +197,7 @@
             <div class="resume_item resume_namerole">
                 <div class="name">Miguel Huizache </div>
                 <br>
-                <div class="role">Técnico en Programación</div>
+                <div class="role">Estudiante de Mecatrónica · Fundador de RuedaTec</div>
             </div>
             <div class="resume_item resume_education">
                 <div class="resume_title">Educación</div>
@@ -301,7 +322,9 @@
     </div>
 
 
-        <form action="" class="contact__form" id="contact-form">
+        <div class="cv-actions">
+          <button class="cv-pdf-btn" onclick="window.print()"><i class="ri-download-2-line"></i> Descargar PDF</button>
+        </div>
 
     <!--==================== FOOTER ====================-->
     <footer class="footer">
@@ -313,8 +336,8 @@
         </ul>
 
         <span class="footer__copy">
-          &#169; Hola amigos :)
-          <a href="">Sonríe </a>
+          &#169; 2026 Miguel Huizache · Hecho en Cortázar, Gto.
+          <a href="https://sonriemexico.org/" target="_blank">Sonríe</a>
         </span>
       </div>
     </footer>
