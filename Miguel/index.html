@@ -30,7 +30,7 @@
       /* FIX: el .main tenía overflow:hidden y eso rompe position:sticky.
          overflow-x:clip clipa el horizontal igual, pero SÍ permite el sticky (como jack). */
       .main { overflow-x: clip; overflow-y: visible; }
-      .logros { background: #0c0c0c; padding-top: 2.5rem; padding-bottom: 8rem; }
+      .logros { background: #0c0c0c; padding-top: 2.5rem; padding-bottom: 4rem; }
       .logros__list { max-width: 1500px; margin-inline: auto; }
       .logros .section__title-1, .logros .section__title-1 span { color: #d7e2ea; }
       .logro__sticky {
@@ -108,7 +108,8 @@
       body { transition: color .4s; }
       body.dark-theme { background-color: hsl(0, 0%, 8%) !important; }
       /* "Lo que me mueve": separar de Logros + animación llamativa */
-      .services { padding-top: 5rem; }
+      .services { position: relative; z-index: 2; background: var(--body-color); margin-top: -2.5rem; border-radius: 2.5rem 2.5rem 0 0; padding-top: 5rem; }
+      body.dark-theme .services { background: hsl(0, 0%, 8%); }
       .services__content { transition: transform .35s ease, box-shadow .35s ease; }
       .services__card:hover .services__content { transform: translateY(-10px); box-shadow: 0 18px 45px hsla(0, 0%, 0%, .28); }
       .services__icon { display: inline-block; animation: mvFloat 3.6s ease-in-out infinite; }
