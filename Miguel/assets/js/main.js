@@ -56,7 +56,7 @@ const sendEmail = (e) => {
     .then(
       () => {
         // Show sent message
-        contactMessage.textContent = "Message sent successfully ✅";
+        contactMessage.textContent = "Mensaje enviado correctamente ✅";
 
         // Remove message after five seconds
         setTimeout(() => {
@@ -68,7 +68,7 @@ const sendEmail = (e) => {
       },
       () => {
         // Show error message
-        contactMessage.textContent = "Message not sent (service error) ❌";
+        contactMessage.textContent = "No se pudo enviar el mensaje (error del servicio) ❌";
       }
     );
 };
