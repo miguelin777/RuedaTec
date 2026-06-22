@@ -34,14 +34,15 @@
       .logros__list { max-width: 1500px; margin-inline: auto; }
       .logros .section__title-1, .logros .section__title-1 span { color: #d7e2ea; }
       .logro__sticky {
-        position: sticky;
-        top: 6rem;
-        height: 85vh;
+        position: static;
+        height: auto;
+        margin-bottom: 1.5rem;
         display: flex;
-        align-items: flex-start;
         justify-content: center;
       }
-      @media (min-width: 768px) { .logro__sticky { top: 8rem; } }
+      @media (min-width: 768px) { .logro__sticky { margin-bottom: 2.5rem; } }
+      /* Cancela el apilado/escala del JS: cards normales, sin empalme */
+      .logro__card { transform: none !important; top: 0 !important; }
       .logro__card {
         position: relative;
         width: 100%;
@@ -112,9 +113,6 @@
       /* "Lo que me mueve": separar de Logros + animación llamativa */
       .services { background: var(--body-color); padding-top: 6rem; }
       body.dark-theme .services { background: hsl(0, 0%, 8%); }
-      /* La última card de Logros sale del flujo sticky para que NO se empalme con "Lo que me mueve" */
-      .logro__sticky:last-child { position: relative; top: 0; height: auto; padding-bottom: 2rem; }
-      .logro__sticky:last-child .logro__card { top: 0 !important; }
       .services__content { transition: transform .35s ease, box-shadow .35s ease; }
       .services__card:hover .services__content { transform: translateY(-10px); box-shadow: 0 18px 45px hsla(0, 0%, 0%, .28); }
       .services__icon { display: inline-block; animation: mvFloat 3.6s ease-in-out infinite; }
