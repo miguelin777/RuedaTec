@@ -45,35 +45,37 @@ const contactForm = document.getElementById("contact-form"),
 const sendEmail = (e) => {
   e.preventDefault();
 
-  // serviceID - templateID - #form - publicKey
-  emailjs
-    .sendForm(
-      "service_evjg14d",
-      "template_t30a0aq",
-      "#contact-form",
-      "gPx-qcSVZ0NSRW0gc"
-    )
-    .then(
-      () => {
-        // Show sent message
-        contactMessage.textContent = "Mensaje enviado correctamente ✅";
+  // En lugar de email, mandamos el mensaje por WhatsApp directo a Miguel
+  const val = (id) => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  };
+  const nombre = val("name");
+  const correo = val("email");
+  const asunto = val("subject");
+  const mensaje = val("message");
 
-        // Remove message after five seconds
-        setTimeout(() => {
-          contactMessage.textContent = "";
-        }, 5000);
+  const texto =
+    "Hola Miguel, soy " + nombre +
+    (asunto ? " — " + asunto : "") + ".\n\n" +
+    mensaje +
+    (correo ? "\n\nMi correo: " + correo : "");
 
-        // Clear input fields
-        contactForm.reset();
-      },
-      () => {
-        // Show error message
-        contactMessage.textContent = "No se pudo enviar el mensaje (error del servicio) ❌";
-      }
-    );
+  window.open(
+    "https://wa.me/524111271872?text=" + encodeURIComponent(texto),
+    "_blank"
+  );
+
+  if (contactMessage) {
+    contactMessage.textContent = "Abriendo WhatsApp para enviar tu mensaje… 💬";
+    setTimeout(() => {
+      contactMessage.textContent = "";
+    }, 5000);
+  }
+  if (contactForm) contactForm.reset();
 };
 
-contactForm.addEventListener("submit", sendEmail);
+if (contactForm) contactForm.addEventListener("submit", sendEmail);
 
 /*=============== SHOW SCROLL UP ===============*/
 const scrollUp = () => {

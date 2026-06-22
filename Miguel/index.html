@@ -121,26 +121,28 @@
       .services__icon i { transition: transform .4s ease; }
       .services__card:hover .services__icon i { transform: scale(1.15); }
 
-      /* Mini-fotos del prototipo RuedaTec encimadas en la foto de inicio */
+      /* Mini-fotos de RuedaTec (prototipo, premios, constancias) encimadas en la foto de inicio */
       .home__image { position: relative; }
       .home__proto {
         position: absolute;
         z-index: 11;
-        width: 46%;
+        width: 42%;
         aspect-ratio: 3 / 4;
         object-fit: cover;
         border: 4px solid var(--black-color, #111);
         background: #fff;
         box-shadow: 0 10px 26px rgba(0, 0, 0, .30);
         opacity: 1;
-        transition: opacity .45s ease;
+        cursor: pointer;
+        transition: opacity .45s ease, transform .25s ease, box-shadow .25s ease;
       }
-      .home__proto--tl { top: -1.5rem; left: -1.6rem; rotate: -4deg; }
-      .home__proto--br { bottom: -1.5rem; right: -1.6rem; rotate: 4deg; }
+      .home__proto--tl { top: -2.6rem; left: -3.6rem; rotate: -5deg; }
+      .home__proto--br { bottom: -2.6rem; right: -3.6rem; rotate: 5deg; }
+      .home__proto:hover { transform: scale(1.08); box-shadow: 0 16px 38px rgba(0, 0, 0, .42); z-index: 13; }
       @media (max-width: 540px) {
-        .home__proto { width: 42%; border-width: 3px; }
-        .home__proto--tl { top: -1rem; left: -1rem; }
-        .home__proto--br { bottom: -1rem; right: -1rem; }
+        .home__proto { width: 40%; border-width: 3px; }
+        .home__proto--tl { top: -1.6rem; left: -1.8rem; }
+        .home__proto--br { bottom: -1.6rem; right: -1.8rem; }
       }
     </style>
 
@@ -711,7 +713,7 @@
 
           <article class="projects__card">
             <div class="projects__image">
-              <img class="projects__img" src="https://image.thum.io/get/width/1280/crop/820/https://elranchitodeyulay.netlify.app/" alt="El Ranchito de Yulay" />
+              <img class="projects__img" src="assets/img/ranchito.jpg" alt="El Ranchito de Yulay" />
               <a href="https://elranchitodeyulay.netlify.app/" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
             </div>
             <div class="projects__content">
@@ -1224,31 +1226,46 @@
     <!--=============== MAIN JS ===============-->
     <script src="assets/js/main.js"></script>
 
-    <!--=============== MINI-FOTOS PROTOTIPO (rotan solas) ===============-->
+    <!--=============== MINI-FOTOS RUEDATEC (prototipo, premios, constancias — rotan solas) ===============-->
     <script>
       (function () {
         var protos = [
-          "./assets/img/ev-rt.jpg",
-          "./assets/img/rt-gal-09.jpg",
-          "./assets/img/rt-gal-06.jpg",
-          "./assets/img/rt-gal-01.jpg",
-          "./assets/img/rt-gal-25.jpg",
-          "./assets/img/ev-prototipo-rt.jpg"
+          "./assets/img/ev-rt.jpg",            // prototipo
+          "./assets/img/ev-premiacion-oro.jpg",// premio
+          "./assets/img/rt-gal-09.jpg",        // prototipo
+          "./assets/img/rt-gal-21.jpg",        // premiación TalentTIC
+          "./assets/img/rt-gal-06.jpg",        // prototipo (detalle)
+          "./assets/img/rt-gal-17.jpg",        // Invention Convention 2.º
+          "./assets/img/rt-gal-01.jpg",        // prototipo en silla
+          "./assets/img/rt-gal-20.jpg",        // constancia
+          "./assets/img/rt-gal-25.jpg",        // mecanismo
+          "./assets/img/ev-equipo.jpg",        // equipo
+          "./assets/img/ev-prototipo-rt.jpg",  // prototipo
+          "./assets/img/rt-gal-24.jpg"         // entrevista/medios
         ];
         protos.forEach(function (s) { var im = new Image(); im.src = s; });
         var tl = document.getElementById("proto-tl");
         var br = document.getElementById("proto-br");
         if (!tl || !br) return;
-        var i = 0, n = protos.length, half = Math.floor(n / 2);
+        var i = 0, n = protos.length, half = Math.floor(n / 2), timer = null;
         function swap(el, src) {
           el.style.opacity = "0";
-          setTimeout(function () { el.src = src; el.style.opacity = "1"; }, 320);
+          setTimeout(function () { el.src = src; el.style.opacity = "1"; }, 300);
         }
-        setInterval(function () {
-          i = (i + 1) % n;
+        function tick(step) {
+          i = (i + (step || 1) + n) % n;
           swap(tl, protos[i]);
           swap(br, protos[(i + half) % n]);
-        }, 3200);
+        }
+        function start() { stop(); timer = setInterval(function () { tick(1); }, 3000); }
+        function stop() { if (timer) { clearInterval(timer); timer = null; } }
+        [tl, br].forEach(function (el) {
+          el.addEventListener("mouseenter", stop);
+          el.addEventListener("mouseleave", start);
+          el.addEventListener("click", function () { tick(1); });
+          el.title = "Click para ver más fotos de RuedaTec";
+        });
+        start();
       })();
     </script>
   </body>
