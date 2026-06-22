@@ -114,6 +114,20 @@
       .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
       .video-cap { text-align: center; font-weight: 700; letter-spacing: .03em; opacity: .9; }
       @media (max-width: 760px) { .videos__row { flex-direction: column; align-items: stretch; } .video-card { max-width: 100%; } }
+
+      /* Sección de Instagram */
+      .ig.section { padding-top: 4rem; padding-bottom: 4.5rem; }
+      .ig-card { max-width: 720px; margin: 1.5rem auto 0; display: flex; gap: 1.6rem; align-items: center; flex-wrap: wrap; justify-content: center; padding: 2rem; border-radius: 22px; background: var(--container-color, #fff); box-shadow: 0 16px 44px rgba(0,0,0,.16); }
+      .ig-avatar { width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 3rem; flex-shrink: 0; background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5); box-shadow: 0 8px 22px rgba(214,41,118,.35); }
+      .ig-info { flex: 1 1 320px; }
+      .ig-handle { font-weight: 800; font-size: 1.4rem; line-height: 1.1; }
+      .ig-name { opacity: .7; margin-bottom: .5rem; }
+      .ig-bio { margin: 0 0 1.1rem; opacity: .9; line-height: 1.5; }
+      .ig-actions { display: flex; gap: .7rem; flex-wrap: wrap; }
+      .ig-btn { display: inline-flex; align-items: center; gap: .5rem; padding: .72rem 1.4rem; border-radius: 999px; font-weight: 700; text-decoration: none; color: #fff; background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5); transition: transform .2s, filter .2s; }
+      .ig-btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+      .ig-btn--ghost { background: transparent; color: #d62976; border: 2px solid #d62976; }
+      @media (max-width: 600px) { .ig-card { flex-direction: column; text-align: center; } .ig-actions { justify-content: center; } }
       /* Botón "Contáctame" del menú: pastilla limpia y alineada (escritorio) */
       @media screen and (min-width: 1150px) {
         .nav__link-button { padding: 0.6rem 1.4rem !important; border-radius: 999px !important; line-height: 1.15 !important; display: inline-flex !important; align-items: center !important; }
@@ -1070,6 +1084,31 @@
 
 
 
+
+      <!--==================== INSTAGRAM ====================-->
+      <section class="ig section" id="instagram">
+        <div class="container">
+          <h2 class="section__title-1"><span>Sígueme en Instagram.</span></h2>
+          <div class="ig-card">
+            <div class="ig-avatar"><i class="ri-instagram-line"></i></div>
+            <div class="ig-info">
+              <div class="ig-handle">@sonrie_mexico</div>
+              <div class="ig-name">Sonríe México</div>
+              <p class="ig-bio">
+                Comunidad juvenil de impacto social y ambiental 🌱 · +35,000 en redes · presencia en 4+ estados. Donaciones, reforestación y liderazgo joven.
+              </p>
+              <div class="ig-actions">
+                <a href="https://www.instagram.com/sonrie_mexico/" target="_blank" rel="noopener" class="ig-btn">
+                  <i class="ri-instagram-line"></i> Seguir a @sonrie_mexico
+                </a>
+                <a href="https://www.instagram.com/miguueelito/" target="_blank" rel="noopener" class="ig-btn ig-btn--ghost">
+                  <i class="ri-instagram-line"></i> Mi perfil personal
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!--==================== CONTACT ====================-->
       <section class="contact section" id="contact">
