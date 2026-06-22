@@ -120,6 +120,28 @@
       .services__card:hover .services__box { transform: scale(1.35) rotate(8deg); box-shadow: 0 8px 26px hsla(14, 80%, 50%, .55); }
       .services__icon i { transition: transform .4s ease; }
       .services__card:hover .services__icon i { transform: scale(1.15); }
+
+      /* Mini-fotos del prototipo RuedaTec encimadas en la foto de inicio */
+      .home__image { position: relative; }
+      .home__proto {
+        position: absolute;
+        z-index: 11;
+        width: 46%;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        border: 4px solid var(--black-color, #111);
+        background: #fff;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, .30);
+        opacity: 1;
+        transition: opacity .45s ease;
+      }
+      .home__proto--tl { top: -1.5rem; left: -1.6rem; rotate: -4deg; }
+      .home__proto--br { bottom: -1.5rem; right: -1.6rem; rotate: 4deg; }
+      @media (max-width: 540px) {
+        .home__proto { width: 42%; border-width: 3px; }
+        .home__proto--tl { top: -1rem; left: -1rem; }
+        .home__proto--br { bottom: -1rem; right: -1rem; }
+      }
     </style>
 
     <title>Miguel Huizache</title>
@@ -210,6 +232,10 @@
               />
 
               <div class="geometric-box"></div>
+
+              <!-- Mini-fotos del prototipo RuedaTec (rotan solas) -->
+              <img src="./assets/img/ev-rt.jpg" alt="Prototipo RuedaTec" class="home__proto home__proto--tl" id="proto-tl" />
+              <img src="./assets/img/rt-gal-01.jpg" alt="Prototipo RuedaTec" class="home__proto home__proto--br" id="proto-br" />
             </div>
 
             <div class="home__social">
@@ -1197,5 +1223,33 @@
 
     <!--=============== MAIN JS ===============-->
     <script src="assets/js/main.js"></script>
+
+    <!--=============== MINI-FOTOS PROTOTIPO (rotan solas) ===============-->
+    <script>
+      (function () {
+        var protos = [
+          "./assets/img/ev-rt.jpg",
+          "./assets/img/rt-gal-09.jpg",
+          "./assets/img/rt-gal-06.jpg",
+          "./assets/img/rt-gal-01.jpg",
+          "./assets/img/rt-gal-25.jpg",
+          "./assets/img/ev-prototipo-rt.jpg"
+        ];
+        protos.forEach(function (s) { var im = new Image(); im.src = s; });
+        var tl = document.getElementById("proto-tl");
+        var br = document.getElementById("proto-br");
+        if (!tl || !br) return;
+        var i = 0, n = protos.length, half = Math.floor(n / 2);
+        function swap(el, src) {
+          el.style.opacity = "0";
+          setTimeout(function () { el.src = src; el.style.opacity = "1"; }, 320);
+        }
+        setInterval(function () {
+          i = (i + 1) % n;
+          swap(tl, protos[i]);
+          swap(br, protos[(i + half) % n]);
+        }, 3200);
+      })();
+    </script>
   </body>
 </html>
