@@ -34,15 +34,14 @@
       .logros__list { max-width: 1500px; margin-inline: auto; }
       .logros .section__title-1, .logros .section__title-1 span { color: #d7e2ea; }
       .logro__sticky {
-        position: static;
-        height: auto;
-        margin-bottom: 1.5rem;
+        position: sticky;
+        top: 6rem;
+        height: 85vh;
         display: flex;
+        align-items: flex-start;
         justify-content: center;
       }
-      @media (min-width: 768px) { .logro__sticky { margin-bottom: 2.5rem; } }
-      /* Cancela el apilado/escala del JS: cards normales, sin empalme */
-      .logro__card { transform: none !important; top: 0 !important; }
+      @media (min-width: 768px) { .logro__sticky { top: 8rem; } }
       .logro__card {
         position: relative;
         width: 100%;
@@ -94,8 +93,8 @@
       .logro__col2 { width: 60%; position: relative; }
       .logro__img { width: 100%; object-fit: cover; display: block; border-radius: 40px; }
       @media (min-width: 768px) { .logro__img { border-radius: 60px; } }
-      .logro__img--a { height: clamp(130px, 16vw, 230px); }
-      .logro__img--b { height: clamp(160px, 22vw, 340px); }
+      .logro__img--a { height: clamp(110px, 16vh, 200px); }
+      .logro__img--b { height: clamp(140px, 23vh, 280px); }
       .logro__img--big { position: absolute; inset: 0; width: 100%; height: 100%; }
       .gallery-sub { color: #d7e2ea; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; font-size: clamp(1.2rem, 3.2vw, 2.2rem); margin: 3rem 0 1.25rem; opacity: .92; }
       .gallery-sub:first-of-type { margin-top: .5rem; }
