@@ -101,6 +101,9 @@
       .projects__img { width: 100%; height: 220px; object-fit: cover; display: block; }
       .evid-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; max-width: 1200px; margin: 0 auto; }
       .evid-grid img { width: 100%; height: auto; display: block; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.18); background: #fff; }
+      .evid-cta { text-align: center; margin-top: 2.6rem; }
+      .evid-cta-btn { display: inline-flex; align-items: center; gap: .55rem; background: #0c0c0c; color: #fff; border: 2px solid #d7e2ea; border-radius: 999px; padding: .9rem 2.1rem; font-weight: 700; text-decoration: none; letter-spacing: .03em; transition: transform .2s, background .2s; }
+      .evid-cta-btn:hover { transform: translateY(-2px); background: #1c1c20; }
       /* Botón "Contáctame" del menú: pastilla limpia y alineada (escritorio) */
       @media screen and (min-width: 1150px) {
         .nav__link-button { padding: 0.6rem 1.4rem !important; border-radius: 999px !important; line-height: 1.15 !important; display: inline-flex !important; align-items: center !important; }
@@ -994,6 +997,12 @@
               <img src="./assets/img/evid-08.jpg" alt="Evidencia Sonríe / RuedaTec 8" loading="lazy" />
               <img src="./assets/img/evid-09.jpg" alt="Evidencia Sonríe / RuedaTec 9" loading="lazy" />
               <img src="./assets/img/evid-10.jpg" alt="Evidencia Sonríe / RuedaTec 10" loading="lazy" />
+            </div>
+
+            <div class="evid-cta">
+              <a href="./assets/RuedaTec-Sonrie-Portafolio.pdf" target="_blank" rel="noopener" class="evid-cta-btn">
+                <i class="ri-file-pdf-2-line"></i> Ver portafolio completo de evidencias (PDF)
+              </a>
             </div>
           </div>
         </section>
