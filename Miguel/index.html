@@ -104,6 +104,16 @@
       .evid-cta { text-align: center; margin-top: 2.6rem; }
       .evid-cta-btn { display: inline-flex; align-items: center; gap: .55rem; background: #0c0c0c; color: #fff; border: 2px solid #d7e2ea; border-radius: 999px; padding: .9rem 2.1rem; font-weight: 700; text-decoration: none; letter-spacing: .03em; transition: transform .2s, background .2s; }
       .evid-cta-btn:hover { transform: translateY(-2px); background: #1c1c20; }
+
+      /* Sección de videos (Conóceme en video) */
+      .videos.section { padding-top: 5rem; padding-bottom: 4rem; }
+      .videos__intro { text-align: center; max-width: 720px; margin: .25rem auto 2.5rem; opacity: .85; }
+      .videos__row { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; align-items: flex-start; max-width: 1100px; margin: 0 auto; }
+      .video-card { flex: 1 1 420px; max-width: 540px; display: flex; flex-direction: column; gap: .7rem; }
+      .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; box-shadow: 0 12px 34px rgba(0,0,0,.28); background: #000; }
+      .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+      .video-cap { text-align: center; font-weight: 700; letter-spacing: .03em; opacity: .9; }
+      @media (max-width: 760px) { .videos__row { flex-direction: column; align-items: stretch; } .video-card { max-width: 100%; } }
       /* Botón "Contáctame" del menú: pastilla limpia y alineada (escritorio) */
       @media screen and (min-width: 1150px) {
         .nav__link-button { padding: 0.6rem 1.4rem !important; border-radius: 999px !important; line-height: 1.15 !important; display: inline-flex !important; align-items: center !important; }
@@ -351,6 +361,42 @@
 
 
       
+      <!--==================== VIDEOS ====================-->
+      <section class="videos section" id="videos">
+        <div class="container">
+          <h2 class="section__title-1"><span>Conóceme en video.</span></h2>
+          <p class="videos__intro">
+            Dos videos que hice para que me conozcan más: el primero sobre <b>RuedaTec</b> y el segundo sobre <b>Sonríe México</b>.
+          </p>
+          <div class="videos__row">
+            <div class="video-card">
+              <div class="video-frame">
+                <iframe
+                  src="https://drive.google.com/file/d/1OpqI_2lF-0YYnn8HZyyGZ-0fgcQaF72O/preview"
+                  allow="autoplay; fullscreen; encrypted-media"
+                  allowfullscreen
+                  loading="lazy"
+                  title="Video RuedaTec — Beca al Talento Emprendedor"
+                ></iframe>
+              </div>
+              <span class="video-cap">RuedaTec · Beca al Talento Emprendedor</span>
+            </div>
+            <div class="video-card">
+              <div class="video-frame">
+                <iframe
+                  src="https://drive.google.com/file/d/1OKACifhDYcyvTute86hRTinSMSsGh4aE/preview"
+                  allow="autoplay; fullscreen; encrypted-media"
+                  allowfullscreen
+                  loading="lazy"
+                  title="Video Sonríe México"
+                ></iframe>
+              </div>
+              <span class="video-cap">Sonríe México</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!--==================== LOGROS ====================-->
 <section class="logros section" id="logros">
         <h2 class="section__title-1">
