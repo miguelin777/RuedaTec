@@ -2,357 +2,199 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <!--=============== FAVICON ===============-->
-    <link
-      rel="shortcut icon"
-      href="./../../assets/img/faviM.png"
-      type="image/x-icon"
-    />
+    <link rel="shortcut icon" href="./../../assets/img/faviM.png" type="image/x-icon" />
 
     <!--=============== REMIXICONS ===============-->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.4.0/remixicon.css"
-      crossorigin=""
-    />
-    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.4.0/remixicon.css" crossorigin="" />
 
-    <!--=============== CSS ===============-->
+    <!--=============== CSS del sitio (para el menú) ===============-->
     <link rel="stylesheet" href="./../../assets/css/styles.css" />
 
-    <title>Miguel Huizache</title>
+    <title>Miguel Huizache — CV</title>
+
     <style>
-        *{
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
-        
-        body{
-            
-            font-size: 14px;
-            line-height: 20px;
-        }
+      /* ===== CV estilo "Harvard": limpio, una columna, profesional ===== */
+      .cv-wrap { padding: 6rem 1rem 3rem; display: flex; justify-content: center; }
+      .cv {
+        width: 100%; max-width: 820px; background: #ffffff; color: #1a1a1a;
+        font-family: "Georgia", "Cambria", "Times New Roman", serif;
+        font-size: 11.3px; line-height: 1.5; padding: 56px 60px;
+        border-radius: 8px; box-shadow: 0 18px 50px rgba(0,0,0,.22);
+      }
+      .cv h1 { font-size: 27px; letter-spacing: 2px; text-align: center; margin: 0 0 4px; color: #111; font-weight: 700; }
+      .cv .cv-role { text-align: center; font-size: 12px; color: #333; margin: 0 0 6px; font-style: italic; }
+      .cv .cv-contact { text-align: center; font-size: 10.3px; color: #444; margin: 0; }
+      .cv .cv-contact a { color: #444; text-decoration: none; }
+      .cv .cv-contact a:hover { text-decoration: underline; }
+      .cv hr { border: none; border-top: 1px solid #222; margin: 12px 0 10px; }
+      .cv h2 { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; color: #111; margin: 14px 0 7px; }
+      .cv p { margin: 0 0 7px; text-align: justify; }
+      .cv .row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+      .cv .row .title { font-weight: 700; color: #111; }
+      .cv .row .sub { font-style: italic; color: #333; }
+      .cv .row .date { font-size: 10.3px; color: #555; white-space: nowrap; }
+      .cv ul { margin: 3px 0 9px; padding-left: 18px; }
+      .cv li { margin-bottom: 3px; text-align: justify; }
+      .cv .item { margin-bottom: 9px; }
+      .cv .tag { color: #111; font-weight: 700; }
+      /* Llamado al portafolio (abajo, bien visible) */
+      .cv-portfolio {
+        margin-top: 16px; padding: 13px 16px; border: 1.5px solid #111; border-radius: 8px;
+        text-align: center; font-size: 11.5px;
+      }
+      .cv-portfolio a { color: #0b57b8; font-weight: 700; text-decoration: none; }
+      .cv-portfolio .big { display: block; font-size: 14px; letter-spacing: .5px; margin-top: 3px; }
+      /* Botón descargar */
+      .cv-actions { text-align: center; margin: 1.8rem auto 0; }
+      .cv-pdf-btn { display: inline-flex; align-items: center; gap: .5rem; background: #111; color: #fff;
+        border: none; border-radius: 999px; padding: .8rem 1.8rem; font-size: 1rem; font-weight: 700;
+        cursor: pointer; font-family: inherit; transition: background .2s, transform .2s; }
+      .cv-pdf-btn:hover { background: #333; transform: translateY(-2px); }
 
-        /* ===== Acciones / Exportar PDF ===== */
-        .cv-actions { text-align: center; margin: 2rem auto 1rem; }
-        .cv-pdf-btn { display: inline-flex; align-items: center; gap: .5rem; background: #0175b2; color: #fff;
-            border: none; border-radius: 999px; padding: .85rem 1.9rem; font-size: 1rem; font-weight: 700;
-            cursor: pointer; transition: background .2s, transform .2s; box-shadow: 0 6px 18px rgba(1,117,178,.35); font-family: 'Roboto', sans-serif; }
-        .cv-pdf-btn:hover { background: #015e90; transform: translateY(-2px); }
-        .resume_wrapper { box-shadow: 0 20px 50px rgba(0,0,0,.18); border-radius: 10px; overflow: hidden; }
-
-        /* ===== Impresion / PDF profesional ===== */
-        @media print {
-            @page { size: A4; margin: 12mm; }
-            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            html, body { background: #fff !important; }
-            .header, .nav, .footer, .scrollup, #theme-button, .cv-actions, .contact__form { display: none !important; }
-            body > br { display: none !important; }
-            .resume_wrapper { width: 100% !important; max-width: 100% !important; margin: 0 !important;
-                padding: 0 !important; box-shadow: none !important; border-radius: 0 !important; }
-            .resume_item, .resume_info li, .skills_list { break-inside: avoid; page-break-inside: avoid; }
-            .resume_wrapper .resume_right .resume_item a { color: #0175b2 !important; }
-        }
+      /* ===== Impresión / PDF ===== */
+      @media print {
+        @page { size: Letter; margin: 14mm; }
+        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        .header, .nav, .footer, .scrollup, #theme-button, .cv-actions { display: none !important; }
+        .cv-wrap { padding: 0 !important; }
+        .cv { box-shadow: none !important; border-radius: 0 !important; max-width: 100% !important;
+              padding: 0 !important; font-size: 10.6px; }
+        .cv-portfolio { page-break-inside: avoid; }
+        .item, .cv li { page-break-inside: avoid; }
+      }
     </style>
   </head>
   <body>
     <!--==================== HEADER ====================-->
     <header class="header" id="header">
       <nav class="nav container">
-        <a href="#" class="nav__logo">
+        <a href="./../../index.html" class="nav__logo">
           <span class="nav__logo-circle">M</span>
           <span class="nav__logo-name">Miguel Huizache.</span>
         </a>
-
         <div class="nav__menu" id="nav-menu">
           <span class="nav__title">Menú</span>
-
           <h3 class="nav__name">Huizache</h3>
-
           <ul class="nav__list">
-            <li class="nav__item">
-              <a href="./../../index.html" class="nav__link">Inicio</a>
-            </li>
-
-            <li class="nav__item">
-              <a href="./../../index.html#about" class="nav__link">Sobre Mí</a>
-            </li>
-
-            <li class="nav__item">
-              <a href="./../../index.html#projects" class="nav__link">Proyectos</a>
-            </li>
-
-            <li class="nav__item">
-              <a href="./index.html" class="nav__link">CV</a>
-            </li>
-
-            <li class="nav__item">
-              <a href="./../../index.html#contact" class="nav__link nav__link-button">Contáctame</a>
-            </li>
+            <li class="nav__item"><a href="./../../index.html" class="nav__link">Inicio</a></li>
+            <li class="nav__item"><a href="./../../index.html#about" class="nav__link">Sobre Mí</a></li>
+            <li class="nav__item"><a href="./../../index.html#projects" class="nav__link">Proyectos</a></li>
+            <li class="nav__item"><a href="./../../index.html#logros" class="nav__link">Logros</a></li>
+            <li class="nav__item"><a href="./../../index.html#contact" class="nav__link nav__link-button">Contáctame</a></li>
           </ul>
-
-          <!-- Close button -->
-          <div class="nav__close" id="nav-close">
-            <i class="ri-close-line"></i>
-          </div>
+          <div class="nav__close" id="nav-close"><i class="ri-close-line"></i></div>
         </div>
-
         <div class="nav__buttons">
-          <!-- Theme button -->
           <i class="ri-moon-line change-theme" id="theme-button"></i>
-
-          <!-- Toggle button -->
-          <div class="nav__toggle" id="nav-toggle">
-            <i class="ri-menu-4-line"></i>
-          </div>
+          <div class="nav__toggle" id="nav-toggle"><i class="ri-menu-4-line"></i></div>
         </div>
       </nav>
     </header>
 
-    <br> <br> <br>
+    <!--==================== CV ====================-->
+    <main class="cv-wrap">
+      <div class="cv">
+        <h1>MIGUEL HUIZACHE VÁZQUEZ</h1>
+        <p class="cv-role">Estudiante de Ingeniería Mecatrónica · Cofundador de RuedaTec</p>
+        <p class="cv-contact">
+          Cortázar / Querétaro, México &nbsp;•&nbsp; +52 411 127 1872 &nbsp;•&nbsp;
+          <a href="mailto:soportemiguelhuizache@gmail.com">soportemiguelhuizache@gmail.com</a><br />
+          Portafolio: <a href="https://miguelin777.github.io/RuedaTec/Miguel/" target="_blank">miguelin777.github.io/RuedaTec/Miguel</a>
+          &nbsp;•&nbsp; Instagram: <a href="https://www.instagram.com/miguelhuizache_/" target="_blank">@miguelhuizache_</a>
+        </p>
 
+        <hr />
+        <h2>Resumen profesional</h2>
+        <p>
+          Estudiante de Ingeniería Mecatrónica en el Tecnológico de Monterrey y cofundador de <span class="tag">RuedaTec</span>,
+          un motor portátil que convierte una silla de ruedas manual en eléctrica a una fracción del costo de las alternativas
+          comerciales. Combino hardware (electrónica, motores, impresión 3D) y software (apps móviles y desarrollo web) para
+          resolver problemas reales con impacto social. Obtuve el <span class="tag">2.º lugar internacional</span> en el
+          Invention Convention Americas 2023. Enfocado en innovación, emprendimiento y liderazgo juvenil.
+        </p>
 
-
-      <div class="resume_wrapper">
-        <div class="resume_left">
-            <div class="resume_image">
-                <img src="./../img/MIg.jpg" alt="Resume_image">
-            </div>
-            <div class="resume_bottom">
-                <div class="resume_item resume_namerole">
-                    <div class="name">Miguel Huizache Vázquez</div>
-                    <div class="role">Estudiante de Mecatrónica · Fundador de RuedaTec</div>
-                </div>
-                <div class="resume_item resume_profile">
-                    <div class="resume_title">Perfil Profesional</div>
-                    <div class="resume_info">
-                        Técnico en Programación y Chavo que Inspira por la Fundación BBVA con experiencia en el Desarrollo de Proyectos Tecnológicos y Emprendimiento. 
-                        Destacado por liderar el proyecto "RuedaTec" en la competencia internacional Invention Convention Americas 2023, obteniendo el Segundo lugar. 
-                        Amplia experiencia en la creación de un negocio, con habilidades en Desarrollo Web (HTML, CSS, JavaScript), Desarrollo de Aplicaciones Móviles (Flutter, Dart), 
-                        y conocimientos avanzados en Sistemas Operativos (Linux) y Ciberseguridad, respaldados por Certificación en Cisco Networking. Competente en comunicación asertiva, 
-                        adaptabilidad y gestión de proyectos, con un historial comprobado en planificación financiera, marketing digital y ventas. Ganador de premios en Track Talents y Talen-tic, 
-                        demostrando capacidad para transformar ideas en soluciones efectivas y exitosas.
-                    </div>
-                </div>
-                <div class="resume_item resume_contact">
-                    <div class="resume_title">Contacto</div>
-                    <div class="resume_info">
-                        <div class="resume_subtitle">Phone</div>
-                        <div class="resume_subinfo">+52 411 127 1872</div>
-                    </div>
-                    <div class="resume_info">
-                        <div class="resume_subtitle">Email</div>
-                        <div class="resume_subinfo">soportemiguelhuizache@gmail.com</div>
-                    </div>
-                </div>
-                <div class="resume_item resume_skills">
-                    <div class="resume_title">Me gusta</div>
-                    <div class="resume_info">
-                        <div class="skills_list">
-                            <div class="skills_left">Entrenar</div>
-                            <div class="skills_bar">
-                                <p>
-                                    <span style="width: 90%"></span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="skills_list">
-                            <div class="skills_left">Programar</div>
-                            <div class="skills_bar">
-                                <p>
-                                    <span style="width: 80%"></span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="skills_list">
-                            <div class="skills_left">Ayudar</div>
-                            <div class="skills_bar">
-                                <p>
-                                    <span style="width: 93%"></span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="skills_list">
-                            <div class="skills_left">Ser un Líder</div>
-                            <div class="skills_bar">
-                                <p>
-                                    <span style="width: 100%"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <hr />
+        <h2>Experiencia y proyectos</h2>
+        <div class="item">
+          <div class="row"><span class="title">Cofundador y líder de proyecto — RuedaTec</span><span class="date">2022 – Actualidad</span></div>
+          <ul>
+            <li>Diseñé un adaptador eléctrico portátil (motor, batería, panel solar de apoyo y app Bluetooth propia) que convierte cualquier silla manual en eléctrica en menos de dos minutos, desde $5,999 frente a $20,000+ de una silla eléctrica.</li>
+            <li>Tras cuatro modelos iterativos, realicé un piloto en campo en Cortázar con 13 usuarios reales; la primera unidad se entregó en 2025.</li>
+            <li>Desarrollé el modelo de negocio, la estrategia de mercado y la app de control; levantamiento de capital y aceleración con IDEA GTO.</li>
+          </ul>
         </div>
-        <div class="resume_right">
-            <div class="resume_item resume_namerole">
-                <div class="name">Miguel Huizache </div>
-                <br>
-                <div class="role">Estudiante de Mecatrónica · Fundador de RuedaTec</div>
-            </div>
-            <div class="resume_item resume_education">
-                <div class="resume_title">Educación</div>
-                <div class="resume_info">
-                    <ul>
-                        <li>
-                            <strong>Aspirante Seleccionado en Mecatrónica</strong><br>
-                            Tecnológico de Monterrey (Ahora).
-                        </li>
-                        <br>
-                        <li>
-                            <strong>Técnico en Programación</strong><br>
-                            Colegio de Estudios Científicos y Tecnológicos del Estado de Guanajuato, Plantel Cortazar.
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="resume_item resume_experience">
-                <div class="resume_title">Participación en Proyectos</div>
-                <div class="resume_info">
-                    <ul>
-                        <li>
-                            <strong>Chavo que Insipra BBVA</strong><br>
-                            Reconocido por la Fundación BBVA desde la Secundaria por mi capacidad para motivar e inspirar a otros jóvenes a través de proyectos innovadores y liderazgo.
-                        </li>
-                        <li>
-                            <strong>Invention Convention Americas 2023</strong><br>
-                            Líder del proyecto "<a href="https://ruedatec.com/" target="_blank">RuedaTec</a>", ganando un Segundo lugar representando a México en competencia internacional.
-                        </li>
-                        <li>
-                            <strong>Participación en Capital Startup Capital 2023</strong><br>
-                            Creación de una startup con RuedaTec, incluyendo: desarrollo de modelo de negocio y estrategia de mercado, implementación de estrategias de marketing digital y ventas, 
-                            planificación financiera y levantamiento de capital.
-                        </li>
-                        <li>
-                            <strong>Creación de Sitio Web para Crear tu Negocio</strong><br>
-                            Selección y organización de áreas para crear el negocio desde cero, incluyendo: Onshape, Excel, Power BI y Python con Redes Neuronales. Ganador del Track Talents 2023.
-                        </li>
-                        <li>
-                            <strong>Obteniendo Vínculo al Sector Empresarial</strong><br>
-                            Liderando RuedaTec como un negocio tecnológico de innovación, aplicando técnicas de emprendimiento en desarrollo de modelo de negocio, marketing digital y ventas, y 
-                            planificación financiera. 1er Lugar en Talen-tic en la sede de León.
-                        </li>
-                        <li>
-                            <strong>Fundador de "Sonríe"</strong><br>
-                            Coordinador del grupo "<a href="https://www.instagram.com/sonrie_cortazargto/" target="_blank">Sonríe</a>", que junta Jóvenes para apoyar a la comunidad mediante 
-                            proyectos sociales como donación de ropa, útiles escolares, plantación de árboles, entre otros.
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="resume_item resume_competencies">
-                <div class="resume_title">Competencias</div>
-                <div class="resume_info">
-                    <ul>
-                        <li>
-                            <strong>Desarrollo Web</strong><br>
-                            Experiencia en la creación de sitios web totalmente personalizados utilizando HTML, CSS, JavaScript y tecnologías asociadas.
-                        </li>
-                        <li>
-                            <strong>Desarrollo de Aplicaciones Móviles</strong><br>
-                            Proficiencia en el desarrollo de aplicaciones móviles personalizadas utilizando Flutter.
-                        </li>
-                        <li>
-                            <strong>Sistemas Operativos y Ciberseguridad</strong><br>
-                            Conocimiento avanzado en Linux y ciberseguridad, con certificación en Cisco Networking: Partner: NDG Linux Unhatched | Partner: NDG Linux Essentials | Introduction to Cybersecurity.
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="resume_item resume_competencies">
-                <div class="resume_title">Habilidades</div>
-                <div class="resume_info">
-                    <ul>
-                        <li>
-                            <strong>Habilidades Blandas</strong><br>
-                            <p>Comunicación Asertiva | Adaptabilidad | Trabajo en Equipo | Resolución de Problemas | Gestión del Tiempo.</p>
-                        </li>
-                        <li>
-                            <strong>Habilidades Técnicas</strong><br>
-                            <p>Desarrollo Web: HTML | CSS | JavaScript.</p>
-                            <p>Desarrollo de Aplicaciones Móviles: Flutter | Dart.</p> 
-                            <p>Lenguajes de Programación: Java | Python | Arduino | PHP | C.</p>  
-                            <p>Sistemas Operativos: Linux | Windows.</p> 
-                            <p>Ciberseguridad: Conocimientos esenciales, certificación en Cisco.</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- 
-            <div class="resume_item resmue_interests">
-                <div class="resume_title">Interests</div>
-                <div class="resume_info">
-                    <div class="interests">
-                        <div class="int_icon">
-                            <i class="fas fa-volleyball-ball"></i>
-                        </div>
-                        <div class="int_data">Volleyball</div>
-                    </div>
-                    <div class="interests">
-                        <div class="int_icon">
-                            <i class="fas fa-book-open"></i>
-                        </div>
-                        <div class="int_data">Reading</div>
-                    </div>
-                    <div class="interests">
-                        <div class="int_icon">
-                            <i class="fas fa-film"></i>
-                        </div>
-                        <div class="int_data">Movies</div>
-                    </div>
-                    <div class="interests">
-                        <div class="int_icon">
-                            <i class="fas fa-biking"></i>
-                        </div>
-                        <div class="int_data">Riding</div>
-                    </div>
-                </div>
-            </div>
-            -->
+        <div class="item">
+          <div class="row"><span class="title">Fundador — Sonríe México</span><span class="date">2023 – Actualidad</span></div>
+          <ul>
+            <li>Comunidad juvenil de impacto social y ambiental con presencia en más de cuatro estados y una comunidad de más de 35,000 personas.</li>
+            <li>Organización de donaciones, reforestación, apoyo escolar y formación de liderazgos juveniles.</li>
+          </ul>
         </div>
+        <div class="item">
+          <div class="row"><span class="title">Desarrollo web y de aplicaciones — Independiente</span><span class="date">2022 – Actualidad</span></div>
+          <ul>
+            <li>Sitios y apps a la medida para negocios (restaurantes, tiendas, florerías): catálogo, e-commerce con pago en línea, reservas y administración en la nube.</li>
+          </ul>
+        </div>
+
+        <hr />
+        <h2>Educación</h2>
+        <div class="item">
+          <div class="row"><span class="title">Ingeniería Mecatrónica</span><span class="date">En curso</span></div>
+          <div class="row"><span class="sub">Tecnológico de Monterrey, Campus Querétaro</span></div>
+          <ul><li>Beca BTEM al Talento Emprendedor y beca de la Fundación BBVA &ldquo;Chavos que Inspiran&rdquo;.</li></ul>
+        </div>
+        <div class="item">
+          <div class="row"><span class="title">Técnico en Programación</span><span class="date">Concluido</span></div>
+          <div class="row"><span class="sub">CECYTEG, Plantel Cortázar</span></div>
+        </div>
+
+        <hr />
+        <h2>Reconocimientos</h2>
+        <ul>
+          <li><span class="tag">2.º lugar internacional</span> — Invention Convention Americas 2023 (146 finalistas de EE. UU. y México, seleccionados de entre más de 170,000 participantes del programa).</li>
+          <li><span class="tag">1.º lugar — TalentTIC</span> &nbsp;·&nbsp; <span class="tag">1.º lugar — Track Talents</span> (ITESI, Irapuato) &nbsp;·&nbsp; <span class="tag">3.º lugar — Cumbre de Emprendimiento de Guanajuato</span>.</li>
+          <li>Reconocimiento del IDEA GTO y el CECYTEG (recursos para pruebas) &nbsp;·&nbsp; Startup Capital (Silao) &nbsp;·&nbsp; Hackathon Mentefactura &nbsp;·&nbsp; Lift Off (Tec de Monterrey).</li>
+          <li>Cobertura en <span class="tag">TV4</span> y en el podcast &ldquo;Sin Miedo al Éxito&rdquo;.</li>
+        </ul>
+
+        <hr />
+        <h2>Habilidades e información adicional</h2>
+        <ul>
+          <li><span class="tag">Técnicas:</span> HTML, CSS, JavaScript &nbsp;|&nbsp; Flutter, Dart &nbsp;|&nbsp; Python, Java, Arduino, C &nbsp;|&nbsp; Linux &nbsp;|&nbsp; Figma &nbsp;|&nbsp; Impresión 3D y Onshape.</li>
+          <li><span class="tag">Certificaciones:</span> Cisco — NDG Linux Unhatched, NDG Linux Essentials, Introduction to Cybersecurity.</li>
+          <li><span class="tag">Idiomas:</span> Español (nativo), Inglés.</li>
+          <li><span class="tag">Blandas:</span> Liderazgo, comunicación, trabajo en equipo, resolución de problemas y gestión de proyectos.</li>
+        </ul>
+
+        <div class="cv-portfolio">
+          Mira todo mi trabajo — proyectos, logros, galería y videos:
+          <a class="big" href="https://miguelin777.github.io/RuedaTec/Miguel/" target="_blank">miguelin777.github.io/RuedaTec/Miguel</a>
+        </div>
+      </div>
+    </main>
+
+    <div class="cv-actions">
+      <button class="cv-pdf-btn" onclick="window.print()"><i class="ri-download-2-line"></i> Descargar PDF</button>
     </div>
-
-
-        <div class="cv-actions">
-          <button class="cv-pdf-btn" onclick="window.print()"><i class="ri-download-2-line"></i> Descargar PDF</button>
-        </div>
 
     <!--==================== FOOTER ====================-->
     <footer class="footer">
       <div class="footer__container container grid">
         <ul class="footer__links">
           <li><a href="./../../index.html" class="footer__link">Inicio</a></li>
-          <li><a href="./../../index.html#about" class="footer__link">Sobre Mí</a></li>
           <li><a href="./../../index.html#projects" class="footer__link">Proyectos</a></li>
+          <li><a href="./../../index.html#logros" class="footer__link">Logros</a></li>
         </ul>
-
-        <span class="footer__copy">
-          &#169; 2026 Miguel Huizache · Hecho en Cortázar, Gto.
-          <a href="https://sonriemexico.org/" target="_blank">Sonríe</a>
-        </span>
+        <span class="footer__copy">&#169; 2026 Miguel Huizache · Hecho en Cortázar, Gto.</span>
       </div>
     </footer>
 
-    <!--========== SCROLL UP ==========-->
-    <a href="#" class="scrollup" id="scroll-up">
-      <i class="ri-arrow-up-s-line"></i>
-    </a>
-    <!--=============== SCROLLREVEAL ===============-->
-    <script src="./../../assets/js/scrollreveal.min.js"></script>
-
-    <!--=============== EMAIL JS ===============-->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
-    <!--=============== MAIN JS ===============-->
+    <a href="#" class="scrollup" id="scroll-up"><i class="ri-arrow-up-s-line"></i></a>
     <script src="./../../assets/js/main.js"></script>
   </body>
 </html>
