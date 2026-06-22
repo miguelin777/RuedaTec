@@ -30,8 +30,9 @@
       /* FIX: el .main tenía overflow:hidden y eso rompe position:sticky.
          overflow-x:clip clipa el horizontal igual, pero SÍ permite el sticky (como jack). */
       .main { overflow-x: clip; overflow-y: visible; }
-      .logros { padding-bottom: 4rem; }
-      .logros__list { max-width: 1200px; margin-inline: auto; }
+      .logros { background: #0c0c0c; padding-top: 2.5rem; padding-bottom: 5rem; }
+      .logros__list { max-width: 1500px; margin-inline: auto; }
+      .logros .section__title-1, .logros .section__title-1 span { color: #d7e2ea; }
       .logro__sticky {
         position: sticky;
         top: 6rem;
@@ -44,7 +45,7 @@
       .logro__card {
         position: relative;
         width: 100%;
-        background: #0c0c0c;
+        background: #1c1c20;
         border: 2px solid #d7e2ea;
         border-radius: 40px;
         padding: 1rem;
@@ -103,6 +104,9 @@
         .nav__link-button { padding: 0.6rem 1.4rem !important; border-radius: 999px !important; line-height: 1.15 !important; display: inline-flex !important; align-items: center !important; }
         .nav__link-button::after { display: none !important; }
       }
+      /* Modo oscuro: el fade del fondo atora el cambio en algunos navegadores; lo quitamos para que SÍ aplique */
+      body { transition: color .4s; }
+      body.dark-theme { background-color: hsl(0, 0%, 8%) !important; }
     </style>
 
     <title>Miguel Huizache</title>
@@ -303,379 +307,8 @@
 
 
       
-      <!--==================== SERVICES ====================-->
-      <section class="services section">
-        <h2 class="section__title-2"><span>Lo que me mueve</span></h2>
-
-        <div class="services__container container grid">
-
-          <article class="services__card">
-            <div class="services__border"></div>
-
-            <div class="services__content">
-              <div class="services__icon">
-                <div class="services__box"></div>
-                <i class="ri-lightbulb-flash-line"></i>
-              </div>
-
-              <h2 class="services__title">Tecnología con propósito</h2>
-
-              <p class="services__description">
-                Me encanta usar la tecnología para resolver problemas reales. Así nació RuedaTec: para devolverle independencia a quien más lo necesita.
-              </p>
-            </div>
-          </article>
-
-          <article class="services__card">
-            <div class="services__border"></div>
-
-            <div class="services__content">
-              <div class="services__icon">
-                <div class="services__box"></div>
-                <i class="ri-heart-3-line"></i>
-              </div>
-
-              <h2 class="services__title">Impacto social</h2>
-
-              <p class="services__description">
-                Con Sonríe México ayudo a mi comunidad con campañas, eventos y voluntariado. Lo que uno hace debe dejar algo bueno.
-              </p>
-            </div>
-          </article>
-          
-
-          <article class="services__card">
-            <div class="services__border"></div>
-
-            <div class="services__content">
-              <div class="services__icon">
-                <div class="services__box"></div>
-                <i class="ri-rocket-2-line"></i>
-              </div>
-
-              <h2 class="services__title">Emprender y no rendirme</h2>
-
-              <p class="services__description">
-                Disfruto convertir ideas en proyectos reales y aprender sobre la marcha. No hay imposibles cuando le echas ganas.
-              </p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <!--==================== PROJECTS ====================-->
-      <section class="projects section" id="projects">
-        <h2 class="section__title-1">
-          <span>Proyectos.</span>
-        </h2>
-
-        <div class="projects__container container grid">
-          <article class="projects__card">
-            <div class="projects__image">
-              <img
-                class="projects__img"
-                src="assets/img/23_1x_shots_so.png"
-                alt="image"
-              />
-
-              <a href="https://miguelin777.github.io/Clubdel100/" class="projects__button button">
-                <i class="ri-arrow-right-up-line"></i>
-              </a>
-            </div>
-
-            <div class="projects__content">
-              <h3 class="projects__subtitle">Website</h3>
-              <h2 class="projects__title">Creando tu Negocio</h2>
-
-              <p class="projects__description">
-                Adquiere las habilidades necesarias para construir tu negocio desde cero, usando Redes Neuronales con Python, Excel, Power BI, Onshape y demás.
-              </p>
-            </div>
-
-            <div class="projects__buttons">
-              <a
-                href="https://miguelin777.github.io/Clubdel100/"
-                target="_blank"
-                class="projects__link"
-              >
-                <i class="ri-global-line"></i> Ver
-              </a>
-            </div>
-          </article>
-
-          <article class="projects__card">
-            <div class="projects__image">
-              <img
-                class="projects__img"
-                src="assets/img/337_1x_shots_so.png"
-                alt="image"
-              />
-
-              <a
-                href="https://www.ruedatec.com/"
-                class="projects__button button"
-              >
-                <i class="ri-arrow-right-up-line"></i>
-              </a>
-            </div>
-
-            <div class="projects__content">
-              <h3 class="projects__subtitle">Website</h3>
-              <h2 class="projects__title">RuedaTec</h2>
-
-              <p class="projects__description">
-                Sitio oficial de RuedaTec: un motor portátil que convierte una silla de ruedas manual en eléctrica en menos de dos minutos. Ahí están sus especificaciones y cómo conseguirlo.
-              </p>
-            </div>
-
-            <div class="projects__buttons">
-              <a
-                href="https://www.ruedatec.com/"
-                target="_blank"
-                class="projects__link"
-              >
-                <i class="ri-global-line"></i> Ver sitio
-              </a>
-              <a
-                href="./assets/RuedaTec-pitch.pdf"
-                target="_blank"
-                class="projects__link"
-              >
-                <i class="ri-slideshow-2-line"></i> Pitch (PDF)
-              </a>
-            </div>
-          </article>
-
-
-
-          <article class="projects__card">
-            <div class="projects__image">
-              <img
-                class="projects__img"
-                src="./assets/img/sonriem2.png"
-                alt="image"
-              />
-
-              <a
-                href="https://sonriemexico.org/"
-                class="projects__button button"
-              >
-                <i class="ri-arrow-right-up-line"></i>
-              </a>
-            </div>
-
-            <div class="projects__content">
-              <h3 class="projects__subtitle">Website</h3>
-              <h2 class="projects__title">Sonríe</h2>
-
-              <p class="projects__description">
-                Desarrollé este sitio para mi proyecto social "Sonríe", donde muestro todas las campañas y eventos que hemos estado haciendo desde su inicio.
-              </p>
-            </div>
-
-            <div class="projects__buttons">
-              <a
-                href="https://sonriemexico.org/"
-                target="_blank"
-                class="projects__link"
-              >
-                <i class="ri-global-line"></i> Ver
-              </a>
-            </div>
-          </article>
-
-
-
-          <article class="projects__card">
-            <div class="projects__image">
-              <img
-                class="projects__img"
-                src="assets/img/771_1x_shots_so.png"
-                alt="image"
-              />
-
-              <a
-                href="https://miguelin777.github.io/proyectoFatima/"
-                class="projects__button button"
-              >
-                <i class="ri-arrow-right-up-line"></i>
-              </a>
-            </div>
-
-            <div class="projects__content">
-              <h3 class="projects__subtitle">Website</h3>
-              <h2 class="projects__title">Leo Muebles</h2>
-
-              <p class="projects__description">
-                Sitio web para una tienda de muebles, adaptado a las especificaciones del usuario. Este fue el primer sitio y de ahí empezó todo lo demás.
-              </p>
-            </div>
-
-            <div class="projects__buttons">
-              <a
-                href="https://miguelin777.github.io/proyectoFatima/"
-                target="_blank"
-                class="projects__link"
-              >
-                <i class="ri-global-line"></i> Ver
-              </a>
-            </div>
-          </article>
-
-          <article class="projects__card">
-            <div class="projects__image">
-              <img
-                class="projects__img"
-                src="assets/img/467_1x_shots_so.png"
-                alt="image"
-              />
-
-              <a
-                href="https://miguelin777.github.io/RuedaTec/index.html"
-                class="projects__button button"
-              >
-                <i class="ri-arrow-right-up-line"></i>
-              </a>
-            </div>
-
-            <div class="projects__content">
-              <h3 class="projects__subtitle">Website</h3>
-              <h2 class="projects__title">Historia de RuedaTec</h2>
-
-              <p class="projects__description">
-                Diseñé este sitio para enseñarles la historia de RuedaTec y así puedan ver que no hay imposibles cuando se trata de algo que nos gusta.
-              </p>
-            </div>
-
-            <div class="projects__buttons">
-              <a
-                href="https://miguelin777.github.io/RuedaTec/index.html"
-                target="_blank"
-                class="projects__link"
-              >
-                <i class="ri-global-line"></i> Ver
-              </a>
-            </div>
-          </article>
-
-          <article class="projects__card">
-            <div class="projects__image">
-              <img class="projects__img" src="assets/img/ev-rt.jpg" alt="RuedaTec App" />
-              <a href="https://apps.apple.com/mx/app/ruedatec/id6759914211" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
-            </div>
-            <div class="projects__content">
-              <h3 class="projects__subtitle">App · iOS</h3>
-              <h2 class="projects__title">RuedaTec — App</h2>
-              <p class="projects__description">
-                App de control de la silla de ruedas eléctrica por Bluetooth (Flutter). Ya disponible en la App Store.
-              </p>
-            </div>
-            <div class="projects__buttons">
-              <a href="https://apps.apple.com/mx/app/ruedatec/id6759914211" target="_blank" class="projects__link"><i class="ri-apple-fill"></i> App Store</a>
-            </div>
-          </article>
-
-          <article class="projects__card">
-            <div class="projects__image">
-              <img class="projects__img" src="assets/img/echo-app.png" alt="Echo - Campus" />
-              <a href="https://apps.apple.com/mx/app/echo-campus/id6759099873" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
-            </div>
-            <div class="projects__content">
-              <h3 class="projects__subtitle">App · iOS</h3>
-              <h2 class="projects__title">Echo - Campus</h2>
-              <p class="projects__description">
-                App social anónima para conectar con tu campus, que hice con un amigo. Disponible en la App Store.
-              </p>
-            </div>
-            <div class="projects__buttons">
-              <a href="https://apps.apple.com/mx/app/echo-campus/id6759099873" target="_blank" class="projects__link"><i class="ri-apple-fill"></i> App Store</a>
-            </div>
-          </article>
-
-          <article class="projects__card">
-            <div class="projects__image">
-              <img class="projects__img" src="https://image.thum.io/get/width/1280/crop/820/https://floreria-demo.pages.dev/" alt="Florería Sonríe" />
-              <a href="https://floreria-demo.pages.dev/" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
-            </div>
-            <div class="projects__content">
-              <h3 class="projects__subtitle">Website · Tienda</h3>
-              <h2 class="projects__title">Florería Sonríe</h2>
-              <p class="projects__description">
-                Sitio web + panel para florerías: catálogo por categorías, pedidos por WhatsApp y administración en la nube.
-              </p>
-            </div>
-            <div class="projects__buttons">
-              <a href="https://floreria-demo.pages.dev/" target="_blank" class="projects__link"><i class="ri-global-line"></i> Ver sitio</a>
-            </div>
-          </article>
-
-          <article class="projects__card">
-            <div class="projects__image">
-              <img class="projects__img" src="https://image.thum.io/get/width/1280/crop/820/https://elranchitodeyulay.netlify.app/" alt="El Ranchito de Yulay" />
-              <a href="https://elranchitodeyulay.netlify.app/" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
-            </div>
-            <div class="projects__content">
-              <h3 class="projects__subtitle">Website · Restaurante</h3>
-              <h2 class="projects__title">El Ranchito de Yulay</h2>
-              <p class="projects__description">
-                Propuesta de sitio (menú, reservas y panel de administración) para un restaurante, concepto El Ranchito de Yulay.
-              </p>
-            </div>
-            <div class="projects__buttons">
-              <a href="https://elranchitodeyulay.netlify.app/" target="_blank" class="projects__link"><i class="ri-global-line"></i> Ver sitio</a>
-            </div>
-          </article>
-
-          <article class="projects__card">
-            <div class="projects__image">
-              <img class="projects__img" src="https://image.thum.io/get/width/1280/crop/820/https://miguelin777.github.io/menuderia-cortazar-web/" alt="Menudería Cortazar" />
-              <a href="https://miguelin777.github.io/menuderia-cortazar-web/" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
-            </div>
-            <div class="projects__content">
-              <h3 class="projects__subtitle">Website · Restaurante</h3>
-              <h2 class="projects__title">Menudería Cortazar</h2>
-              <p class="projects__description">
-                Sitio del restaurante de mi familia: menú en vivo, horarios y administración en la nube.
-              </p>
-            </div>
-            <div class="projects__buttons">
-              <a href="https://miguelin777.github.io/menuderia-cortazar-web/" target="_blank" class="projects__link"><i class="ri-global-line"></i> Ver sitio</a>
-            </div>
-          </article>
-
-          <article class="projects__card">
-            <div class="projects__image">
-              <img class="projects__img" src="https://image.thum.io/get/width/1280/crop/820/https://muebleria-ten.vercel.app/" alt="Muebles Cortazar" />
-              <a href="https://muebleria-ten.vercel.app/" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
-            </div>
-            <div class="projects__content">
-              <h3 class="projects__subtitle">Website · Tienda</h3>
-              <h2 class="projects__title">Muebles Cortazar</h2>
-              <p class="projects__description">
-                Tienda en línea de muebles con carrito y pago seguro con tarjeta (Stripe).
-              </p>
-            </div>
-            <div class="projects__buttons">
-              <a href="https://muebleria-ten.vercel.app/" target="_blank" class="projects__link"><i class="ri-global-line"></i> Ver sitio</a>
-            </div>
-          </article>
-
-
-        </div>
-      </section>
-
-
-
-
-
-
-
-
-
-
-
       <!--==================== LOGROS ====================-->
-      <section class="logros section" id="logros">
+<section class="logros section" id="logros">
         <h2 class="section__title-1">
           <span>Logros.</span>
         </h2>
@@ -888,6 +521,379 @@
               </div>
             </article>
           </div>
+        </div>
+      </section>
+
+      <!--==================== SERVICES ====================-->
+      <section class="services section">
+        <h2 class="section__title-2"><span>Lo que me mueve</span></h2>
+
+        <div class="services__container container grid">
+
+          <article class="services__card">
+            <div class="services__border"></div>
+
+            <div class="services__content">
+              <div class="services__icon">
+                <div class="services__box"></div>
+                <i class="ri-lightbulb-flash-line"></i>
+              </div>
+
+              <h2 class="services__title">Tecnología con propósito</h2>
+
+              <p class="services__description">
+                Me encanta usar la tecnología para resolver problemas reales. Así nació RuedaTec: para devolverle independencia a quien más lo necesita.
+              </p>
+            </div>
+          </article>
+
+          <article class="services__card">
+            <div class="services__border"></div>
+
+            <div class="services__content">
+              <div class="services__icon">
+                <div class="services__box"></div>
+                <i class="ri-heart-3-line"></i>
+              </div>
+
+              <h2 class="services__title">Impacto social</h2>
+
+              <p class="services__description">
+                Con Sonríe México ayudo a mi comunidad con campañas, eventos y voluntariado. Lo que uno hace debe dejar algo bueno.
+              </p>
+            </div>
+          </article>
+          
+
+          <article class="services__card">
+            <div class="services__border"></div>
+
+            <div class="services__content">
+              <div class="services__icon">
+                <div class="services__box"></div>
+                <i class="ri-rocket-2-line"></i>
+              </div>
+
+              <h2 class="services__title">Emprender y no rendirme</h2>
+
+              <p class="services__description">
+                Disfruto convertir ideas en proyectos reales y aprender sobre la marcha. No hay imposibles cuando le echas ganas.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!--==================== PROJECTS ====================-->
+      <section class="projects section" id="projects">
+        <h2 class="section__title-1">
+          <span>Proyectos.</span>
+        </h2>
+
+        <div class="projects__container container grid">
+          <article class="projects__card">
+            <div class="projects__image">
+              <img
+                class="projects__img"
+                src="assets/img/337_1x_shots_so.png"
+                alt="image"
+              />
+
+              <a
+                href="https://www.ruedatec.com/"
+                class="projects__button button"
+              >
+                <i class="ri-arrow-right-up-line"></i>
+              </a>
+            </div>
+
+            <div class="projects__content">
+              <h3 class="projects__subtitle">Website</h3>
+              <h2 class="projects__title">RuedaTec</h2>
+
+              <p class="projects__description">
+                Sitio oficial de RuedaTec: un motor portátil que convierte una silla de ruedas manual en eléctrica en menos de dos minutos. Ahí están sus especificaciones y cómo conseguirlo.
+              </p>
+            </div>
+
+            <div class="projects__buttons">
+              <a
+                href="https://www.ruedatec.com/"
+                target="_blank"
+                class="projects__link"
+              >
+                <i class="ri-global-line"></i> Ver sitio
+              </a>
+              <a
+                href="./assets/RuedaTec-pitch.pdf"
+                target="_blank"
+                class="projects__link"
+              >
+                <i class="ri-slideshow-2-line"></i> Pitch (PDF)
+              </a>
+            </div>
+          </article>
+
+          <article class="projects__card">
+            <div class="projects__image">
+              <img
+                class="projects__img"
+                src="./assets/img/sonriem2.png"
+                alt="image"
+              />
+
+              <a
+                href="https://sonriemexico.org/"
+                class="projects__button button"
+              >
+                <i class="ri-arrow-right-up-line"></i>
+              </a>
+            </div>
+
+            <div class="projects__content">
+              <h3 class="projects__subtitle">Website</h3>
+              <h2 class="projects__title">Sonríe</h2>
+
+              <p class="projects__description">
+                Desarrollé este sitio para mi proyecto social "Sonríe", donde muestro todas las campañas y eventos que hemos estado haciendo desde su inicio.
+              </p>
+            </div>
+
+            <div class="projects__buttons">
+              <a
+                href="https://sonriemexico.org/"
+                target="_blank"
+                class="projects__link"
+              >
+                <i class="ri-global-line"></i> Ver
+              </a>
+            </div>
+          </article>
+
+          <article class="projects__card">
+            <div class="projects__image">
+              <img class="projects__img" src="https://image.thum.io/get/width/1280/crop/820/https://elranchitodeyulay.netlify.app/" alt="El Ranchito de Yulay" />
+              <a href="https://elranchitodeyulay.netlify.app/" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
+            </div>
+            <div class="projects__content">
+              <h3 class="projects__subtitle">Website · Restaurante</h3>
+              <h2 class="projects__title">El Ranchito de Yulay</h2>
+              <p class="projects__description">
+                Propuesta de sitio (menú, reservas y panel de administración) para un restaurante, concepto El Ranchito de Yulay.
+              </p>
+            </div>
+            <div class="projects__buttons">
+              <a href="https://elranchitodeyulay.netlify.app/" target="_blank" class="projects__link"><i class="ri-global-line"></i> Ver sitio</a>
+            </div>
+          </article>
+
+          <article class="projects__card">
+            <div class="projects__image">
+              <img class="projects__img" src="assets/img/echo-app.png" alt="Echo - Campus" />
+              <a href="https://apps.apple.com/mx/app/echo-campus/id6759099873" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
+            </div>
+            <div class="projects__content">
+              <h3 class="projects__subtitle">App · iOS</h3>
+              <h2 class="projects__title">Echo - Campus</h2>
+              <p class="projects__description">
+                App social anónima para conectar con tu campus, que hice con un amigo. Disponible en la App Store.
+              </p>
+            </div>
+            <div class="projects__buttons">
+              <a href="https://apps.apple.com/mx/app/echo-campus/id6759099873" target="_blank" class="projects__link"><i class="ri-apple-fill"></i> App Store</a>
+            </div>
+          </article>
+
+          <article class="projects__card">
+            <div class="projects__image">
+              <img class="projects__img" src="https://image.thum.io/get/width/1280/crop/820/https://muebleria-ten.vercel.app/" alt="Muebles Cortazar" />
+              <a href="https://muebleria-ten.vercel.app/" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
+            </div>
+            <div class="projects__content">
+              <h3 class="projects__subtitle">Website · Tienda</h3>
+              <h2 class="projects__title">Muebles Cortazar</h2>
+              <p class="projects__description">
+                Tienda en línea de muebles con carrito y pago seguro con tarjeta (Stripe).
+              </p>
+            </div>
+            <div class="projects__buttons">
+              <a href="https://muebleria-ten.vercel.app/" target="_blank" class="projects__link"><i class="ri-global-line"></i> Ver sitio</a>
+            </div>
+          </article>
+
+          <article class="projects__card">
+            <div class="projects__image">
+              <img class="projects__img" src="https://image.thum.io/get/width/1280/crop/820/https://floreria-demo.pages.dev/" alt="Florería Sonríe" />
+              <a href="https://floreria-demo.pages.dev/" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
+            </div>
+            <div class="projects__content">
+              <h3 class="projects__subtitle">Website · Tienda</h3>
+              <h2 class="projects__title">Florería Sonríe</h2>
+              <p class="projects__description">
+                Sitio web + panel para florerías: catálogo por categorías, pedidos por WhatsApp y administración en la nube.
+              </p>
+            </div>
+            <div class="projects__buttons">
+              <a href="https://floreria-demo.pages.dev/" target="_blank" class="projects__link"><i class="ri-global-line"></i> Ver sitio</a>
+            </div>
+          </article>
+
+          <article class="projects__card">
+            <div class="projects__image">
+              <img class="projects__img" src="assets/img/ev-rt.jpg" alt="RuedaTec App" />
+              <a href="https://apps.apple.com/mx/app/ruedatec/id6759914211" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
+            </div>
+            <div class="projects__content">
+              <h3 class="projects__subtitle">App · iOS</h3>
+              <h2 class="projects__title">RuedaTec — App</h2>
+              <p class="projects__description">
+                App de control de la silla de ruedas eléctrica por Bluetooth (Flutter). Ya disponible en la App Store.
+              </p>
+            </div>
+            <div class="projects__buttons">
+              <a href="https://apps.apple.com/mx/app/ruedatec/id6759914211" target="_blank" class="projects__link"><i class="ri-apple-fill"></i> App Store</a>
+            </div>
+          </article>
+
+          <article class="projects__card">
+            <div class="projects__image">
+              <img class="projects__img" style="object-fit: contain; background: #0c0c0c; padding: 1rem;" src="assets/img/gotcha.png" alt="War Games Gotcha" />
+            </div>
+            <div class="projects__content">
+              <h3 class="projects__subtitle">Website · Pitch</h3>
+              <h2 class="projects__title">War Games Gotcha</h2>
+              <p class="projects__description">
+                Sitio para un negocio de gotcha/paintball en Celaya: paquetes, reservas por WhatsApp y panel de administración. (Demo / propuesta.)
+              </p>
+            </div>
+            <div class="projects__buttons">
+              <span class="projects__link" style="opacity: .6;">Próximamente</span>
+            </div>
+          </article>
+
+          <article class="projects__card">
+            <div class="projects__image">
+              <img class="projects__img" src="https://image.thum.io/get/width/1280/crop/820/https://miguelin777.github.io/menuderia-cortazar-web/" alt="Menudería Cortazar" />
+              <a href="https://miguelin777.github.io/menuderia-cortazar-web/" target="_blank" class="projects__button button"><i class="ri-arrow-right-up-line"></i></a>
+            </div>
+            <div class="projects__content">
+              <h3 class="projects__subtitle">Website · Restaurante</h3>
+              <h2 class="projects__title">Menudería Cortazar</h2>
+              <p class="projects__description">
+                Sitio del restaurante de mi familia: menú en vivo, horarios y administración en la nube.
+              </p>
+            </div>
+            <div class="projects__buttons">
+              <a href="https://miguelin777.github.io/menuderia-cortazar-web/" target="_blank" class="projects__link"><i class="ri-global-line"></i> Ver sitio</a>
+            </div>
+          </article>
+
+          <article class="projects__card">
+            <div class="projects__image">
+              <img
+                class="projects__img"
+                src="assets/img/23_1x_shots_so.png"
+                alt="image"
+              />
+
+              <a href="https://miguelin777.github.io/Clubdel100/" class="projects__button button">
+                <i class="ri-arrow-right-up-line"></i>
+              </a>
+            </div>
+
+            <div class="projects__content">
+              <h3 class="projects__subtitle">Website</h3>
+              <h2 class="projects__title">Creando tu Negocio</h2>
+
+              <p class="projects__description">
+                Adquiere las habilidades necesarias para construir tu negocio desde cero, usando Redes Neuronales con Python, Excel, Power BI, Onshape y demás.
+              </p>
+            </div>
+
+            <div class="projects__buttons">
+              <a
+                href="https://miguelin777.github.io/Clubdel100/"
+                target="_blank"
+                class="projects__link"
+              >
+                <i class="ri-global-line"></i> Ver
+              </a>
+            </div>
+          </article>
+
+          <article class="projects__card">
+            <div class="projects__image">
+              <img
+                class="projects__img"
+                src="assets/img/771_1x_shots_so.png"
+                alt="image"
+              />
+
+              <a
+                href="https://miguelin777.github.io/proyectoFatima/"
+                class="projects__button button"
+              >
+                <i class="ri-arrow-right-up-line"></i>
+              </a>
+            </div>
+
+            <div class="projects__content">
+              <h3 class="projects__subtitle">Website</h3>
+              <h2 class="projects__title">Leo Muebles</h2>
+
+              <p class="projects__description">
+                Sitio web para una tienda de muebles, adaptado a las especificaciones del usuario. Este fue el primer sitio y de ahí empezó todo lo demás.
+              </p>
+            </div>
+
+            <div class="projects__buttons">
+              <a
+                href="https://miguelin777.github.io/proyectoFatima/"
+                target="_blank"
+                class="projects__link"
+              >
+                <i class="ri-global-line"></i> Ver
+              </a>
+            </div>
+          </article>
+
+          <article class="projects__card">
+            <div class="projects__image">
+              <img
+                class="projects__img"
+                src="assets/img/467_1x_shots_so.png"
+                alt="image"
+              />
+
+              <a
+                href="https://miguelin777.github.io/RuedaTec/index.html"
+                class="projects__button button"
+              >
+                <i class="ri-arrow-right-up-line"></i>
+              </a>
+            </div>
+
+            <div class="projects__content">
+              <h3 class="projects__subtitle">Website</h3>
+              <h2 class="projects__title">Historia de RuedaTec</h2>
+
+              <p class="projects__description">
+                Diseñé este sitio para enseñarles la historia de RuedaTec y así puedan ver que no hay imposibles cuando se trata de algo que nos gusta.
+              </p>
+            </div>
+
+            <div class="projects__buttons">
+              <a
+                href="https://miguelin777.github.io/RuedaTec/index.html"
+                target="_blank"
+                class="projects__link"
+              >
+                <i class="ri-global-line"></i> Ver
+              </a>
+            </div>
+          </article>
+
+
         </div>
       </section>
 
