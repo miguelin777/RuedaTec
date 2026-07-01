@@ -56,6 +56,12 @@
         cursor: pointer; font-family: inherit; transition: background .2s, transform .2s; }
       .cv-pdf-btn:hover { background: #333; transform: translateY(-2px); }
 
+      /* Entrada suave del documento */
+      @media (prefers-reduced-motion: no-preference) {
+        .cv { animation: cvUp .6s cubic-bezier(.2, .8, .2, 1) both; }
+        @keyframes cvUp { from { opacity: 0; transform: translateY(22px); } }
+      }
+
       /* ===== Impresión / PDF ===== */
       @media print {
         @page { size: Letter; margin: 14mm; }

@@ -171,6 +171,79 @@
         .home__proto--tl { top: -1.6rem; left: -1.8rem; }
         .home__proto--br { bottom: -1.6rem; right: -1.8rem; }
       }
+
+      /* ===== Upgrade visual (estilo Cuberto): progreso, cursor, marquee, stats, camino ===== */
+      .scroll-progress { position: fixed; top: 0; left: 0; height: 4px; width: 0; background: var(--first-color); z-index: 10001; pointer-events: none; }
+
+      /* Cursor que sigue al mouse (solo escritorio) */
+      .cursor-ring { position: fixed; top: 0; left: 0; width: 34px; height: 34px; border: 2px solid var(--first-color); border-radius: 50%; pointer-events: none; z-index: 10000; opacity: 0; transition: width .25s ease, height .25s ease, opacity .3s ease, background-color .25s ease; }
+      .cursor-ring.on { opacity: 1; }
+      .cursor-ring.grow { width: 62px; height: 62px; background: hsla(214, 98%, 50%, .12); }
+      @media (hover: none), (pointer: coarse) { .cursor-ring { display: none; } }
+
+      /* Nombre letra por letra */
+      .home__name .ltr { display: inline-block; opacity: 0; transform: translateY(.6em) rotate(6deg); animation: ltrIn .7s cubic-bezier(.2, .8, .2, 1) forwards; animation-delay: calc(var(--i) * 42ms); }
+      @keyframes ltrIn { to { opacity: 1; transform: none; } }
+
+      /* Marquee infinito */
+      .marquee { display: block; overflow: hidden; background: #0c0c0c; padding: 1.05rem 0; text-decoration: none; }
+      .marquee__track { display: flex; gap: 2.2rem; width: max-content; animation: mqMove 26s linear infinite; will-change: transform; }
+      .marquee__part { display: flex; gap: 2.2rem; align-items: center; }
+      .marquee__part span { color: #d7e2ea; white-space: nowrap; text-transform: uppercase; font-weight: 800; letter-spacing: .08em; font-size: clamp(1.05rem, 2.4vw, 1.7rem); }
+      .marquee__part i { color: var(--first-color); font-size: 1.15em; }
+      .marquee:hover .marquee__track { animation-play-state: paused; }
+      @keyframes mqMove { to { transform: translateX(-50%); } }
+      .marquee--cta { padding: 1.6rem 0; cursor: pointer; }
+      .marquee--cta .marquee__part span { font-size: clamp(1.7rem, 4.5vw, 3.2rem); color: transparent; -webkit-text-stroke: 1.5px #d7e2ea; transition: color .3s ease; }
+      .marquee--cta:hover .marquee__part span { color: #d7e2ea; }
+
+      /* Stats (En números) */
+      .stats.section { padding-block: 4rem 4.5rem; }
+      .stats__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.25rem; max-width: 1100px; margin: 2.2rem auto 0; }
+      .stat { background: var(--container-color); border: 2px solid var(--title-color); border-radius: 22px; padding: 1.7rem 1.4rem; text-align: center; transition: transform .35s ease, box-shadow .35s ease; }
+      .stat:hover { transform: translateY(-8px); box-shadow: 0 18px 40px rgba(0, 0, 0, .22); }
+      .stat__num { display: block; font-weight: 900; line-height: 1; color: var(--title-color); font-size: clamp(2.4rem, 5.5vw, 3.6rem); font-variant-numeric: tabular-nums; }
+      .stat__label { display: block; margin-top: .6rem; color: var(--text-color); font-size: .92rem; line-height: 1.45; }
+
+      /* Camino (línea de tiempo) */
+      .camino.section { padding-block: 4.5rem 5rem; }
+      .tl { position: relative; max-width: 860px; margin: 2.2rem auto 0; }
+      .tl::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 3px; background: var(--title-color); opacity: .22; border-radius: 2px; }
+      .tl__item { position: relative; padding: 0 0 2.1rem 2.6rem; }
+      .tl__item::before { content: ""; position: absolute; left: 0; top: .4rem; width: 19px; height: 19px; border-radius: 50%; background: var(--first-color); border: 3px solid var(--title-color); }
+      .tl__year { font-weight: 900; font-size: clamp(1.5rem, 3.4vw, 2.1rem); color: var(--title-color); letter-spacing: .04em; }
+      .tl__title { font-weight: 700; color: var(--title-color); margin: .2rem 0 .3rem; font-size: 1.08rem; }
+      .tl__text { color: var(--text-color); line-height: 1.6; font-size: .96rem; max-width: 640px; }
+      .tl__link { display: inline-flex; align-items: center; gap: .35rem; margin-top: .6rem; font-weight: 700; color: var(--title-color); text-decoration: none; border-bottom: 2px solid var(--first-color); }
+      .tl__link:hover { color: var(--first-color); }
+
+      /* Aparecer al hacer scroll */
+      .rv { opacity: 0; transform: translateY(34px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1); }
+      .rv.in { opacity: 1; transform: none; }
+      .rv-d1 { transition-delay: .08s; } .rv-d2 { transition-delay: .16s; } .rv-d3 { transition-delay: .24s; }
+      .rv-d4 { transition-delay: .32s; } .rv-d5 { transition-delay: .4s; }
+
+      /* Hovers con más vida */
+      .projects__image { overflow: hidden; }
+      .projects__img { transition: transform .7s cubic-bezier(.2, .8, .2, 1); }
+      .projects__card:hover .projects__img { transform: scale(1.07); }
+      .gallery-grid-item { transition: transform .5s ease, filter .5s ease; }
+      .gallery-grid-item:hover { transform: scale(1.03); filter: brightness(1.08); }
+      .mag { transition: transform .25s cubic-bezier(.2, .8, .2, 1); will-change: transform; }
+
+      /* Poster de video (carga el reproductor hasta que le pican) */
+      .video-poster { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; color: #d7e2ea; background: radial-gradient(120% 120% at 30% 20%, #2a2a30 0%, #101014 60%, #060608 100%); }
+      .video-play { width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; font-size: 2.4rem; color: #0c0c0c; background: #d7e2ea; transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s; box-shadow: 0 10px 30px rgba(0, 0, 0, .45); }
+      .video-poster:hover .video-play { transform: scale(1.14); box-shadow: 0 16px 40px rgba(0, 0, 0, .6); }
+      .video-poster-label { font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: .85rem; opacity: .85; }
+
+      /* Respeto a quien prefiere menos movimiento */
+      @media (prefers-reduced-motion: reduce) {
+        .marquee__track { animation: none; }
+        .home__name .ltr { animation: none; opacity: 1; transform: none; }
+        .rv { opacity: 1; transform: none; transition: none; }
+        .cursor-ring { display: none; }
+      }
     </style>
 
     <title>Miguel Huizache</title>
@@ -293,7 +366,7 @@
 
           <div class="home__info">
             <p class="home__description">
-              <b>Estudiante de Mecatrónica</b> en el Tec de Monterrey y creador de <b>RuedaTec</b>, un motor que
+              <b>Estudiante de Mecatrónica</b> en el Tec de Monterrey y fundador de <b>RuedaTec</b>, un adaptador que
               vuelve eléctrica una silla de ruedas manual. Me la paso resolviendo problemas reales con tecnología.
             </p>
 
@@ -307,6 +380,29 @@
           </div>
         </div>
       </section>
+
+      <!--==================== MARQUEE ====================-->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <div class="marquee__part">
+            <span>RuedaTec</span><i class="ri-asterisk"></i>
+            <span>Sonríe México</span><i class="ri-asterisk"></i>
+            <span>Mecatrónica</span><i class="ri-asterisk"></i>
+            <span>2.º lugar internacional</span><i class="ri-asterisk"></i>
+            <span>Hecho en Cortázar, Gto.</span><i class="ri-asterisk"></i>
+            <span>Impacto social</span><i class="ri-asterisk"></i>
+          </div>
+          <div class="marquee__part">
+            <span>RuedaTec</span><i class="ri-asterisk"></i>
+            <span>Sonríe México</span><i class="ri-asterisk"></i>
+            <span>Mecatrónica</span><i class="ri-asterisk"></i>
+            <span>2.º lugar internacional</span><i class="ri-asterisk"></i>
+            <span>Hecho en Cortázar, Gto.</span><i class="ri-asterisk"></i>
+            <span>Impacto social</span><i class="ri-asterisk"></i>
+          </div>
+        </div>
+      </div>
+
       <!--==================== ABOUT ====================-->
       <section class="about section" id="about">
         <div class="about__container container grid">
@@ -375,6 +471,39 @@
 
 
       
+      <!--==================== EN NÚMEROS ====================-->
+      <section class="stats section" id="numeros">
+        <div class="container">
+          <h2 class="section__title-2"><span>En números.</span></h2>
+          <div class="stats__grid">
+            <div class="stat rv">
+              <span class="stat__num" data-count="6.1" data-decimals="1" data-suffix="M+">0</span>
+              <span class="stat__label">personas con discapacidad motriz en México (INEGI 2020): el problema que ataco</span>
+            </div>
+            <div class="stat rv rv-d1">
+              <span class="stat__num" data-count="146">0</span>
+              <span class="stat__label">finalistas de +170,000 participantes — y fuimos 2.º lugar internacional (Invention Convention 2023)</span>
+            </div>
+            <div class="stat rv rv-d2">
+              <span class="stat__num" data-count="35" data-suffix=",000+">0</span>
+              <span class="stat__label">jóvenes en la comunidad de Sonríe México</span>
+            </div>
+            <div class="stat rv rv-d3">
+              <span class="stat__num" data-count="13">0</span>
+              <span class="stat__label">usuarios reales probaron RuedaTec en calle (piloto de 2 semanas en Cortázar)</span>
+            </div>
+            <div class="stat rv rv-d4">
+              <span class="stat__num" data-count="4">0</span>
+              <span class="stat__label">modelos del adaptador iterados desde 2022</span>
+            </div>
+            <div class="stat rv rv-d5">
+              <span class="stat__num" data-count="2">0</span>
+              <span class="stat__label">apps publicadas en la App Store (RuedaTec y Echo-Campus)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!--==================== VIDEOS ====================-->
       <section class="videos section" id="videos">
         <div class="container">
@@ -384,26 +513,20 @@
           </p>
           <div class="videos__row">
             <div class="video-card">
-              <div class="video-frame">
-                <iframe
-                  src="https://drive.google.com/file/d/1OpqI_2lF-0YYnn8HZyyGZ-0fgcQaF72O/preview"
-                  allow="autoplay; fullscreen; encrypted-media"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Video RuedaTec — Beca al Talento Emprendedor"
-                ></iframe>
+              <div class="video-frame" data-video="https://drive.google.com/file/d/1OpqI_2lF-0YYnn8HZyyGZ-0fgcQaF72O/preview" data-title="Video RuedaTec — Beca al Talento Emprendedor">
+                <button class="video-poster" type="button" aria-label="Reproducir video de RuedaTec">
+                  <span class="video-play"><i class="ri-play-fill"></i></span>
+                  <span class="video-poster-label">Ver video</span>
+                </button>
               </div>
               <span class="video-cap">RuedaTec · Beca al Talento Emprendedor</span>
             </div>
             <div class="video-card">
-              <div class="video-frame">
-                <iframe
-                  src="https://drive.google.com/file/d/1OKACifhDYcyvTute86hRTinSMSsGh4aE/preview"
-                  allow="autoplay; fullscreen; encrypted-media"
-                  allowfullscreen
-                  loading="lazy"
-                  title="Video Sonríe México"
-                ></iframe>
+              <div class="video-frame" data-video="https://drive.google.com/file/d/1OKACifhDYcyvTute86hRTinSMSsGh4aE/preview" data-title="Video Sonríe México">
+                <button class="video-poster" type="button" aria-label="Reproducir video de Sonríe México">
+                  <span class="video-play"><i class="ri-play-fill"></i></span>
+                  <span class="video-poster-label">Ver video</span>
+                </button>
               </div>
               <span class="video-cap">Sonríe México</span>
             </div>
@@ -452,11 +575,12 @@
                     <span class="logro__name">Premiación de Oro — TalentTIC</span>
                   </div>
                 </div>
+                <a class="logro__live" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">Evidencia</a>
               </div>
               <div class="logro__grid">
                 <div class="logro__col1">
                   <img class="logro__img logro__img--a" src="assets/img/ev-rt.jpg" alt="RuedaTec" />
-                  <img class="logro__img logro__img--b" src="assets/img/rt-gal-04.jpg" alt="RuedaTec" />
+                  <img class="logro__img logro__img--b" src="assets/img/rt-gal-13.jpg" alt="Equipo en TALENT-TIC" />
                 </div>
                 <div class="logro__col2">
                   <img class="logro__img logro__img--big" src="assets/img/ev-premiacion-oro.jpg" alt="Premiación de oro" />
@@ -475,6 +599,7 @@
                     <span class="logro__name">Incubación y aceleración</span>
                   </div>
                 </div>
+                <a class="logro__live" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">Evidencia</a>
               </div>
               <div class="logro__grid">
                 <div class="logro__col1">
@@ -498,11 +623,12 @@
                     <span class="logro__name">Startup Capital — Silao</span>
                   </div>
                 </div>
+                <a class="logro__live" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">Evidencia</a>
               </div>
               <div class="logro__grid">
                 <div class="logro__col1">
-                  <img class="logro__img logro__img--a" src="assets/img/rt-gal-05.jpg" alt="RuedaTec" />
-                  <img class="logro__img logro__img--b" src="assets/img/rt-gal-08.jpg" alt="RuedaTec" />
+                  <img class="logro__img logro__img--a" src="assets/img/rt-gal-10.jpg" alt="Equipo en Startup Capital" />
+                  <img class="logro__img logro__img--b" src="assets/img/rt-gal-26.jpg" alt="Startup Capital 2023" />
                 </div>
                 <div class="logro__col2">
                   <img class="logro__img logro__img--big" src="assets/img/rt-gal-01.jpg" alt="RuedaTec" />
@@ -521,11 +647,12 @@
                     <span class="logro__name">3er lugar — Cumbre de Emprendimiento GTO</span>
                   </div>
                 </div>
+                <a class="logro__live" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">Evidencia</a>
               </div>
               <div class="logro__grid">
                 <div class="logro__col1">
                   <img class="logro__img logro__img--a" src="assets/img/rt-gal-07.jpg" alt="RuedaTec" />
-                  <img class="logro__img logro__img--b" src="assets/img/rt-gal-10.jpg" alt="RuedaTec" />
+                  <img class="logro__img logro__img--b" src="assets/img/rt-gal-03.jpg" alt="Evento de emprendimiento" />
                 </div>
                 <div class="logro__col2">
                   <img class="logro__img logro__img--big" src="assets/img/rt-gal-04.jpg" alt="RuedaTec" />
@@ -544,6 +671,7 @@
                     <span class="logro__name">Hackathon Mentefactura</span>
                   </div>
                 </div>
+                <a class="logro__live" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">Evidencia</a>
               </div>
               <div class="logro__grid">
                 <div class="logro__col1">
@@ -567,6 +695,7 @@
                     <span class="logro__name">Reconocimiento IDEA GTO + CECYTEG</span>
                   </div>
                 </div>
+                <a class="logro__live" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">Evidencia</a>
               </div>
               <div class="logro__grid">
                 <div class="logro__col1">
@@ -590,14 +719,15 @@
                     <span class="logro__name">Entrevista en TV4</span>
                   </div>
                 </div>
+                <a class="logro__live" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">Evidencia</a>
               </div>
               <div class="logro__grid">
                 <div class="logro__col1">
-                  <img class="logro__img logro__img--a" src="assets/img/rt-gal-09.jpg" alt="RuedaTec en TV4" />
-                  <img class="logro__img logro__img--b" src="assets/img/rt-gal-06.jpg" alt="RuedaTec" />
+                  <img class="logro__img logro__img--a" src="assets/img/rt-gal-24.jpg" alt="Entrevista para TV4" />
+                  <img class="logro__img logro__img--b" src="assets/img/rt-gal-29.jpg" alt="Set de grabación" />
                 </div>
                 <div class="logro__col2">
-                  <img class="logro__img logro__img--big" src="assets/img/rt-gal-12.jpg" alt="RuedaTec" />
+                  <img class="logro__img logro__img--big" src="assets/img/rt-gal-22.jpg" alt="Unidad de TV4" />
                 </div>
               </div>
             </article>
@@ -613,6 +743,7 @@
                     <span class="logro__name">Podcast — Sin Miedo al Éxito</span>
                   </div>
                 </div>
+                <a class="logro__live" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">Evidencia</a>
               </div>
               <div class="logro__grid">
                 <div class="logro__col1">
@@ -624,6 +755,39 @@
                 </div>
               </div>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <!--==================== MI CAMINO (LÍNEA DE TIEMPO) ====================-->
+      <section class="camino section" id="camino">
+        <h2 class="section__title-1"><span>Mi camino.</span></h2>
+        <div class="tl container">
+          <div class="tl__item rv">
+            <span class="tl__year">2022</span>
+            <h3 class="tl__title">Nace RuedaTec</h3>
+            <p class="tl__text">Mi tío pierde la movilidad y una silla eléctrica cuesta más de $20,000. Armo el primer adaptador en casa, con motores, batería y mucha impresión 3D.</p>
+          </div>
+          <div class="tl__item rv">
+            <span class="tl__year">2023</span>
+            <h3 class="tl__title">2.º lugar del mundo</h3>
+            <p class="tl__text">Invention Convention Americas (EE. UU.): 2.º lugar internacional entre 146 finalistas de más de 170,000 participantes. Ese mismo año: México Inventa (etapa nacional), 3.er lugar en la Cumbre de Emprendimiento GTO, Startup Capital (Silao)… y nace Sonríe México.</p>
+          </div>
+          <div class="tl__item rv">
+            <span class="tl__year">2024</span>
+            <h3 class="tl__title">Oro en TALENT-TIC</h3>
+            <p class="tl__text">1.er lugar (Premiación de Oro) compitiendo como prepa frente a equipos universitarios. Participamos en el Hack AI de IDEA GTO y nuestra historia llega a TV4 y al podcast “Sin Miedo al Éxito”.</p>
+          </div>
+          <div class="tl__item rv">
+            <span class="tl__year">2025</span>
+            <h3 class="tl__title">Validación y primera unidad</h3>
+            <p class="tl__text">Venture Basecamp (Tec de Monterrey · IEEGL): validación evidence-based del modelo. Entregamos la primera unidad —la de mi tío— y publicamos nuestras apps en la App Store.</p>
+          </div>
+          <div class="tl__item rv">
+            <span class="tl__year">2026</span>
+            <h3 class="tl__title">El Tec y la primera venta</h3>
+            <p class="tl__text">Entro a Ingeniería Mecatrónica en el Tec de Monterrey con la Beca BTEM al Talento Emprendedor y la beca BBVA “Chavos que Inspiran”. LiftOff Campus Day en Querétaro, cerramos nuestra primera venta… y esto apenas empieza.</p>
+            <a class="tl__link" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">Ver todas las evidencias <i class="ri-arrow-right-up-line"></i></a>
           </div>
         </div>
       </section>
@@ -716,7 +880,7 @@
               <h2 class="projects__title">RuedaTec</h2>
 
               <p class="projects__description">
-                Sitio oficial de RuedaTec: un motor portátil que convierte una silla de ruedas manual en eléctrica en menos de dos minutos. Ahí están sus especificaciones y cómo conseguirlo.
+                Sitio oficial de RuedaTec: un adaptador portátil que convierte una silla de ruedas manual en eléctrica en menos de dos minutos. Ahí están sus especificaciones y cómo conseguirlo.
               </p>
             </div>
 
@@ -1110,6 +1274,24 @@
         </div>
       </section>
 
+      <!--==================== MARQUEE CTA ====================-->
+      <a class="marquee marquee--cta" href="#contact" aria-label="Ir a contacto">
+        <div class="marquee__track">
+          <div class="marquee__part">
+            <span>¿Tienes un proyecto?</span><i class="ri-asterisk"></i>
+            <span>Hablemos</span><i class="ri-asterisk"></i>
+            <span>¿Tienes un proyecto?</span><i class="ri-asterisk"></i>
+            <span>Hablemos</span><i class="ri-asterisk"></i>
+          </div>
+          <div class="marquee__part">
+            <span>¿Tienes un proyecto?</span><i class="ri-asterisk"></i>
+            <span>Hablemos</span><i class="ri-asterisk"></i>
+            <span>¿Tienes un proyecto?</span><i class="ri-asterisk"></i>
+            <span>Hablemos</span><i class="ri-asterisk"></i>
+          </div>
+        </div>
+      </a>
+
       <!--==================== CONTACT ====================-->
       <section class="contact section" id="contact">
         <div class="contact__container grid">
@@ -1352,5 +1534,147 @@
     <!--=============== ANALÍTICA DE VISITAS (GoatCounter) ===============-->
     <script data-goatcounter="https://miguelhuizache.goatcounter.com/count"
             async src="//gc.zgo.at/count.js"></script>
+
+    <!--=============== UPGRADE VISUAL: progreso, cursor, letras, contadores, reveals, magnético ===============-->
+    <script>
+      (function () {
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        /* Videos: cargar el reproductor de Drive hasta que le piquen (más rápido y ligero) */
+        document.querySelectorAll(".video-frame[data-video]").forEach(function (frame) {
+          var btn = frame.querySelector(".video-poster");
+          if (!btn) return;
+          btn.addEventListener("click", function () {
+            var f = document.createElement("iframe");
+            f.src = frame.dataset.video;
+            f.title = frame.dataset.title || "Video";
+            f.setAttribute("allow", "autoplay; fullscreen; encrypted-media");
+            f.setAttribute("allowfullscreen", "");
+            frame.appendChild(f);
+            btn.remove();
+          });
+        });
+
+        /* Barra de progreso de scroll */
+        var bar = document.createElement("div");
+        bar.className = "scroll-progress";
+        document.body.appendChild(bar);
+        var ticking = false;
+        function prog() {
+          ticking = false;
+          var h = document.documentElement;
+          var max = h.scrollHeight - h.clientHeight;
+          bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+        }
+        window.addEventListener("scroll", function () {
+          if (!ticking) { ticking = true; requestAnimationFrame(prog); }
+        }, { passive: true });
+        prog();
+
+        /* Nombre letra por letra (agrupado por palabra para que no se corte a mitad) */
+        var name = document.querySelector(".home__name");
+        if (name && !reduce) {
+          var txt = name.textContent.trim();
+          name.setAttribute("aria-label", txt);
+          name.textContent = "";
+          var idx = 0;
+          txt.split(/\s+/).forEach(function (word, w) {
+            if (w > 0) name.appendChild(document.createTextNode(" "));
+            var wrap = document.createElement("span");
+            wrap.style.display = "inline-block";
+            wrap.style.whiteSpace = "nowrap";
+            for (var i = 0; i < word.length; i++) {
+              var s = document.createElement("span");
+              s.className = "ltr";
+              s.style.setProperty("--i", idx++);
+              s.textContent = word[i];
+              wrap.appendChild(s);
+            }
+            name.appendChild(wrap);
+          });
+        }
+
+        /* Aparecer al hacer scroll */
+        var io = "IntersectionObserver" in window
+          ? new IntersectionObserver(function (es) {
+              es.forEach(function (e) {
+                if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+              });
+            }, { threshold: 0.18 })
+          : null;
+        document.querySelectorAll(".rv").forEach(function (el) {
+          io ? io.observe(el) : el.classList.add("in");
+        });
+
+        /* Contadores de "En números" */
+        function fmt(v, dec, suf) {
+          return v.toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + suf;
+        }
+        function count(el) {
+          var target = parseFloat(el.dataset.count || "0");
+          var dec = parseInt(el.dataset.decimals || "0", 10);
+          var suf = el.dataset.suffix || "";
+          if (reduce) { el.textContent = fmt(target, dec, suf); return; }
+          var t0 = null, dur = 1600;
+          function step(ts) {
+            if (!t0) t0 = ts;
+            var p = Math.min((ts - t0) / dur, 1);
+            var e = 1 - Math.pow(1 - p, 3);
+            el.textContent = fmt(target * e, dec, suf);
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+        var io2 = "IntersectionObserver" in window
+          ? new IntersectionObserver(function (es) {
+              es.forEach(function (e) {
+                if (e.isIntersecting) { count(e.target); io2.unobserve(e.target); }
+              });
+            }, { threshold: 0.6 })
+          : null;
+        document.querySelectorAll(".stat__num[data-count]").forEach(function (el) {
+          io2 ? io2.observe(el) : count(el);
+        });
+
+        /* Cursor + botones magnéticos (solo escritorio) */
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reduce) {
+          var ring = document.createElement("div");
+          ring.className = "cursor-ring";
+          document.body.appendChild(ring);
+          var x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y, shown = false, running = false;
+          function loop() {
+            rx += (x - rx) * 0.16;
+            ry += (y - ry) * 0.16;
+            ring.style.transform = "translate(" + rx + "px," + ry + "px) translate(-50%,-50%)";
+            /* Se detiene solo cuando ya alcanzó al mouse (ahorra batería y CPU) */
+            if (Math.abs(x - rx) > 0.3 || Math.abs(y - ry) > 0.3) {
+              requestAnimationFrame(loop);
+            } else {
+              running = false;
+            }
+          }
+          addEventListener("mousemove", function (e) {
+            x = e.clientX; y = e.clientY;
+            if (!shown) { ring.classList.add("on"); shown = true; }
+            if (!running) { running = true; requestAnimationFrame(loop); }
+          });
+          document.querySelectorAll("a, button, .logro__card, .stat, .services__card, .projects__card").forEach(function (el) {
+            el.addEventListener("mouseenter", function () { ring.classList.add("grow"); });
+            el.addEventListener("mouseleave", function () { ring.classList.remove("grow"); });
+          });
+
+          document.querySelectorAll(".button, .logro__live, .ig-btn, .evid-cta-btn, .home__scroll-box, .contact__button").forEach(function (el) {
+            el.classList.add("mag");
+            el.addEventListener("mousemove", function (e) {
+              var r = el.getBoundingClientRect();
+              var dx = e.clientX - (r.left + r.width / 2);
+              var dy = e.clientY - (r.top + r.height / 2);
+              el.style.transform = "translate(" + dx * 0.18 + "px," + dy * 0.18 + "px)";
+            });
+            el.addEventListener("mouseleave", function () { el.style.transform = ""; });
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
