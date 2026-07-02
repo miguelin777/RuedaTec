@@ -85,12 +85,24 @@
     <!-- ============ GOLEADORES ============ -->
     <section id="panel-goleadores" class="tabpanel" role="tabpanel" hidden>
       <div class="panel">
-        <div class="panel-head"><h2>Goleadores</h2><span class="hint">Top 10</span></div>
+        <div class="panel-head"><h2>Goleadores</h2><span class="hint">Toca +1 cada gol</span></div>
         <div class="tablewrap">
           <table class="tabla gol">
-            <thead><tr><th class="pos">#</th><th class="eq">Jugador</th><th class="pts">G</th></tr></thead>
+            <thead><tr><th class="pos">#</th><th class="eq">Jugador</th><th class="pts">G</th><th class="acc">Ajustar</th></tr></thead>
             <tbody id="gol-body"></tbody>
           </table>
+        </div>
+        <button id="btn-img-gol" class="btn btn-green mt">Imagen de goleadores</button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Agregar / sumar goles</h2></div>
+        <p class="hint mb">Si el jugador ya existe, se le suman los goles.</p>
+        <div class="gol-form">
+          <input id="g-nombre" type="text" placeholder="Nombre del jugador" aria-label="Nombre">
+          <select id="g-equipo" aria-label="Equipo"></select>
+          <input id="g-goles" type="number" min="1" value="1" aria-label="Goles">
+          <button id="btn-add-gol" class="btn btn-green">Agregar</button>
         </div>
       </div>
     </section>
@@ -100,6 +112,7 @@
       <div class="panel">
         <div class="panel-head"><h2 id="rol-titulo">Rol de la jornada</h2></div>
         <div id="rol-body" class="rol"></div>
+        <button id="btn-img-rol" class="btn btn-green mt">Imagen del rol</button>
       </div>
     </section>
 

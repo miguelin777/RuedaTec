@@ -87,18 +87,57 @@ function renderTabla() {
                          : `Tabla (Jornada ${jornadaVista} pendiente)`;
 }
 
-/* -------------------- 3) GOLEADORES -------------------- */
+/* -------------------- 3) GOLEADORES (editable) -------------------- */
 function renderGoleadores() {
   const cont = document.getElementById("gol-body");
   cont.innerHTML = "";
-  [...GOLES].sort((a, b) => b.goles - a.goles).slice(0, 10).forEach((g, i) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td class="pos">${i + 1}</td>
-      <td class="eq">${g.jugador}<span class="sub">${g.equipo}</span></td>
-      <td class="tnum pts">${g.goles}</td>`;
-    cont.appendChild(tr);
+  [...GOLES].sort((a, b) => b.goles - a.goles || a.jugador.localeCompare(b.jugador))
+    .slice(0, 10).forEach((g, i) => {
+      const idx = GOLES.indexOf(g);
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="pos">${i + 1}</td>
+        <td class="eq">${g.jugador}<span class="sub">${g.equipo}</span></td>
+        <td class="tnum pts">${g.goles}</td>
+        <td class="acc">
+          <button class="mini" data-acc="dec" data-idx="${idx}" aria-label="Quitar un gol">−</button>
+          <button class="mini mas" data-acc="inc" data-idx="${idx}" aria-label="Sumar un gol">+1</button>
+          <button class="mini del" data-acc="del" data-idx="${idx}" aria-label="Borrar">🗑</button>
+        </td>`;
+      cont.appendChild(tr);
+    });
+}
+
+function llenarSelectEquipos() {
+  const sel = document.getElementById("g-equipo");
+  if (sel.options.length) return;
+  BASE.map(b => b.equipo).sort((a, b) => a.localeCompare(b)).forEach(nom => {
+    const o = document.createElement("option"); o.value = nom; o.textContent = nom; sel.appendChild(o);
   });
+}
+function addGoleador() {
+  const nombre = document.getElementById("g-nombre").value.trim();
+  const equipo = document.getElementById("g-equipo").value;
+  const goles = Math.max(1, parseInt(document.getElementById("g-goles").value, 10) || 1);
+  if (!nombre) { aviso("Escribe el nombre del jugador."); return; }
+  const ya = GOLES.find(g => g.jugador.toLowerCase() === nombre.toLowerCase() && g.equipo === equipo);
+  if (ya) ya.goles += goles;
+  else GOLES.push({ jugador: nombre, equipo, goles });
+  guardar(LS_GOLEADORES, GOLES);
+  document.getElementById("g-nombre").value = "";
+  document.getElementById("g-goles").value = "1";
+  renderGoleadores();
+  aviso(`✅ ${ya ? "Sumados" : "Agregado"} · ${nombre}`);
+}
+function ajustarGol(idx, delta) {
+  if (!GOLES[idx]) return;
+  GOLES[idx].goles = Math.max(0, GOLES[idx].goles + delta);
+  guardar(LS_GOLEADORES, GOLES); renderGoleadores();
+}
+function borrarGol(idx) {
+  if (!GOLES[idx]) return;
+  if (!confirm(`¿Borrar a ${GOLES[idx].jugador}?`)) return;
+  GOLES.splice(idx, 1); guardar(LS_GOLEADORES, GOLES); renderGoleadores();
 }
 
 /* -------------------- 4) ROL / CALENDARIO -------------------- */
@@ -271,7 +310,59 @@ function generarImagenResultados() {
   mostrarImagen(cv, `resultados-quinta-j${jornadaVista}`);
 }
 
-function recorta(s) { return s.length > 18 ? s.slice(0, 17) + "…" : s; }
+function generarImagenGoleadores() {
+  const lista = [...GOLES].sort((a, b) => b.goles - a.goles || a.jugador.localeCompare(b.jugador)).slice(0, 10);
+  const rowH = 74, headH = 240, W = IMG_W;
+  const H = headH + rowH * Math.max(lista.length, 1) + 150 + 20;
+  const cv = document.getElementById("lienzo"); cv.width = W; cv.height = H;
+  const c = cv.getContext("2d");
+  fondo(c, W, H, "Tabla de goleadores");
+  lista.forEach((g, i) => {
+    const y = headH + i * rowH, midY = y + rowH / 2 + 8;
+    if (i === 0) { c.fillStyle = "rgba(210,144,30,.16)"; c.fillRect(0, y, W, rowH); }
+    c.textAlign = "left";
+    c.fillStyle = i === 0 ? "#D2901E" : "#6E7A70"; c.font = "700 30px system-ui, Arial";
+    c.fillText(String(i + 1), PAD, midY);
+    c.fillStyle = "#EFF3EE"; c.font = "600 34px system-ui, Arial";
+    c.fillText(recorta(g.jugador, 22), PAD + 60, midY - 6);
+    c.fillStyle = "#8FB6A0"; c.font = "500 22px system-ui, Arial";
+    c.fillText(g.equipo, PAD + 60, midY + 22);
+    c.textAlign = "right"; c.fillStyle = "#FBFDFB"; c.font = "800 40px ui-monospace, monospace";
+    c.fillText(String(g.goles), W - PAD, midY);
+  });
+  footer(c, W, H);
+  mostrarImagen(cv, "goleadores-quinta");
+}
+
+function generarImagenRol() {
+  const j = RESULTADOS.find(x => x.num === jornadaVista);
+  const rowH = 104, headH = 240, W = IMG_W;
+  const H = headH + rowH * j.partidos.length + 150 + 20;
+  const cv = document.getElementById("lienzo"); cv.width = W; cv.height = H;
+  const c = cv.getContext("2d");
+  fondo(c, W, H, `Rol · Jornada ${jornadaVista}`);
+  j.partidos.forEach((p, i) => {
+    const y = headH + i * rowH, midY = y + rowH / 2 - 4, jug = p.gl != null && p.gv != null;
+    if (i % 2 === 0) { c.fillStyle = "rgba(255,255,255,.03)"; c.fillRect(0, y, W, rowH); }
+    c.textAlign = "right"; c.fillStyle = "#EFF3EE"; c.font = "600 30px system-ui, Arial";
+    c.fillText(recorta(p.loc), W / 2 - 80, midY);
+    c.textAlign = "left"; c.fillText(recorta(p.vis), W / 2 + 80, midY);
+    c.textAlign = "center";
+    if (jug) {
+      c.fillStyle = "#12905A"; c.beginPath(); roundRect(c, W / 2 - 70, midY - 26, 140, 48, 11); c.fill();
+      c.fillStyle = "#FBFDFB"; c.font = "800 30px ui-monospace, monospace"; c.fillText(`${p.gl}-${p.gv}`, W / 2, midY - 2);
+    } else {
+      c.fillStyle = "#6E7A70"; c.font = "700 24px system-ui, Arial"; c.fillText("vs", W / 2, midY - 2);
+    }
+    const meta = [p.hora ? "🕐 " + p.hora : "", p.campo ? "📍 " + p.campo : "", p.def ? "default" : ""]
+      .filter(Boolean).join("   ");
+    if (meta) { c.textAlign = "center"; c.fillStyle = "#8FB6A0"; c.font = "500 22px system-ui, Arial"; c.fillText(meta, W / 2, midY + 30); }
+  });
+  footer(c, W, H);
+  mostrarImagen(cv, `rol-quinta-j${jornadaVista}`);
+}
+
+function recorta(s, max = 18) { return s.length > max ? s.slice(0, max - 1) + "…" : s; }
 function roundRect(c, x, y, w, h, r) {
   c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r);
   c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r);
@@ -361,10 +452,20 @@ function initSelector() {
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("liga-nombre").textContent = CONFIG.liga;
   document.getElementById("liga-cat").textContent = `Categoría ${CONFIG.categoria} · ${CONFIG.temporada}`;
-  initSelector(); initTabs(); cargarPatronUI(); renderTodo();
+  initSelector(); initTabs(); llenarSelectEquipos(); cargarPatronUI(); renderTodo();
   document.getElementById("btn-guardar").addEventListener("click", guardarCaptura);
   document.getElementById("btn-img-tabla").addEventListener("click", generarImagenTabla);
   document.getElementById("btn-img-result").addEventListener("click", generarImagenResultados);
+  document.getElementById("btn-img-gol").addEventListener("click", generarImagenGoleadores);
+  document.getElementById("btn-img-rol").addEventListener("click", generarImagenRol);
+  document.getElementById("btn-add-gol").addEventListener("click", addGoleador);
+  document.getElementById("gol-body").addEventListener("click", e => {
+    const b = e.target.closest("button[data-acc]"); if (!b) return;
+    const idx = +b.dataset.idx;
+    if (b.dataset.acc === "inc") ajustarGol(idx, 1);
+    else if (b.dataset.acc === "dec") ajustarGol(idx, -1);
+    else if (b.dataset.acc === "del") borrarGol(idx);
+  });
   document.getElementById("btn-compartir").addEventListener("click", compartirImagen);
   document.getElementById("btn-patron").addEventListener("click", guardarPatron);
   document.getElementById("btn-reset").addEventListener("click", resetTodo);
