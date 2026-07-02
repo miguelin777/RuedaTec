@@ -24,80 +24,99 @@
     </div>
   </header>
 
-  <main class="wrap grid-main">
+  <nav class="tabs wrap" role="tablist" aria-label="Secciones">
+    <button class="tab active" data-tab="tabla"      role="tab" aria-selected="true">📊 Tabla</button>
+    <button class="tab" data-tab="goleadores" role="tab" aria-selected="false">⚽ Goleadores</button>
+    <button class="tab" data-tab="rol"        role="tab" aria-selected="false">📅 Rol</button>
+    <button class="tab" data-tab="captura"     role="tab" aria-selected="false">✍️ Captura</button>
+  </nav>
 
-    <!-- TABLA -->
-    <section class="panel col-2">
-      <div class="panel-head">
-        <h2 id="tabla-titulo">Tabla</h2>
-        <span class="hint">Zona verde = clasifican (primeros 7)</span>
-      </div>
-      <div class="tablewrap">
-        <table class="tabla">
-          <thead>
-            <tr>
-              <th class="pos">#</th><th class="eq">Equipo</th>
-              <th>JJ</th>
-              <th class="d-none-sm">JG</th><th class="d-none-sm">JE</th><th class="d-none-sm">JP</th>
-              <th class="d-none-sm">GF</th><th class="d-none-sm">GC</th>
-              <th>DIF</th><th class="pts">PTS</th>
-            </tr>
-          </thead>
-          <tbody id="tabla-body"></tbody>
-        </table>
-      </div>
-    </section>
+  <main class="wrap">
 
-    <!-- GOLEADORES -->
-    <section class="panel">
-      <div class="panel-head"><h2>Goleadores</h2><span class="hint">Top 10</span></div>
-      <div class="tablewrap">
-        <table class="tabla gol">
-          <thead><tr><th class="pos">#</th><th class="eq">Jugador</th><th class="pts">G</th></tr></thead>
-          <tbody id="gol-body"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- CAPTURA -->
-    <section class="panel">
-      <div class="panel-head"><h2 id="captura-titulo">Capturar</h2></div>
-      <p class="hint mb">Escribe los marcadores y guarda: la tabla se recalcula sola.</p>
-      <div id="captura-body" class="captura"></div>
-      <button id="btn-guardar" class="btn btn-green">Guardar jornada</button>
-    </section>
-
-    <!-- IMAGEN / PATROCINADOR -->
-    <section class="panel">
-      <div class="panel-head"><h2>Imagen para WhatsApp</h2></div>
-
-      <details class="patron" open>
-        <summary>Patrocinador (aparece al pie)</summary>
-        <div class="patron-form">
-          <label>Nombre <input id="p-nombre" type="text" placeholder="Tu Tienda Deportiva"></label>
-          <label>WhatsApp <input id="p-tel" type="text" placeholder="461 000 0000"></label>
-          <label>Lema <input id="p-lema" type="text" placeholder="Uniformes • Balones • Tacos"></label>
-          <button id="btn-patron" class="btn btn-amber sm">Guardar patrocinador</button>
+    <!-- ============ TABLA ============ -->
+    <section id="panel-tabla" class="tabpanel" role="tabpanel">
+      <div class="panel">
+        <div class="panel-head">
+          <h2 id="tabla-titulo">Tabla</h2>
+          <span class="hint">Zona verde = clasifican (primeros 7)</span>
         </div>
-      </details>
-
-      <button id="btn-imagen" class="btn btn-green mt">Generar imagen de la tabla</button>
-
-      <div class="preview-box">
-        <p id="preview-hint" class="hint">Aquí verás la imagen lista para compartir.</p>
-        <img id="preview" alt="Vista previa de la tabla" style="display:none">
+        <div class="tablewrap">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th class="pos">#</th><th class="eq">Equipo</th>
+                <th>JJ</th>
+                <th class="d-none-sm">JG</th><th class="d-none-sm">JE</th><th class="d-none-sm">JP</th>
+                <th class="d-none-sm">GF</th><th class="d-none-sm">GC</th>
+                <th>DIF</th><th class="pts">PTS</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-body"></tbody>
+          </table>
+        </div>
       </div>
 
-      <div id="acciones-img" class="acciones" style="display:none">
-        <a id="btn-descargar" class="btn btn-line" download>Descargar PNG</a>
-        <button id="btn-compartir" class="btn btn-green">Compartir a WhatsApp</button>
+      <div class="panel">
+        <div class="panel-head"><h2>Imagen para WhatsApp</h2></div>
+        <details class="patron">
+          <summary>Patrocinador (aparece al pie de las imágenes)</summary>
+          <div class="patron-form">
+            <label>Nombre <input id="p-nombre" type="text" placeholder="Tu Tienda Deportiva"></label>
+            <label>WhatsApp <input id="p-tel" type="text" placeholder="461 000 0000"></label>
+            <label>Lema <input id="p-lema" type="text" placeholder="Uniformes • Balones • Tacos"></label>
+            <button id="btn-patron" class="btn btn-amber sm">Guardar patrocinador</button>
+          </div>
+        </details>
+        <div class="img-botones">
+          <button id="btn-img-tabla" class="btn btn-green">Imagen de la tabla</button>
+          <button id="btn-img-result" class="btn btn-green">Imagen de resultados</button>
+        </div>
+        <div class="preview-box">
+          <p id="preview-hint" class="hint">Aquí verás la imagen lista para compartir.</p>
+          <img id="preview" alt="Vista previa" style="display:none">
+        </div>
+        <div id="acciones-img" class="acciones" style="display:none">
+          <a id="btn-descargar" class="btn btn-line" download>Descargar PNG</a>
+          <button id="btn-compartir" class="btn btn-green">Compartir a WhatsApp</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GOLEADORES ============ -->
+    <section id="panel-goleadores" class="tabpanel" role="tabpanel" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2>Goleadores</h2><span class="hint">Top 10</span></div>
+        <div class="tablewrap">
+          <table class="tabla gol">
+            <thead><tr><th class="pos">#</th><th class="eq">Jugador</th><th class="pts">G</th></tr></thead>
+            <tbody id="gol-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ROL / CALENDARIO ============ -->
+    <section id="panel-rol" class="tabpanel" role="tabpanel" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2 id="rol-titulo">Rol de la jornada</h2></div>
+        <div id="rol-body" class="rol"></div>
+      </div>
+    </section>
+
+    <!-- ============ CAPTURA ============ -->
+    <section id="panel-captura" class="tabpanel" role="tabpanel" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2 id="captura-titulo">Capturar</h2></div>
+        <p class="hint mb">Escribe los marcadores y guarda: la tabla se recalcula sola.</p>
+        <div id="captura-body" class="captura"></div>
+        <button id="btn-guardar" class="btn btn-green">Guardar jornada</button>
       </div>
     </section>
 
   </main>
 
   <footer class="foot wrap">
-    <span>Prototipo Fase 1 · <b id="ver">Liga 100% Familiar</b> · Cortázar, Gto.</span>
+    <span>Prototipo Fase 1 · <b>Liga 100% Familiar</b> · Cortázar, Gto.</span>
     <button id="btn-reset" class="btn btn-line xs">Restaurar datos</button>
   </footer>
 
