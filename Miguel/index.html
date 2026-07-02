@@ -205,17 +205,44 @@
       .stat__num { display: block; font-weight: 900; line-height: 1; color: var(--title-color); font-size: clamp(2.4rem, 5.5vw, 3.6rem); font-variant-numeric: tabular-nums; }
       .stat__label { display: block; margin-top: .6rem; color: var(--text-color); font-size: .92rem; line-height: 1.45; }
 
-      /* Camino (línea de tiempo) */
+      /* ===== Mi camino: línea de tiempo interactiva (se dibuja al scroll, años sticky, zigzag) ===== */
       .camino.section { padding-block: 4.5rem 5rem; }
-      .tl { position: relative; max-width: 860px; margin: 2.2rem auto 0; }
-      .tl::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 3px; background: var(--title-color); opacity: .22; border-radius: 2px; }
-      .tl__item { position: relative; padding: 0 0 2.1rem 2.6rem; }
-      .tl__item::before { content: ""; position: absolute; left: 0; top: .4rem; width: 19px; height: 19px; border-radius: 50%; background: var(--first-color); border: 3px solid var(--title-color); }
-      .tl__year { font-weight: 900; font-size: clamp(1.5rem, 3.4vw, 2.1rem); color: var(--title-color); letter-spacing: .04em; }
-      .tl__title { font-weight: 700; color: var(--title-color); margin: .2rem 0 .3rem; font-size: 1.08rem; }
-      .tl__text { color: var(--text-color); line-height: 1.6; font-size: .96rem; max-width: 640px; }
-      .tl__link { display: inline-flex; align-items: center; gap: .35rem; margin-top: .6rem; font-weight: 700; color: var(--title-color); text-decoration: none; border-bottom: 2px solid var(--first-color); }
-      .tl__link:hover { color: var(--first-color); }
+      .camino__intro { text-align: center; max-width: 640px; margin: .5rem auto 0; color: var(--text-color); }
+      .tl2 { position: relative; max-width: 1000px; margin-top: 3rem; padding-bottom: .5rem; }
+      .tl2__line, .tl2__fill { position: absolute; top: 0; bottom: 0; left: calc(50% - 1.5px); width: 3px; border-radius: 2px; }
+      .tl2__line { background: var(--title-color); opacity: .13; }
+      .tl2__fill { background: var(--first-color); height: 100%; transform: scaleY(0); transform-origin: top; }
+      .tl2__tip { position: absolute; left: calc(50% - 8px); top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--first-color); box-shadow: 0 0 0 6px hsla(214, 98%, 50%, .18), 0 0 22px hsla(214, 98%, 50%, .55); opacity: 0; transition: opacity .3s; pointer-events: none; }
+      .tl2__tip.on { opacity: 1; }
+      body.dark-theme .tl2__tip { box-shadow: 0 0 0 6px hsla(14, 80%, 50%, .18), 0 0 22px hsla(14, 80%, 50%, .55); }
+      body.dark-theme .cursor-ring.grow { background: hsla(14, 80%, 50%, .12); }
+      .tl2__year { position: sticky; top: 5.2rem; z-index: 6; width: max-content; margin: 0 auto 1.5rem; background: var(--black-color); color: var(--white-color); padding: .5rem 1.5rem; border-radius: 999px; font-weight: 900; font-size: 1.05rem; letter-spacing: .14em; box-shadow: 0 8px 22px rgba(0, 0, 0, .25); }
+      .tl2__item { position: relative; width: calc(50% - 3rem); margin-bottom: 1.6rem; }
+      .tl2__item--l { margin-right: auto; }
+      .tl2__item--r { margin-left: auto; }
+      .tl2__item::before { content: ""; position: absolute; top: 1.35rem; width: 15px; height: 15px; border-radius: 50%; background: var(--body-color); border: 3px solid var(--first-color); z-index: 2; }
+      .tl2__item--l::before { right: calc(-3rem - 9px); }
+      .tl2__item--r::before { left: calc(-3rem - 9px); }
+      .tl2__card { display: block; background: var(--container-color); border: 2px solid var(--title-color); border-radius: 18px; padding: 1.15rem 1.25rem; color: inherit; text-decoration: none; transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease; }
+      .tl2__card:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(0, 0, 0, .22); }
+      .tl2__card:hover .tl2__ico { transform: rotate(-8deg) scale(1.12); }
+      .tl2__head { display: flex; align-items: center; gap: .7rem; margin-bottom: .5rem; flex-wrap: wrap; }
+      .tl2__ico { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--first-color); color: #fff; font-size: 1.35rem; flex-shrink: 0; transition: transform .35s cubic-bezier(.2, .8, .2, 1); }
+      .tl2__tag { font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 800; border: 1.5px solid var(--title-color); border-radius: 999px; padding: .24rem .62rem; color: var(--title-color); opacity: .85; }
+      .tl2__title { font-weight: 800; color: var(--title-color); font-size: 1.02rem; line-height: 1.3; margin: 0; }
+      .tl2__text { color: var(--text-color); font-size: .9rem; line-height: 1.55; margin: .35rem 0 0; }
+      .tl2__go { display: inline-flex; align-items: center; gap: .3rem; margin-top: .55rem; font-weight: 700; font-size: .85rem; color: var(--title-color); border-bottom: 2px solid var(--first-color); }
+      .rv.rv-l { transform: translateX(-44px); }
+      .rv.rv-r { transform: translateX(44px); }
+      .rv.rv-l.in, .rv.rv-r.in { transform: none; }
+      @media (max-width: 768px) {
+        .tl2__line, .tl2__fill { left: 8px; }
+        .tl2__tip { left: 1px; }
+        .tl2__item, .tl2__item--l, .tl2__item--r { width: 100%; margin-left: 0; margin-right: 0; padding-left: 2.4rem; }
+        .tl2__item--l::before, .tl2__item--r::before { left: 2px; right: auto; }
+        .rv.rv-l, .rv.rv-r { transform: translateY(34px); }
+        .rv.rv-l.in, .rv.rv-r.in { transform: none; }
+      }
 
       /* Aparecer al hacer scroll */
       .rv { opacity: 0; transform: translateY(34px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1); }
@@ -277,6 +304,10 @@
 
             <li class="nav__item">
               <a href="#logros" class="nav__link">Logros</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="#camino" class="nav__link">Camino</a>
             </li>
 
             <li class="nav__item">
@@ -762,32 +793,161 @@
       <!--==================== MI CAMINO (LÍNEA DE TIEMPO) ====================-->
       <section class="camino section" id="camino">
         <h2 class="section__title-1"><span>Mi camino.</span></h2>
-        <div class="tl container">
-          <div class="tl__item rv">
-            <span class="tl__year">2022</span>
-            <h3 class="tl__title">Nace RuedaTec</h3>
-            <p class="tl__text">Mi tío pierde la movilidad y una silla eléctrica cuesta más de $20,000. Armo el primer adaptador en casa, con motores, batería y mucha impresión 3D.</p>
+        <p class="camino__intro">De un problema en casa a construir desde Cortázar. Año por año, con evidencia de cada paso.</p>
+        <div class="tl2 container">
+          <div class="tl2__line"></div>
+          <div class="tl2__fill" id="tl2-fill"></div>
+          <div class="tl2__tip" id="tl2-tip"></div>
+
+          <div class="tl2__year">2022</div>
+          <div class="tl2__item tl2__item--l rv rv-l">
+            <div class="tl2__card">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-graduation-cap-line"></i></span><span class="tl2__tag">Beca</span></div>
+              <h3 class="tl2__title">Chavo que Inspira — Fundación BBVA</h3>
+              <p class="tl2__text">Vengo becado desde secundaria (antes de esta historia) por la Fundación BBVA con “Chavos que Inspiran”: la base que me impulsó a construir todo lo demás.</p>
+            </div>
           </div>
-          <div class="tl__item rv">
-            <span class="tl__year">2023</span>
-            <h3 class="tl__title">2.º lugar del mundo</h3>
-            <p class="tl__text">Invention Convention Americas (EE. UU.): 2.º lugar internacional entre 146 finalistas de más de 170,000 participantes. Ese mismo año: México Inventa (etapa nacional), 3.er lugar en la Cumbre de Emprendimiento GTO, Startup Capital (Silao)… y nace Sonríe México.</p>
+          <div class="tl2__item tl2__item--r rv rv-r">
+            <div class="tl2__card">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-lightbulb-flash-line"></i></span><span class="tl2__tag">Origen</span></div>
+              <h3 class="tl2__title">Nace RuedaTec</h3>
+              <p class="tl2__text">Mi tío pierde la movilidad y una silla eléctrica cuesta más de $20,000. Armo el primer adaptador en casa: motor, batería e impresión 3D.</p>
+            </div>
           </div>
-          <div class="tl__item rv">
-            <span class="tl__year">2024</span>
-            <h3 class="tl__title">Oro en TALENT-TIC</h3>
-            <p class="tl__text">1.er lugar (Premiación de Oro) compitiendo como prepa frente a equipos universitarios. Participamos en el Hack AI de IDEA GTO y nuestra historia llega a TV4 y al podcast “Sin Miedo al Éxito”.</p>
+
+          <div class="tl2__year">2023</div>
+          <div class="tl2__item tl2__item--l rv rv-l">
+            <a class="tl2__card" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-flask-line"></i></span><span class="tl2__tag">Concurso nacional</span></div>
+              <h3 class="tl2__title">México Inventa</h3>
+              <p class="tl2__text">Participamos en el evento nacional de jóvenes inventores (Inventores Maker · México Inventa): el programa que nos abrió la puerta a la etapa internacional.</p>
+              <span class="tl2__go">Ver evidencia <i class="ri-arrow-right-up-line"></i></span>
+            </a>
           </div>
-          <div class="tl__item rv">
-            <span class="tl__year">2025</span>
-            <h3 class="tl__title">Validación y primera unidad</h3>
-            <p class="tl__text">Venture Basecamp (Tec de Monterrey · IEEGL): validación evidence-based del modelo. Entregamos la primera unidad —la de mi tío— y publicamos nuestras apps en la App Store.</p>
+          <div class="tl2__item tl2__item--r rv rv-r">
+            <a class="tl2__card" href="https://inhub.thehenryford.org/docs/default-source/icw-documents/americas/americas-winners-list-final-2023.pdf?sfvrsn=a444f6c0_4" target="_blank" rel="noopener">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-trophy-line"></i></span><span class="tl2__tag">Premio internacional</span></div>
+              <h3 class="tl2__title">2.º lugar internacional — Invention Convention Americas</h3>
+              <p class="tl2__text">En EE. UU., entre 146 finalistas de más de 170,000 participantes. Verificable en la lista oficial de The Henry Ford.</p>
+              <span class="tl2__go">Comprobar <i class="ri-arrow-right-up-line"></i></span>
+            </a>
           </div>
-          <div class="tl__item rv">
-            <span class="tl__year">2026</span>
-            <h3 class="tl__title">El Tec y la primera venta</h3>
-            <p class="tl__text">Entro a Ingeniería Mecatrónica en el Tec de Monterrey con la Beca BTEM al Talento Emprendedor y la beca BBVA “Chavos que Inspiran”. LiftOff Campus Day en Querétaro, cerramos nuestra primera venta… y esto apenas empieza.</p>
-            <a class="tl__link" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">Ver todas las evidencias <i class="ri-arrow-right-up-line"></i></a>
+          <div class="tl2__item tl2__item--l rv rv-l">
+            <div class="tl2__card">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-medal-line"></i></span><span class="tl2__tag">Podio estatal</span></div>
+              <h3 class="tl2__title">3.er lugar — Cumbre de Emprendimiento GTO</h3>
+              <p class="tl2__text">RuedaTec sube al podio del emprendimiento joven de Guanajuato.</p>
+            </div>
+          </div>
+          <div class="tl2__item tl2__item--r rv rv-r">
+            <div class="tl2__card">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-seedling-line"></i></span><span class="tl2__tag">Incubación</span></div>
+              <h3 class="tl2__title">1.ª Incubación tecnológica — IDEA GTO</h3>
+              <p class="tl2__text">Seleccionado para la primera generación de la incubación digital de IDEA GTO y Juventudes Guanajuato.</p>
+            </div>
+          </div>
+          <div class="tl2__item tl2__item--l rv rv-l">
+            <div class="tl2__card">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-funds-line"></i></span><span class="tl2__tag">Capital</span></div>
+              <h3 class="tl2__title">Startup Capital — Silao</h3>
+              <p class="tl2__text">Programa de capital emprendedor de IDEA GTO: taller de preparación para el Demo Day y aceleración en León.</p>
+            </div>
+          </div>
+          <div class="tl2__item tl2__item--r rv rv-r">
+            <a class="tl2__card" href="https://www.instagram.com/sonrie_mexico/" target="_blank" rel="noopener">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-heart-3-line"></i></span><span class="tl2__tag">Comunidad</span></div>
+              <h3 class="tl2__title">Nace Sonríe México</h3>
+              <p class="tl2__text">Fundo Sonríe: comunidad juvenil de acción social y ambiental que hoy suma más de 35,000 personas en redes.</p>
+              <span class="tl2__go">Conocer Sonríe <i class="ri-arrow-right-up-line"></i></span>
+            </a>
+          </div>
+
+          <div class="tl2__year">2024</div>
+          <div class="tl2__item tl2__item--l rv rv-l">
+            <a class="tl2__card" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-vip-crown-line"></i></span><span class="tl2__tag">1.er lugar</span></div>
+              <h3 class="tl2__title">Oro en TALENT-TIC</h3>
+              <p class="tl2__text">Premiación de Oro en León, en el evento de ENTIX —con constancia de CANIETI y el clúster CLUTIG—: ganamos como equipo de prepa frente a universidades.</p>
+              <span class="tl2__go">Ver evidencia <i class="ri-arrow-right-up-line"></i></span>
+            </a>
+          </div>
+          <div class="tl2__item tl2__item--r rv rv-r">
+            <div class="tl2__card">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-robot-line"></i></span><span class="tl2__tag">Hackathon</span></div>
+              <h3 class="tl2__title">Hack AI — IDEA GTO</h3>
+              <p class="tl2__text">Hackathon de inteligencia artificial en León, en el Día de la Mentefactura.</p>
+            </div>
+          </div>
+          <div class="tl2__item tl2__item--l rv rv-l">
+            <div class="tl2__card">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-tv-line"></i></span><span class="tl2__tag">Televisión</span></div>
+              <h3 class="tl2__title">Entrevista en TV4</h3>
+              <p class="tl2__text">Nuestra historia llega a la televisión de Guanajuato.</p>
+            </div>
+          </div>
+          <div class="tl2__item tl2__item--r rv rv-r">
+            <a class="tl2__card" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-mic-line"></i></span><span class="tl2__tag">Podcast</span></div>
+              <h3 class="tl2__title">“Sin Miedo al Éxito” — Spotify</h3>
+              <p class="tl2__text">Nos invitan a contar cómo nació RuedaTec, como creadores del proyecto ganador.</p>
+              <span class="tl2__go">Ver evidencia <i class="ri-arrow-right-up-line"></i></span>
+            </a>
+          </div>
+          <div class="tl2__item tl2__item--l rv rv-l">
+            <a class="tl2__card" href="https://sonriemexico.org/" target="_blank" rel="noopener">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-global-line"></i></span><span class="tl2__tag">Sonríe + web</span></div>
+              <h3 class="tl2__title">Sonríe escala con tecnología</h3>
+              <p class="tl2__text">Desarrollo los sitios web y campañas digitales de Sonríe para difundir y recaudar fondos; llegamos a más estados.</p>
+              <span class="tl2__go">Ver sitio <i class="ri-arrow-right-up-line"></i></span>
+            </a>
+          </div>
+
+          <div class="tl2__year">2025</div>
+          <div class="tl2__item tl2__item--r rv rv-r">
+            <div class="tl2__card">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-rocket-2-line"></i></span><span class="tl2__tag">Aceleración</span></div>
+              <h3 class="tl2__title">Venture Basecamp — Tec de Monterrey</h3>
+              <p class="tl2__text">Programa intensivo de validación temprana evidence-based (IEEGL, sep–nov): fortalecemos el modelo y la propuesta de valor de RuedaTec.</p>
+            </div>
+          </div>
+          <div class="tl2__item tl2__item--l rv rv-l">
+            <div class="tl2__card">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-wheelchair-line"></i></span><span class="tl2__tag">El hito más personal</span></div>
+              <h3 class="tl2__title">La primera unidad: la de mi tío</h3>
+              <p class="tl2__text">Tras probar el adaptador con 13 usuarios reales en calle, la primera unidad terminada fue para quien lo empezó todo.</p>
+            </div>
+          </div>
+          <div class="tl2__item tl2__item--r rv rv-r">
+            <a class="tl2__card" href="https://apps.apple.com/mx/app/ruedatec/id6759914211" target="_blank" rel="noopener">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-app-store-line"></i></span><span class="tl2__tag">Apps</span></div>
+              <h3 class="tl2__title">RuedaTec y Echo-Campus en la App Store</h3>
+              <p class="tl2__text">Publico la app de control de la silla (Flutter/Dart) y una app social de campus hecha en equipo.</p>
+              <span class="tl2__go">Ver en App Store <i class="ri-arrow-right-up-line"></i></span>
+            </a>
+          </div>
+
+          <div class="tl2__year">2026</div>
+          <div class="tl2__item tl2__item--l rv rv-l">
+            <div class="tl2__card">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-school-line"></i></span><span class="tl2__tag">Beca nacional</span></div>
+              <h3 class="tl2__title">Entro al Tec de Monterrey</h3>
+              <p class="tl2__text">Ingeniería Mecatrónica en Querétaro, con la Beca BTEM al Talento Emprendedor —uno de los pocos seleccionados del país— y la beca BBVA.</p>
+            </div>
+          </div>
+          <div class="tl2__item tl2__item--r rv rv-r">
+            <div class="tl2__card">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-flight-takeoff-line"></i></span><span class="tl2__tag">Programa</span></div>
+              <h3 class="tl2__title">LiftOff — Campus Day</h3>
+              <p class="tl2__text">Compitiendo y sumando al ecosistema emprendedor del Tec Querétaro.</p>
+            </div>
+          </div>
+          <div class="tl2__item tl2__item--l rv rv-l">
+            <a class="tl2__card" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
+              <div class="tl2__head"><span class="tl2__ico"><i class="ri-hand-coin-line"></i></span><span class="tl2__tag">Venta</span></div>
+              <h3 class="tl2__title">Primera venta cerrada</h3>
+              <p class="tl2__text">RuedaTec deja de ser solo un proyecto: alguien confió y pagó por él. Y esto apenas empieza.</p>
+              <span class="tl2__go">Ver todas las evidencias <i class="ri-arrow-right-up-line"></i></span>
+            </a>
           </div>
         </div>
       </section>
@@ -1570,6 +1730,28 @@
           if (!ticking) { ticking = true; requestAnimationFrame(prog); }
         }, { passive: true });
         prog();
+
+        /* Línea de tiempo: la línea se "dibuja" conforme bajas */
+        var tl2 = document.querySelector(".tl2");
+        var tlFill = document.getElementById("tl2-fill");
+        var tlTip = document.getElementById("tl2-tip");
+        if (tl2 && tlFill && tlTip) {
+          var tlTick = false;
+          function tlDraw() {
+            tlTick = false;
+            var r = tl2.getBoundingClientRect();
+            var passed = Math.min(Math.max(innerHeight * 0.6 - r.top, 0), r.height);
+            var p = r.height > 0 ? passed / r.height : 0;
+            tlFill.style.transform = "scaleY(" + p + ")";
+            tlTip.style.top = (passed - 8) + "px";
+            tlTip.classList.toggle("on", p > 0.01 && p < 0.995);
+          }
+          window.addEventListener("scroll", function () {
+            if (!tlTick) { tlTick = true; requestAnimationFrame(tlDraw); }
+          }, { passive: true });
+          window.addEventListener("resize", tlDraw);
+          tlDraw();
+        }
 
         /* Nombre letra por letra (agrupado por palabra para que no se corte a mitad) */
         var name = document.querySelector(".home__name");
