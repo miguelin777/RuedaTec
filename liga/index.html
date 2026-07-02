@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liga 100% Familiar · Categoría Quinta</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">
+        <span class="dot">⚽</span>
+        <div>
+          <h1 id="liga-nombre">Liga Municipal de Fútbol</h1>
+          <p id="liga-cat" class="eyebrow">Categoría Quinta</p>
+        </div>
+      </div>
+      <div class="jornada-pick">
+        <label for="sel-jornada">Ver</label>
+        <select id="sel-jornada" aria-label="Elegir jornada"></select>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap grid-main">
+
+    <!-- TABLA -->
+    <section class="panel col-2">
+      <div class="panel-head">
+        <h2 id="tabla-titulo">Tabla</h2>
+        <span class="hint">Zona verde = clasifican (primeros 7)</span>
+      </div>
+      <div class="tablewrap">
+        <table class="tabla">
+          <thead>
+            <tr>
+              <th class="pos">#</th><th class="eq">Equipo</th>
+              <th>JJ</th>
+              <th class="d-none-sm">JG</th><th class="d-none-sm">JE</th><th class="d-none-sm">JP</th>
+              <th class="d-none-sm">GF</th><th class="d-none-sm">GC</th>
+              <th>DIF</th><th class="pts">PTS</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- GOLEADORES -->
+    <section class="panel">
+      <div class="panel-head"><h2>Goleadores</h2><span class="hint">Top 10</span></div>
+      <div class="tablewrap">
+        <table class="tabla gol">
+          <thead><tr><th class="pos">#</th><th class="eq">Jugador</th><th class="pts">G</th></tr></thead>
+          <tbody id="gol-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CAPTURA -->
+    <section class="panel">
+      <div class="panel-head"><h2 id="captura-titulo">Capturar</h2></div>
+      <p class="hint mb">Escribe los marcadores y guarda: la tabla se recalcula sola.</p>
+      <div id="captura-body" class="captura"></div>
+      <button id="btn-guardar" class="btn btn-green">Guardar jornada</button>
+    </section>
+
+    <!-- IMAGEN / PATROCINADOR -->
+    <section class="panel">
+      <div class="panel-head"><h2>Imagen para WhatsApp</h2></div>
+
+      <details class="patron" open>
+        <summary>Patrocinador (aparece al pie)</summary>
+        <div class="patron-form">
+          <label>Nombre <input id="p-nombre" type="text" placeholder="Tu Tienda Deportiva"></label>
+          <label>WhatsApp <input id="p-tel" type="text" placeholder="461 000 0000"></label>
+          <label>Lema <input id="p-lema" type="text" placeholder="Uniformes • Balones • Tacos"></label>
+          <button id="btn-patron" class="btn btn-amber sm">Guardar patrocinador</button>
+        </div>
+      </details>
+
+      <button id="btn-imagen" class="btn btn-green mt">Generar imagen de la tabla</button>
+
+      <div class="preview-box">
+        <p id="preview-hint" class="hint">Aquí verás la imagen lista para compartir.</p>
+        <img id="preview" alt="Vista previa de la tabla" style="display:none">
+      </div>
+
+      <div id="acciones-img" class="acciones" style="display:none">
+        <a id="btn-descargar" class="btn btn-line" download>Descargar PNG</a>
+        <button id="btn-compartir" class="btn btn-green">Compartir a WhatsApp</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot wrap">
+    <span>Prototipo Fase 1 · <b id="ver">Liga 100% Familiar</b> · Cortázar, Gto.</span>
+    <button id="btn-reset" class="btn btn-line xs">Restaurar datos</button>
+  </footer>
+
+  <div id="aviso" class="toast" role="status" aria-live="polite"></div>
+  <canvas id="lienzo" style="display:none"></canvas>
+
+  <script src="./data.js"></script>
+  <script src="./liga.js"></script>
+</body>
+</html>
