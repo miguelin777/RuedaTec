@@ -12,7 +12,17 @@ let EQUIPOS    = cargar(LS_EQUIPOS, BASE);
 let RESULTADOS = cargar(LS_RESULTADOS, JORNADAS);
 let GOLES      = cargar(LS_GOLEADORES, GOLEADORES);
 let PATRON     = cargar(LS_PATRON, CONFIG.patrocinador);
-let jornadaVista = RESULTADOS.some(j => j.num === 29) ? 29 : (RESULTADOS[0] ? RESULTADOS[0].num : 1);
+let jornadaVista = jornadaPorDefecto();
+/* Última jornada completa (todos sus partidos jugados); si no, la última con algún
+   partido jugado; si no, la última del rol. Evita el "29" mágico. */
+function jornadaPorDefecto() {
+  if (!RESULTADOS.length) return 1;
+  const completas = RESULTADOS.filter(j => j.partidos.length && j.partidos.every(p => p.gl != null && p.gv != null));
+  if (completas.length) return completas[completas.length - 1].num;
+  const jugadas = RESULTADOS.filter(j => j.partidos.some(p => p.gl != null && p.gv != null));
+  if (jugadas.length) return jugadas[jugadas.length - 1].num;
+  return RESULTADOS[RESULTADOS.length - 1].num;
+}
 
 function cargar(clave, porDefecto) {
   try {
@@ -21,7 +31,13 @@ function cargar(clave, porDefecto) {
   } catch (e) { return structuredClone(porDefecto); }
 }
 function guardar(clave, valor) {
-  try { localStorage.setItem(clave, JSON.stringify(valor)); } catch (e) {}
+  try { localStorage.setItem(clave, JSON.stringify(valor)); return true; }
+  catch (e) { aviso("⚠️ No se pudo guardar (almacenamiento lleno o modo privado)."); return false; }
+}
+/* Escapa texto que viene del usuario antes de meterlo en innerHTML. */
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g,
+    c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
 /* -------------------- 1) CÁLCULO DE LA TABLA -------------------- */
@@ -73,7 +89,7 @@ function renderTabla() {
     if (pos === CONFIG.clasifican) tr.classList.add("corte");
     tr.innerHTML = `
       <td class="pos">${pos}</td>
-      <td class="eq">${t.equipo}</td>
+      <td class="eq">${esc(t.equipo)}</td>
       <td class="tnum">${t.jj}</td>
       <td class="tnum d-none-sm">${t.jg}</td>
       <td class="tnum d-none-sm">${t.je}</td>
@@ -99,7 +115,7 @@ function renderGoleadores() {
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td class="pos">${i + 1}</td>
-        <td class="eq">${g.jugador}<span class="sub">${g.equipo}</span></td>
+        <td class="eq">${esc(g.jugador)}<span class="sub">${esc(g.equipo)}</span></td>
         <td class="tnum pts">${g.goles}</td>
         <td class="acc">
           <button class="mini" data-acc="dec" data-idx="${idx}" aria-label="Quitar un gol">−</button>
@@ -149,23 +165,28 @@ function renderRol() {
   const j = RESULTADOS.find(x => x.num === jornadaVista);
   const cont = document.getElementById("rol-body");
   cont.innerHTML = "";
+  document.getElementById("rol-titulo").textContent = j ? `Rol · Jornada ${jornadaVista}` : "Rol";
+  if (!j) { cont.innerHTML = `<p class="hint">No hay jornadas. Genera un rol en Admin.</p>`; return; }
   j.partidos.forEach(p => {
-    const jug = p.gl != null && p.gv != null;
     const row = document.createElement("div");
     row.className = "rol-row";
+    if (p.bye) {
+      row.innerHTML = `<div class="rol-line"><span class="rol-loc">${esc(p.loc)}</span><span class="rol-vs">descansa</span><span class="rol-vis"></span></div>`;
+      cont.appendChild(row); return;
+    }
+    const jug = p.gl != null && p.gv != null;
     const centro = jug ? `<span class="rol-sc">${p.gl} - ${p.gv}</span>` : `<span class="rol-vs">vs</span>`;
     const sello = p.def ? `<span class="sello">default</span>` : "";
     const meta = (p.hora || p.campo)
-      ? `<div class="rol-meta">${p.hora ? "🕐 " + p.hora : ""}${p.campo ? " · 📍 " + p.campo : ""}</div>` : "";
+      ? `<div class="rol-meta">${p.hora ? "🕐 " + esc(p.hora) : ""}${p.campo ? " · 📍 " + esc(p.campo) : ""}</div>` : "";
     row.innerHTML = `
       <div class="rol-line">
-        <span class="rol-loc">${p.loc}</span>
+        <span class="rol-loc">${esc(p.loc)}</span>
         ${centro}
-        <span class="rol-vis">${p.vis} ${sello}</span>
+        <span class="rol-vis">${esc(p.vis)} ${sello}</span>
       </div>${meta}`;
     cont.appendChild(row);
   });
-  document.getElementById("rol-titulo").textContent = `Rol · Jornada ${jornadaVista}`;
 }
 
 /* -------------------- 5) CAPTURA -------------------- */
@@ -173,34 +194,40 @@ function renderCaptura() {
   const j = RESULTADOS.find(x => x.num === jornadaVista);
   const cont = document.getElementById("captura-body");
   cont.innerHTML = "";
+  document.getElementById("captura-titulo").textContent = j ? `Capturar Jornada ${jornadaVista}` : "Capturar";
+  if (!j) { cont.innerHTML = `<p class="hint">No hay jornadas. Genera un rol en Admin.</p>`; return; }
   j.partidos.forEach((p, idx) => {
+    if (p.bye) return;
     const row = document.createElement("div");
     row.className = "cap-row";
     const sello = p.def ? `<span class="sello">default</span>` : "";
     const detalle = (p.hora || p.campo)
-      ? `<span class="detalle">${p.hora ? p.hora + " · " : ""}${p.campo || ""}</span>` : "";
+      ? `<span class="detalle">${p.hora ? esc(p.hora) + " · " : ""}${esc(p.campo || "")}</span>` : "";
     row.innerHTML = `
-      <span class="cap-eq loc">${p.loc}</span>
+      <span class="cap-eq loc">${esc(p.loc)}</span>
       <input class="cap-in" type="number" min="0" inputmode="numeric"
-             data-i="${idx}" data-lado="gl" value="${p.gl ?? ""}" aria-label="Goles ${p.loc}">
+             data-i="${idx}" data-lado="gl" value="${p.gl ?? ""}" aria-label="Goles ${esc(p.loc)}">
       <span class="cap-vs">-</span>
       <input class="cap-in" type="number" min="0" inputmode="numeric"
-             data-i="${idx}" data-lado="gv" value="${p.gv ?? ""}" aria-label="Goles ${p.vis}">
-      <span class="cap-eq vis">${p.vis} ${sello}${detalle}</span>`;
+             data-i="${idx}" data-lado="gv" value="${p.gv ?? ""}" aria-label="Goles ${esc(p.vis)}">
+      <span class="cap-eq vis">${esc(p.vis)} ${sello}${detalle}</span>`;
     cont.appendChild(row);
   });
-  document.getElementById("captura-titulo").textContent = `Capturar Jornada ${jornadaVista}`;
 }
 
 function guardarCaptura() {
   const j = RESULTADOS.find(x => x.num === jornadaVista);
+  if (!j) return;
   document.querySelectorAll("#captura-body .cap-in").forEach(inp => {
     const i = +inp.dataset.i, lado = inp.dataset.lado, v = inp.value.trim();
     j.partidos[i][lado] = v === "" ? null : Math.max(0, parseInt(v, 10) || 0);
   });
   guardar(LS_RESULTADOS, RESULTADOS);
   renderTodo();
-  aviso("✅ Jornada guardada. La tabla ya se actualizó.");
+  const incompletos = j.partidos.filter(p => !p.bye && (p.gl == null) !== (p.gv == null)).length;
+  aviso(incompletos
+    ? `✅ Guardada. Ojo: ${incompletos} partido(s) con un solo marcador aún no cuentan.`
+    : "✅ Jornada guardada. La tabla ya se actualizó.");
 }
 
 /* -------------------- 6) IMÁGENES (Canvas) -------------------- */
@@ -280,13 +307,15 @@ function generarImagenTabla() {
 
 function generarImagenResultados() {
   const j = RESULTADOS.find(x => x.num === jornadaVista);
+  if (!j) { aviso("No hay jornadas."); return; }
+  const ps = j.partidos.filter(p => !p.bye);
   const rowH = 92, headH = 240, W = IMG_W;
-  const H = headH + rowH * j.partidos.length + 150 + 20;
+  const H = headH + rowH * Math.max(ps.length, 1) + 150 + 20;
   const cv = document.getElementById("lienzo"); cv.width = W; cv.height = H;
   const c = cv.getContext("2d");
   fondo(c, W, H, `Resultados · Jornada ${jornadaVista}`);
 
-  j.partidos.forEach((p, i) => {
+  ps.forEach((p, i) => {
     const y = headH + i * rowH, midY = y + rowH / 2, jug = p.gl != null && p.gv != null;
     if (i % 2 === 0) { c.fillStyle = "rgba(255,255,255,.03)"; c.fillRect(0, y, W, rowH); }
     // local (derecha del nombre hacia el centro)
@@ -340,12 +369,14 @@ function generarImagenGoleadores() {
 
 function generarImagenRol() {
   const j = RESULTADOS.find(x => x.num === jornadaVista);
+  if (!j) { aviso("No hay jornadas."); return; }
+  const ps = j.partidos.filter(p => !p.bye);
   const rowH = 104, headH = 240, W = IMG_W;
-  const H = headH + rowH * j.partidos.length + 150 + 20;
+  const H = headH + rowH * Math.max(ps.length, 1) + 150 + 20;
   const cv = document.getElementById("lienzo"); cv.width = W; cv.height = H;
   const c = cv.getContext("2d");
   fondo(c, W, H, `Rol · Jornada ${jornadaVista}`);
-  j.partidos.forEach((p, i) => {
+  ps.forEach((p, i) => {
     const y = headH + i * rowH, midY = y + rowH / 2 - 4, jug = p.gl != null && p.gv != null;
     if (i % 2 === 0) { c.fillStyle = "rgba(255,255,255,.03)"; c.fillRect(0, y, W, rowH); }
     c.textAlign = "right"; c.fillStyle = "#EFF3EE"; c.font = "600 30px system-ui, Arial";
@@ -421,9 +452,9 @@ function renderEquipos() {
     const row = document.createElement("div");
     row.className = "eq-row";
     row.innerHTML = `
-      <span class="eq-nom">${t.equipo}</span>
+      <span class="eq-nom">${esc(t.equipo)}</span>
       <span class="eq-rec tnum">${t.pts} pts</span>
-      <button class="mini del" data-eqdel="${idx}" aria-label="Borrar ${t.equipo}">🗑</button>`;
+      <button class="mini del" data-eqdel="${idx}" aria-label="Borrar ${esc(t.equipo)}">🗑</button>`;
     cont.appendChild(row);
   });
   document.getElementById("eq-count").textContent = `${EQUIPOS.length} equipos`;
@@ -433,15 +464,20 @@ function addEquipo() {
   const nom = inp.value.trim();
   if (!nom) { aviso("Escribe el nombre del equipo."); return; }
   if (EQUIPOS.some(e => e.equipo.toLowerCase() === nom.toLowerCase())) { aviso("Ese equipo ya existe."); return; }
-  EQUIPOS.push({ equipo: nom, jg: 0, je: 0, jp: 0, gf: 0, gc: 0, pts: 0 });
+  EQUIPOS.push({ equipo: nom, jg: 0, je: 0, jp: 0, gf: 0, gc: 0, pts: 0, jugadores: [] });
   guardar(LS_EQUIPOS, EQUIPOS);
   inp.value = "";
   llenarSelectEquipos(); renderTodo();
   aviso(`✅ Equipo agregado: ${nom}`);
 }
 function delEquipo(idx) {
-  if (!EQUIPOS[idx]) return;
-  if (!confirm(`¿Borrar al equipo ${EQUIPOS[idx].equipo}?`)) return;
+  const eq = EQUIPOS[idx];
+  if (!eq) return;
+  const tienePartidos = RESULTADOS.some(j => j.partidos.some(p => p.loc === eq.equipo || p.vis === eq.equipo));
+  const msg = tienePartidos
+    ? `${eq.equipo} tiene partidos en el rol. Si lo borras, esos partidos quedarán con un equipo inexistente. ¿Borrar de todas formas?`
+    : `¿Borrar al equipo ${eq.equipo}?`;
+  if (!confirm(msg)) return;
   EQUIPOS.splice(idx, 1); guardar(LS_EQUIPOS, EQUIPOS);
   llenarSelectEquipos(); renderTodo();
 }
@@ -456,7 +492,8 @@ function roundRobin(nombres) {
     const partidos = [];
     for (let i = 0; i < mitad; i++) {
       const a = arr[i], b = arr[n - 1 - i];
-      if (a.startsWith("— descansa") || b.startsWith("— descansa")) continue;
+      const aBye = a.startsWith("— descansa"), bBye = b.startsWith("— descansa");
+      if (aBye || bBye) { partidos.push({ loc: aBye ? b : a, vis: "descansa", gl: null, gv: null, bye: true }); continue; }
       const [loc, vis] = r % 2 ? [b, a] : [a, b];
       partidos.push({ loc, gl: null, gv: null, vis });
     }
@@ -503,9 +540,10 @@ function verRolCompleto() {
   RESULTADOS.forEach(j => {
     const blk = document.createElement("div"); blk.className = "rc-jor";
     blk.innerHTML = `<div class="rc-h">Jornada ${j.num}</div>` + j.partidos.map(p => {
+      if (p.bye) return `<div class="rc-p">${esc(p.loc)} — descansa</div>`;
       const m = (p.gl != null && p.gv != null) ? `${p.gl}-${p.gv}` : "vs";
-      const meta = [p.hora, p.campo].filter(Boolean).join(" · ");
-      return `<div class="rc-p">${p.loc} <b>${m}</b> ${p.vis}${meta ? ` · ${meta}` : ""}</div>`;
+      const meta = [p.hora, p.campo].filter(Boolean).map(esc).join(" · ");
+      return `<div class="rc-p">${esc(p.loc)} <b>${m}</b> ${esc(p.vis)}${meta ? ` · ${meta}` : ""}</div>`;
     }).join("");
     box.appendChild(blk);
   });
@@ -540,8 +578,8 @@ function renderPlantilla() {
     const row = document.createElement("div"); row.className = "pl-row";
     row.innerHTML = `
       <span class="pl-num tnum">${j.numero ?? "–"}</span>
-      <span class="pl-nom">${j.nombre}</span>
-      <button class="mini del" data-jugdel="${idx}" aria-label="Borrar ${j.nombre}">🗑</button>`;
+      <span class="pl-nom">${esc(j.nombre)}</span>
+      <button class="mini del" data-jugdel="${idx}" aria-label="Borrar ${esc(j.nombre)}">🗑</button>`;
     cont.appendChild(row);
   });
 }
@@ -625,7 +663,7 @@ function renderMiEquipo() {
     return `<span class="f-badge f-${r}" title="J${p.jor}: ${p.gf}-${p.ga} vs ${p.rival}">${r}</span>`;
   }).join("");
   const proxHtml = prox ? `
-      <div class="mi-vs"><span>${nombre}</span><b>vs</b><span>${prox.rival}</span></div>
+      <div class="mi-vs"><span>${esc(nombre)}</span><b>vs</b><span>${esc(prox.rival)}</span></div>
       <div class="mi-meta">
         <span>Jornada ${prox.jor}</span>
         <span>${prox.local ? "🏠 Local" : "✈️ Visitante"}</span>
@@ -634,13 +672,13 @@ function renderMiEquipo() {
       </div>` : `<p class="hint">No hay próximos partidos (temporada terminada).</p>`;
   const js = [...eq.jugadores].sort((a, b) => (a.numero ?? 999) - (b.numero ?? 999));
   const plHtml = js.length
-    ? js.map(j => `<div class="mi-jug"><span class="pl-num tnum">${j.numero ?? "–"}</span>${j.nombre}</div>`).join("")
+    ? js.map(j => `<div class="mi-jug"><span class="pl-num tnum">${j.numero ?? "–"}</span>${esc(j.nombre)}</div>`).join("")
     : `<p class="hint">Sin jugadores. Agrégalos en la pestaña Plantillas.</p>`;
   cont.innerHTML = `
     <div class="mi-hero ${zona ? "clasif" : ""}">
       <div class="mi-pos">${pos || "–"}<small>°</small></div>
       <div class="mi-hero-info">
-        <div class="mi-eq">${nombre}</div>
+        <div class="mi-eq">${esc(nombre)}</div>
         <div class="mi-rec">${fila.pts} pts · ${fila.jg}G ${fila.je}E ${fila.jp}P · dif ${fila.dif > 0 ? "+" : ""}${fila.dif}</div>
         <div class="mi-tag">${zona ? "✓ En zona de clasificación" : "Fuera de clasificación"}</div>
       </div>
@@ -652,13 +690,27 @@ function renderMiEquipo() {
 
 /* -------------------- Pestañas, utilidades y arranque -------------------- */
 function initTabs() {
-  const tabs = document.querySelectorAll(".tab");
-  tabs.forEach(t => t.addEventListener("click", () => {
-    tabs.forEach(x => { x.classList.remove("active"); x.setAttribute("aria-selected", "false"); });
-    t.classList.add("active"); t.setAttribute("aria-selected", "true");
+  const tabs = [...document.querySelectorAll(".tab")];
+  function activar(t) {
+    tabs.forEach(x => { x.classList.remove("active"); x.setAttribute("aria-selected", "false"); x.tabIndex = -1; });
+    t.classList.add("active"); t.setAttribute("aria-selected", "true"); t.tabIndex = 0;
     document.querySelectorAll(".tabpanel").forEach(p => p.hidden = true);
     document.getElementById("panel-" + t.dataset.tab).hidden = false;
-  }));
+  }
+  tabs.forEach((t, i) => {
+    if (!t.id) t.id = "tab-" + t.dataset.tab;
+    t.setAttribute("aria-controls", "panel-" + t.dataset.tab);
+    const panel = document.getElementById("panel-" + t.dataset.tab);
+    if (panel) panel.setAttribute("aria-labelledby", t.id);
+    t.addEventListener("click", () => activar(t));
+    t.addEventListener("keydown", e => {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      e.preventDefault();
+      const dir = e.key === "ArrowRight" ? 1 : -1;
+      const next = tabs[(i + dir + tabs.length) % tabs.length];
+      activar(next); next.focus();
+    });
+  });
 }
 
 function aviso(msg) {
@@ -674,7 +726,7 @@ function resetTodo() {
   RESULTADOS = structuredClone(JORNADAS);
   GOLES = structuredClone(GOLEADORES);
   PATRON = structuredClone(CONFIG.patrocinador);
-  jornadaVista = 29;
+  jornadaVista = jornadaPorDefecto();
   rebuildSelector(); cargarPatronUI(); llenarSelectEquipos(); renderTodo();
   aviso("↺ Datos restaurados.");
 }
@@ -707,7 +759,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("liga-nombre").textContent = CONFIG.liga;
   document.getElementById("liga-cat").textContent = `Categoría ${CONFIG.categoria} · ${CONFIG.temporada}`;
   normalizeEquipos();
-  initSelector(); initTabs(); llenarSelectEquipos(); cargarPatronUI(); renderTodo();
+  initSelector(); initTabs(); llenarSelectEquipos(); cargarPatronUI();
   document.getElementById("btn-guardar").addEventListener("click", guardarCaptura);
   document.getElementById("btn-img-tabla").addEventListener("click", generarImagenTabla);
   document.getElementById("btn-img-result").addEventListener("click", generarImagenResultados);
@@ -740,4 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const b = e.target.closest("button[data-jugdel]"); if (!b) return;
     delJugador(+b.dataset.jugdel);
   });
+  // Render inicial al final: si algo fallara, los botones (incl. Restaurar) ya están enlazados.
+  try { renderTodo(); }
+  catch (err) { aviso("⚠️ Error al mostrar datos. Usa 'Restaurar datos'."); }
 });

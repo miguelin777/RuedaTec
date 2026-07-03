@@ -1,7 +1,7 @@
 /* Liga 100% Familiar — prototipo Fase 1 */
 :root{
   --paper:#F4F2EA; --paper2:#FBFAF5;
-  --ink:#15211A; --ink-soft:#3B473F; --muted:#6E7A70;
+  --ink:#15211A; --ink-soft:#3B473F; --muted:#586158; --crit:#B23A2E;
   --green:#12905A; --green-deep:#0C1E15; --green-tint:#E7F0EA;
   --amber:#B9770F; --amber-2:#D2901E; --amber-tint:#F6ECD6;
   --line:#DED9CB; --line-strong:#C9C3B2;
@@ -64,11 +64,13 @@ main.wrap{padding-top:16px; padding-bottom:24px; display:grid; gap:16px}
 
 /* ---- goleadores editables ---- */
 .tabla th.acc,.tabla td.acc{text-align:right; white-space:nowrap}
-.mini{border:1px solid var(--line-strong); background:#fff; color:var(--ink); border-radius:7px;
-  padding:4px 9px; font-family:var(--sans); font-weight:700; font-size:.82rem; cursor:pointer; margin-left:3px}
+.mini{border:1px solid var(--line-strong); background:#fff; color:var(--ink); border-radius:8px;
+  min-height:40px; min-width:40px; padding:8px 12px; font-family:var(--sans); font-weight:700;
+  font-size:.85rem; cursor:pointer; margin-left:5px}
 .mini.mas{background:var(--green-tint); color:#0B5B39; border-color:transparent}
-.mini.del{border-color:transparent; filter:grayscale(.2)}
-.mini:hover{filter:brightness(.97)}
+.mini.del{background:#FBEAE8; border-color:#E4B4AE; color:#B23A2E}
+.mini.del:hover{background:#F3D6D2}
+.mini:hover{filter:brightness(.98)}
 .mini:focus-visible{outline:2px solid var(--green); outline-offset:1px}
 .gol-form{display:grid; grid-template-columns:1fr 1fr auto auto; gap:8px; align-items:center}
 .gol-form input,.gol-form select{border:1px solid var(--line-strong); border-radius:8px; padding:10px;
@@ -76,14 +78,19 @@ main.wrap{padding-top:16px; padding-bottom:24px; display:grid; gap:16px}
 .gol-form input:focus,.gol-form select:focus{outline:2px solid var(--green); border-color:var(--green)}
 .gol-form #g-goles{width:68px}
 .gol-form #btn-add-gol{width:auto}
-@media (max-width:560px){ .gol-form{grid-template-columns:1fr 1fr} .gol-form #btn-add-gol{grid-column:1/-1} }
+@media (max-width:560px){
+  .gol-form{grid-template-columns:1fr 1fr}
+  .gol-form>input[type="text"], .gol-form>.btn{grid-column:1/-1}
+  .gol-form>.btn{width:100%}
+}
 
 /* ---- admin ---- */
 .equipos{display:grid; gap:6px}
-.eq-row{display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:10px;
+.eq-row{display:flex; align-items:center; gap:12px;
   background:var(--paper); border:1px solid var(--line); border-radius:9px; padding:9px 12px}
-.eq-nom{font-weight:700; color:var(--ink); font-size:.93rem}
+.eq-nom{font-weight:700; color:var(--ink); font-size:.93rem; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .eq-rec{font-family:var(--mono); font-size:.8rem; color:var(--muted)}
+.eq-row .mini{margin-left:auto}
 .sep{border:0; border-top:1px solid var(--line); margin:18px 0}
 .sub-h{font-family:var(--sans); font-weight:800; font-size:1.02rem; color:var(--ink); margin:0 0 4px}
 .rol-completo{margin-top:14px; display:grid; gap:12px; max-height:420px; overflow-y:auto;
@@ -121,7 +128,8 @@ main.wrap{padding-top:16px; padding-bottom:24px; display:grid; gap:16px}
 .mi-pos small{font-size:1.2rem}
 .mi-eq{font-family:var(--sans); font-weight:800; font-size:1.5rem; color:#FBFDFB; line-height:1.1}
 .mi-rec{font-family:var(--mono); font-size:.84rem; color:#B9CFC2; margin-top:5px}
-.mi-tag{font-size:.8rem; margin-top:7px; color:#9FE0BC; font-weight:700}
+.mi-tag{font-size:.8rem; margin-top:7px; color:#E0B36A; font-weight:700}
+.mi-hero.clasif .mi-tag{color:#9FE0BC}
 .mi-card{background:var(--paper2); border:1px solid var(--line); border-radius:14px; padding:18px}
 .mi-card h3{font-family:var(--sans); font-weight:800; font-size:1rem; margin:0 0 12px; color:var(--ink)}
 .mi-vs{display:flex; align-items:center; justify-content:center; gap:14px; font-family:var(--sans);
@@ -137,6 +145,16 @@ main.wrap{padding-top:16px; padding-bottom:24px; display:grid; gap:16px}
 .mi-plantilla{display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:8px}
 .mi-jug{display:flex; align-items:center; gap:10px; background:var(--paper); border:1px solid var(--line);
   border-radius:9px; padding:8px 12px; font-weight:700; color:var(--ink); font-size:.9rem}
+
+/* ---- ajustes móviles (auditoría UX) ---- */
+@media (max-width:560px){
+  .tabs{flex-wrap:wrap; overflow:visible}
+  .tab{flex:1 1 auto; font-size:.82rem; padding:9px 10px; text-align:center}
+  .panel-head{flex-direction:column; align-items:flex-start; gap:3px}
+}
+/* botón de acción destructiva */
+.btn-danger{background:#B23A2E; color:#fff}
+.btn-gen{margin-top:4px}
 
 .panel{background:var(--paper2); border:1px solid var(--line); border-radius:14px; padding:18px}
 .panel-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:12px}

@@ -48,15 +48,16 @@
             <thead>
               <tr>
                 <th class="pos">#</th><th class="eq">Equipo</th>
-                <th>JJ</th>
-                <th class="d-none-sm">JG</th><th class="d-none-sm">JE</th><th class="d-none-sm">JP</th>
-                <th class="d-none-sm">GF</th><th class="d-none-sm">GC</th>
-                <th>DIF</th><th class="pts">PTS</th>
+                <th title="Juegos jugados">JJ</th>
+                <th class="d-none-sm" title="Ganados">JG</th><th class="d-none-sm" title="Empatados">JE</th><th class="d-none-sm" title="Perdidos">JP</th>
+                <th class="d-none-sm" title="Goles a favor">GF</th><th class="d-none-sm" title="Goles en contra">GC</th>
+                <th title="Diferencia de goles">DIF</th><th class="pts" title="Puntos">PTS</th>
               </tr>
             </thead>
             <tbody id="tabla-body"></tbody>
           </table>
         </div>
+        <p class="leyenda hint">JJ = jugados · JG = ganados · JE = empatados · JP = perdidos · GF = goles a favor · GC = en contra · DIF = diferencia · PTS = puntos</p>
       </div>
 
       <div class="panel">
@@ -180,7 +181,7 @@
         <hr class="sep">
         <h3 class="sub-h">Generar rol nuevo</h3>
         <p class="hint mb">Crea un calendario de todos contra todos con los equipos de arriba y reinicia la temporada en 0.</p>
-        <button id="btn-gen-rol" class="btn btn-amber">Generar rol (todos contra todos)</button>
+        <button id="btn-gen-rol" class="btn btn-danger btn-gen">⚠️ Generar rol (reinicia la temporada)</button>
       </div>
     </section>
 
