@@ -15,6 +15,9 @@ abre `liga/index.html` en el navegador (celular o compu) y funciona.
 - **Admin**: gestiona **todos los equipos** (agregar al inicio de temporada, borrar),
   **ve y descarga el rol** completo (.txt) y **genera un rol** de todos contra todos
   (round-robin) que reinicia la temporada en 0.
+- **Plantillas**: registra los **jugadores de cada equipo** (nombre + número) desde el
+  inicio del torneo, con imagen de la plantilla para compartir. Base para perfiles de
+  jugador, goleadores ligados y el pedido de uniformes de la tienda (Fase 2).
 
 ## Cómo probarlo
 1. Abre `liga/index.html`.

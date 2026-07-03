@@ -28,6 +28,7 @@
     <button class="tab active" data-tab="tabla"      role="tab" aria-selected="true">📊 Tabla</button>
     <button class="tab" data-tab="goleadores" role="tab" aria-selected="false">⚽ Goleadores</button>
     <button class="tab" data-tab="rol"        role="tab" aria-selected="false">📅 Rol</button>
+    <button class="tab" data-tab="plantillas"  role="tab" aria-selected="false">👥 Plantillas</button>
     <button class="tab" data-tab="captura"     role="tab" aria-selected="false">✍️ Captura</button>
     <button class="tab" data-tab="admin"       role="tab" aria-selected="false">🛠️ Admin</button>
   </nav>
@@ -114,6 +115,24 @@
         <div class="panel-head"><h2 id="rol-titulo">Rol de la jornada</h2></div>
         <div id="rol-body" class="rol"></div>
         <button id="btn-img-rol" class="btn btn-green mt">Imagen del rol</button>
+      </div>
+    </section>
+
+    <!-- ============ PLANTILLAS ============ -->
+    <section id="panel-plantillas" class="tabpanel" role="tabpanel" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2>Plantillas</h2><span class="hint" id="pl-count"></span></div>
+        <div class="pl-pick">
+          <label for="sel-equipo-pl">Equipo</label>
+          <select id="sel-equipo-pl" aria-label="Elegir equipo"></select>
+        </div>
+        <div id="plantilla-body" class="plantilla"></div>
+        <div class="pl-form mt">
+          <input id="pl-num" type="number" min="0" placeholder="#" aria-label="Número">
+          <input id="pl-nombre" type="text" placeholder="Nombre del jugador" aria-label="Nombre del jugador">
+          <button id="btn-add-jug" class="btn btn-green">Agregar</button>
+        </div>
+        <button id="btn-img-plantilla" class="btn btn-line mt">Imagen de la plantilla</button>
       </div>
     </section>
 

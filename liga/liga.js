@@ -512,6 +512,83 @@ function verRolCompleto() {
   box.hidden = false;
 }
 
+/* -------------------- 9) PLANTILLAS (jugadores por equipo) -------------------- */
+function normalizeEquipos() {
+  EQUIPOS.forEach(e => { if (!Array.isArray(e.jugadores)) e.jugadores = []; });
+}
+function equipoSelPl() { return document.getElementById("sel-equipo-pl").value; }
+function renderPlantillaSelect() {
+  const sel = document.getElementById("sel-equipo-pl");
+  const actual = sel.value;
+  sel.innerHTML = "";
+  EQUIPOS.map(e => e.equipo).forEach(n => {
+    const o = document.createElement("option"); o.value = n; o.textContent = n; sel.appendChild(o);
+  });
+  if (actual && EQUIPOS.some(e => e.equipo === actual)) sel.value = actual;
+}
+function renderPlantilla() {
+  const eq = EQUIPOS.find(e => e.equipo === equipoSelPl());
+  const cont = document.getElementById("plantilla-body");
+  cont.innerHTML = "";
+  const cnt = document.getElementById("pl-count");
+  if (!eq) { cnt.textContent = ""; return; }
+  const js = [...eq.jugadores].sort((a, b) => (a.numero ?? 999) - (b.numero ?? 999));
+  cnt.textContent = `${eq.jugadores.length} jugadores`;
+  if (!js.length) { cont.innerHTML = `<p class="hint">Sin jugadores todavía. Agrega el primero abajo.</p>`; return; }
+  js.forEach(j => {
+    const idx = eq.jugadores.indexOf(j);
+    const row = document.createElement("div"); row.className = "pl-row";
+    row.innerHTML = `
+      <span class="pl-num tnum">${j.numero ?? "–"}</span>
+      <span class="pl-nom">${j.nombre}</span>
+      <button class="mini del" data-jugdel="${idx}" aria-label="Borrar ${j.nombre}">🗑</button>`;
+    cont.appendChild(row);
+  });
+}
+function addJugador() {
+  const nom = document.getElementById("pl-nombre").value.trim();
+  const numRaw = document.getElementById("pl-num").value.trim();
+  const numero = numRaw === "" ? null : Math.max(0, parseInt(numRaw, 10) || 0);
+  if (!nom) { aviso("Escribe el nombre del jugador."); return; }
+  const eq = EQUIPOS.find(e => e.equipo === equipoSelPl());
+  if (!eq) { aviso("Elige un equipo."); return; }
+  eq.jugadores.push({ nombre: nom, numero });
+  guardar(LS_EQUIPOS, EQUIPOS);
+  document.getElementById("pl-nombre").value = "";
+  document.getElementById("pl-num").value = "";
+  renderPlantilla();
+  aviso(`✅ ${nom} agregado a ${eq.equipo}`);
+}
+function delJugador(idx) {
+  const eq = EQUIPOS.find(e => e.equipo === equipoSelPl());
+  if (!eq || !eq.jugadores[idx]) return;
+  eq.jugadores.splice(idx, 1); guardar(LS_EQUIPOS, EQUIPOS); renderPlantilla();
+}
+function generarImagenPlantilla() {
+  const eq = EQUIPOS.find(e => e.equipo === equipoSelPl());
+  if (!eq) return;
+  const js = [...eq.jugadores].sort((a, b) => (a.numero ?? 999) - (b.numero ?? 999));
+  const rowH = 58, headH = 240, W = IMG_W;
+  const H = headH + rowH * Math.max(js.length, 1) + 150 + 20;
+  const cv = document.getElementById("lienzo"); cv.width = W; cv.height = H;
+  const c = cv.getContext("2d");
+  fondo(c, W, H, `Plantilla · ${eq.equipo}`);
+  if (!js.length) {
+    c.fillStyle = "#8FB6A0"; c.font = "500 30px system-ui, Arial"; c.textAlign = "left";
+    c.fillText("Sin jugadores registrados", PAD, headH + 40);
+  }
+  js.forEach((j, i) => {
+    const y = headH + i * rowH, midY = y + rowH / 2 + 10;
+    if (i % 2 === 0) { c.fillStyle = "rgba(255,255,255,.03)"; c.fillRect(0, y, W, rowH); }
+    c.textAlign = "right"; c.fillStyle = "#7FD3A6"; c.font = "700 30px ui-monospace, monospace";
+    c.fillText(j.numero != null ? String(j.numero) : "–", PAD + 60, midY);
+    c.textAlign = "left"; c.fillStyle = "#EFF3EE"; c.font = "600 32px system-ui, Arial";
+    c.fillText(recorta(j.nombre, 30), PAD + 90, midY);
+  });
+  footer(c, W, H);
+  mostrarImagen(cv, `plantilla-${eq.equipo.toLowerCase().replace(/\s+/g, "-")}`);
+}
+
 /* -------------------- Pestañas, utilidades y arranque -------------------- */
 function initTabs() {
   const tabs = document.querySelectorAll(".tab");
@@ -532,7 +609,7 @@ function aviso(msg) {
 function resetTodo() {
   if (!confirm("¿Borrar tus capturas y volver a los datos originales?")) return;
   [LS_RESULTADOS, LS_GOLEADORES, LS_PATRON, LS_EQUIPOS].forEach(k => localStorage.removeItem(k));
-  EQUIPOS = structuredClone(BASE);
+  EQUIPOS = structuredClone(BASE); normalizeEquipos();
   RESULTADOS = structuredClone(JORNADAS);
   GOLES = structuredClone(GOLEADORES);
   PATRON = structuredClone(CONFIG.patrocinador);
@@ -541,7 +618,10 @@ function resetTodo() {
   aviso("↺ Datos restaurados.");
 }
 
-function renderTodo() { renderTabla(); renderGoleadores(); renderRol(); renderCaptura(); renderEquipos(); }
+function renderTodo() {
+  renderTabla(); renderGoleadores(); renderRol(); renderCaptura();
+  renderEquipos(); renderPlantillaSelect(); renderPlantilla();
+}
 
 function rebuildSelector() {
   const sel = document.getElementById("sel-jornada");
@@ -564,6 +644,7 @@ function initSelector() {
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("liga-nombre").textContent = CONFIG.liga;
   document.getElementById("liga-cat").textContent = `Categoría ${CONFIG.categoria} · ${CONFIG.temporada}`;
+  normalizeEquipos();
   initSelector(); initTabs(); llenarSelectEquipos(); cargarPatronUI(); renderTodo();
   document.getElementById("btn-guardar").addEventListener("click", guardarCaptura);
   document.getElementById("btn-img-tabla").addEventListener("click", generarImagenTabla);
@@ -588,5 +669,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("equipos-body").addEventListener("click", e => {
     const b = e.target.closest("button[data-eqdel]"); if (!b) return;
     delEquipo(+b.dataset.eqdel);
+  });
+  document.getElementById("sel-equipo-pl").addEventListener("change", renderPlantilla);
+  document.getElementById("btn-add-jug").addEventListener("click", addJugador);
+  document.getElementById("btn-img-plantilla").addEventListener("click", generarImagenPlantilla);
+  document.getElementById("plantilla-body").addEventListener("click", e => {
+    const b = e.target.closest("button[data-jugdel]"); if (!b) return;
+    delJugador(+b.dataset.jugdel);
   });
 });
