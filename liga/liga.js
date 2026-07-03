@@ -589,6 +589,67 @@ function generarImagenPlantilla() {
   mostrarImagen(cv, `plantilla-${eq.equipo.toLowerCase().replace(/\s+/g, "-")}`);
 }
 
+/* -------------------- 10) MI EQUIPO (vista de jugador) -------------------- */
+function ultimaJornadaNum() { return RESULTADOS.length ? RESULTADOS[RESULTADOS.length - 1].num : 0; }
+function partidosDeEquipo(nombre) {
+  const out = [];
+  RESULTADOS.forEach(j => j.partidos.forEach(p => {
+    if (p.loc === nombre) out.push({ jor: j.num, rival: p.vis, local: true, gf: p.gl, ga: p.gv, hora: p.hora, campo: p.campo });
+    else if (p.vis === nombre) out.push({ jor: j.num, rival: p.loc, local: false, gf: p.gv, ga: p.gl, hora: p.hora, campo: p.campo });
+  }));
+  return out;
+}
+function renderMiEquipoSelect() {
+  const sel = document.getElementById("sel-equipo-mi");
+  const actual = sel.value;
+  sel.innerHTML = "";
+  EQUIPOS.map(e => e.equipo).forEach(n => {
+    const o = document.createElement("option"); o.value = n; o.textContent = n; sel.appendChild(o);
+  });
+  if (actual && EQUIPOS.some(e => e.equipo === actual)) sel.value = actual;
+}
+function renderMiEquipo() {
+  const nombre = document.getElementById("sel-equipo-mi").value;
+  const cont = document.getElementById("miequipo-body");
+  const eq = EQUIPOS.find(e => e.equipo === nombre);
+  if (!eq) { cont.innerHTML = ""; return; }
+  const tabla = calcularTabla(ultimaJornadaNum());
+  const pos = tabla.findIndex(t => t.equipo === nombre) + 1;
+  const fila = tabla[pos - 1] || { pts: 0, jg: 0, je: 0, jp: 0, dif: 0 };
+  const zona = pos > 0 && pos <= CONFIG.clasifican;
+  const partidos = partidosDeEquipo(nombre);
+  const prox = partidos.find(p => p.gf == null || p.ga == null);
+  const jugados = partidos.filter(p => p.gf != null && p.ga != null);
+  const forma = jugados.slice(-5).map(p => {
+    const r = p.gf > p.ga ? "G" : p.gf === p.ga ? "E" : "P";
+    return `<span class="f-badge f-${r}" title="J${p.jor}: ${p.gf}-${p.ga} vs ${p.rival}">${r}</span>`;
+  }).join("");
+  const proxHtml = prox ? `
+      <div class="mi-vs"><span>${nombre}</span><b>vs</b><span>${prox.rival}</span></div>
+      <div class="mi-meta">
+        <span>Jornada ${prox.jor}</span>
+        <span>${prox.local ? "🏠 Local" : "✈️ Visitante"}</span>
+        ${prox.hora ? `<span>🕐 ${prox.hora}</span>` : ""}
+        ${prox.campo ? `<span>📍 ${prox.campo}</span>` : ""}
+      </div>` : `<p class="hint">No hay próximos partidos (temporada terminada).</p>`;
+  const js = [...eq.jugadores].sort((a, b) => (a.numero ?? 999) - (b.numero ?? 999));
+  const plHtml = js.length
+    ? js.map(j => `<div class="mi-jug"><span class="pl-num tnum">${j.numero ?? "–"}</span>${j.nombre}</div>`).join("")
+    : `<p class="hint">Sin jugadores. Agrégalos en la pestaña Plantillas.</p>`;
+  cont.innerHTML = `
+    <div class="mi-hero ${zona ? "clasif" : ""}">
+      <div class="mi-pos">${pos || "–"}<small>°</small></div>
+      <div class="mi-hero-info">
+        <div class="mi-eq">${nombre}</div>
+        <div class="mi-rec">${fila.pts} pts · ${fila.jg}G ${fila.je}E ${fila.jp}P · dif ${fila.dif > 0 ? "+" : ""}${fila.dif}</div>
+        <div class="mi-tag">${zona ? "✓ En zona de clasificación" : "Fuera de clasificación"}</div>
+      </div>
+    </div>
+    <div class="mi-card"><h3>Próximo partido</h3>${proxHtml}</div>
+    <div class="mi-card"><h3>Últimos resultados</h3><div class="forma">${forma || '<span class="hint">Aún sin partidos jugados.</span>'}</div></div>
+    <div class="mi-card"><h3>Plantilla (${eq.jugadores.length})</h3><div class="mi-plantilla">${plHtml}</div></div>`;
+}
+
 /* -------------------- Pestañas, utilidades y arranque -------------------- */
 function initTabs() {
   const tabs = document.querySelectorAll(".tab");
@@ -621,6 +682,7 @@ function resetTodo() {
 function renderTodo() {
   renderTabla(); renderGoleadores(); renderRol(); renderCaptura();
   renderEquipos(); renderPlantillaSelect(); renderPlantilla();
+  renderMiEquipoSelect(); renderMiEquipo();
 }
 
 function rebuildSelector() {
@@ -670,6 +732,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const b = e.target.closest("button[data-eqdel]"); if (!b) return;
     delEquipo(+b.dataset.eqdel);
   });
+  document.getElementById("sel-equipo-mi").addEventListener("change", renderMiEquipo);
   document.getElementById("sel-equipo-pl").addEventListener("change", renderPlantilla);
   document.getElementById("btn-add-jug").addEventListener("click", addJugador);
   document.getElementById("btn-img-plantilla").addEventListener("click", generarImagenPlantilla);

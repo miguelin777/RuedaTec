@@ -26,6 +26,7 @@
 
   <nav class="tabs wrap" role="tablist" aria-label="Secciones">
     <button class="tab active" data-tab="tabla"      role="tab" aria-selected="true">📊 Tabla</button>
+    <button class="tab" data-tab="miequipo"   role="tab" aria-selected="false">🙋 Mi equipo</button>
     <button class="tab" data-tab="goleadores" role="tab" aria-selected="false">⚽ Goleadores</button>
     <button class="tab" data-tab="rol"        role="tab" aria-selected="false">📅 Rol</button>
     <button class="tab" data-tab="plantillas"  role="tab" aria-selected="false">👥 Plantillas</button>
@@ -115,6 +116,17 @@
         <div class="panel-head"><h2 id="rol-titulo">Rol de la jornada</h2></div>
         <div id="rol-body" class="rol"></div>
         <button id="btn-img-rol" class="btn btn-green mt">Imagen del rol</button>
+      </div>
+    </section>
+
+    <!-- ============ MI EQUIPO ============ -->
+    <section id="panel-miequipo" class="tabpanel" role="tabpanel" hidden>
+      <div class="panel">
+        <div class="pl-pick">
+          <label for="sel-equipo-mi">Mi equipo</label>
+          <select id="sel-equipo-mi" aria-label="Elegir mi equipo"></select>
+        </div>
+        <div id="miequipo-body" class="miequipo"></div>
       </div>
     </section>
 

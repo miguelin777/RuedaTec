@@ -112,6 +112,32 @@ main.wrap{padding-top:16px; padding-bottom:24px; display:grid; gap:16px}
 .pl-form input:focus{outline:2px solid var(--green); border-color:var(--green)}
 .pl-form #btn-add-jug{width:auto}
 
+/* ---- mi equipo ---- */
+.miequipo{display:grid; gap:14px}
+.mi-hero{display:flex; align-items:center; gap:18px; background:var(--green-deep); color:#EFF3EE;
+  border-radius:14px; padding:20px 22px}
+.mi-hero.clasif{background:linear-gradient(135deg,#0C1E15 0%,#12905A 120%)}
+.mi-pos{font-family:var(--mono); font-weight:800; font-size:3rem; color:#7FD3A6; line-height:1; flex:none}
+.mi-pos small{font-size:1.2rem}
+.mi-eq{font-family:var(--sans); font-weight:800; font-size:1.5rem; color:#FBFDFB; line-height:1.1}
+.mi-rec{font-family:var(--mono); font-size:.84rem; color:#B9CFC2; margin-top:5px}
+.mi-tag{font-size:.8rem; margin-top:7px; color:#9FE0BC; font-weight:700}
+.mi-card{background:var(--paper2); border:1px solid var(--line); border-radius:14px; padding:18px}
+.mi-card h3{font-family:var(--sans); font-weight:800; font-size:1rem; margin:0 0 12px; color:var(--ink)}
+.mi-vs{display:flex; align-items:center; justify-content:center; gap:14px; font-family:var(--sans);
+  font-weight:800; font-size:1.12rem; color:var(--ink); text-align:center; flex-wrap:wrap}
+.mi-vs b{color:var(--muted); font-weight:600}
+.mi-meta{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:14px}
+.mi-meta span{font-family:var(--mono); font-size:.78rem; color:var(--ink-soft); background:var(--paper);
+  border:1px solid var(--line); border-radius:100px; padding:5px 11px}
+.forma{display:flex; gap:8px; flex-wrap:wrap}
+.f-badge{width:34px; height:34px; display:grid; place-items:center; border-radius:8px;
+  font-family:var(--sans); font-weight:800; color:#fff}
+.f-G{background:var(--green)} .f-E{background:var(--muted)} .f-P{background:var(--crit)}
+.mi-plantilla{display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:8px}
+.mi-jug{display:flex; align-items:center; gap:10px; background:var(--paper); border:1px solid var(--line);
+  border-radius:9px; padding:8px 12px; font-weight:700; color:var(--ink); font-size:.9rem}
+
 .panel{background:var(--paper2); border:1px solid var(--line); border-radius:14px; padding:18px}
 .panel-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:12px}
 .panel-head h2{font-size:1.15rem; font-weight:800}
@@ -181,8 +207,9 @@ main.wrap{padding-top:16px; padding-bottom:24px; display:grid; gap:16px}
   padding:20px 18px 40px; color:var(--muted); font-size:.82rem; flex-wrap:wrap}
 .toast{position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(120%);
   background:var(--green-deep); color:#EFF3EE; padding:12px 20px; border-radius:100px;
-  font-size:.9rem; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,.25); transition:transform .25s ease;
-  max-width:90vw; text-align:center; z-index:50}
-.toast.show{transform:translateX(-50%) translateY(0)}
+  font-size:.9rem; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,.25);
+  transition:transform .25s ease, opacity .25s ease, visibility .25s ease;
+  max-width:90vw; text-align:center; z-index:50; opacity:0; visibility:hidden}
+.toast.show{transform:translateX(-50%) translateY(0); opacity:1; visibility:visible}
 
 @media (prefers-reduced-motion:reduce){ .btn,.toast{transition:none} }

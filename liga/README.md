@@ -18,6 +18,8 @@ abre `liga/index.html` en el navegador (celular o compu) y funciona.
 - **Plantillas**: registra los **jugadores de cada equipo** (nombre + número) desde el
   inicio del torneo, con imagen de la plantilla para compartir. Base para perfiles de
   jugador, goleadores ligados y el pedido de uniformes de la tienda (Fase 2).
+- **Mi equipo** (para el jugador): elige tu equipo y ve tu **posición**, tu **próximo
+  partido** (rival, local/visita, hora, campo), tu **forma** (últimos resultados) y tu plantilla.
 
 ## Cómo probarlo
 1. Abre `liga/index.html`.
