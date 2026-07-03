@@ -28,10 +28,16 @@ abre `liga/index.html` en el navegador (celular o compu) y funciona.
    (Sparta vs América es el que define el 7º lugar). Guarda y mira la tabla moverse.
 3. Pon el nombre de tu tienda en "Patrocinador" y genera la imagen.
 
+- **Respaldo**: en Admin puedes **descargar un respaldo (.json)** de todo (equipos,
+  jugadores, resultados, goleadores) y **volver a importarlo** en otro dispositivo. Como
+  los datos viven en el navegador, este respaldo es la forma de no perderlos y de pasarlos
+  entre celulares.
+
 ## Archivos
 - `data.js` — todos los datos (equipos, base J25, jornadas, goleadores, patrocinador). **Lo único que se edita.**
-- `liga.js` — motor de cálculo, captura y generador de imagen. No depende de librerías.
+- `liga.js` — motor de cálculo, captura, imágenes, admin, plantillas, escenarios y respaldo. Sin librerías.
 - `index.html` / `styles.css` — la interfaz.
+- `test/` — pruebas de humo con jsdom. Para correrlas: `cd liga/test && npm install && npm test`.
 
 ## Siguiente (Fase 2)
 Mover los datos a Supabase para multiusuario y persistencia real, y conectar la **tienda**

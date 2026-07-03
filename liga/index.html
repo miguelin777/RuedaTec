@@ -183,6 +183,16 @@
         <p class="hint mb">Crea un calendario de todos contra todos con los equipos de arriba y reinicia la temporada en 0.</p>
         <button id="btn-gen-rol" class="btn btn-danger btn-gen">⚠️ Generar rol (reinicia la temporada)</button>
       </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Respaldo de datos</h2></div>
+        <p class="hint mb">Los datos viven en este navegador. Descarga un respaldo para no perderlos o para pasarlos a otro dispositivo (compártelo por WhatsApp y ábrelo en el otro celular).</p>
+        <div class="img-botones">
+          <button id="btn-export" class="btn btn-green">Descargar respaldo (.json)</button>
+          <label class="btn btn-line" for="file-import">Importar respaldo…</label>
+          <input id="file-import" type="file" accept="application/json,.json" hidden>
+        </div>
+      </div>
     </section>
 
   </main>

@@ -550,6 +550,42 @@ function verRolCompleto() {
   box.hidden = false;
 }
 
+/* -------------------- 8b) RESPALDO (exportar / importar) -------------------- */
+function respaldoData() {
+  return { app: "liga", version: 1, categoria: CONFIG.categoria,
+    equipos: EQUIPOS, resultados: RESULTADOS, goleadores: GOLES, patrocinador: PATRON };
+}
+function exportarRespaldo() {
+  const a = document.createElement("a");
+  a.href = "data:application/json;charset=utf-8," + encodeURIComponent(JSON.stringify(respaldoData(), null, 2));
+  a.download = `respaldo-${CONFIG.categoria.toLowerCase()}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  aviso("⬇️ Respaldo descargado.");
+}
+function aplicarRespaldo(d) {
+  if (!d || !Array.isArray(d.equipos) || !Array.isArray(d.resultados)) { aviso("⚠️ Archivo de respaldo no válido."); return false; }
+  EQUIPOS = d.equipos; normalizeEquipos();
+  RESULTADOS = d.resultados;
+  GOLES = Array.isArray(d.goleadores) ? d.goleadores : [];
+  PATRON = (d.patrocinador && d.patrocinador.nombre) ? d.patrocinador : structuredClone(CONFIG.patrocinador);
+  guardar(LS_EQUIPOS, EQUIPOS); guardar(LS_RESULTADOS, RESULTADOS);
+  guardar(LS_GOLEADORES, GOLES); guardar(LS_PATRON, PATRON);
+  jornadaVista = jornadaPorDefecto();
+  rebuildSelector(); cargarPatronUI(); llenarSelectEquipos(); renderTodo();
+  aviso("✅ Respaldo importado.");
+  return true;
+}
+function importarRespaldo(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try { aplicarRespaldo(JSON.parse(reader.result)); }
+    catch (e) { aviso("⚠️ No se pudo leer el archivo."); }
+  };
+  reader.onerror = () => aviso("⚠️ No se pudo leer el archivo.");
+  reader.readAsText(file);
+}
+
 /* -------------------- 9) PLANTILLAS (jugadores por equipo) -------------------- */
 function normalizeEquipos() {
   EQUIPOS.forEach(e => { if (!Array.isArray(e.jugadores)) e.jugadores = []; });
@@ -833,6 +869,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btn-gen-rol").addEventListener("click", generarRolNuevo);
   document.getElementById("btn-ver-rol").addEventListener("click", verRolCompleto);
   document.getElementById("btn-desc-rol").addEventListener("click", descargarRol);
+  document.getElementById("btn-export").addEventListener("click", exportarRespaldo);
+  document.getElementById("file-import").addEventListener("change", e => {
+    importarRespaldo(e.target.files[0]); e.target.value = "";
+  });
   document.getElementById("equipos-body").addEventListener("click", e => {
     const b = e.target.closest("button[data-eqdel]"); if (!b) return;
     delEquipo(+b.dataset.eqdel);
