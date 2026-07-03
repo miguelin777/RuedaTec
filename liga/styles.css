@@ -78,6 +78,23 @@ main.wrap{padding-top:16px; padding-bottom:24px; display:grid; gap:16px}
 .gol-form #btn-add-gol{width:auto}
 @media (max-width:560px){ .gol-form{grid-template-columns:1fr 1fr} .gol-form #btn-add-gol{grid-column:1/-1} }
 
+/* ---- admin ---- */
+.equipos{display:grid; gap:6px}
+.eq-row{display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:10px;
+  background:var(--paper); border:1px solid var(--line); border-radius:9px; padding:9px 12px}
+.eq-nom{font-weight:700; color:var(--ink); font-size:.93rem}
+.eq-rec{font-family:var(--mono); font-size:.8rem; color:var(--muted)}
+.sep{border:0; border-top:1px solid var(--line); margin:18px 0}
+.sub-h{font-family:var(--sans); font-weight:800; font-size:1.02rem; color:var(--ink); margin:0 0 4px}
+.rol-completo{margin-top:14px; display:grid; gap:12px; max-height:420px; overflow-y:auto;
+  border:1px solid var(--line); border-radius:10px; padding:12px; background:var(--paper)}
+.rol-completo[hidden]{display:none}
+.rc-jor{display:grid; gap:3px}
+.rc-h{font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--green); font-weight:700; border-bottom:1px solid var(--line); padding-bottom:3px; margin-bottom:3px}
+.rc-p{font-size:.88rem; color:var(--ink-soft)}
+.rc-p b{color:var(--ink); font-family:var(--mono)}
+
 .panel{background:var(--paper2); border:1px solid var(--line); border-radius:14px; padding:18px}
 .panel-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:12px}
 .panel-head h2{font-size:1.15rem; font-weight:800}

@@ -6,11 +6,13 @@
 const LS_RESULTADOS = "liga_quinta_resultados_v1";
 const LS_GOLEADORES = "liga_quinta_goleadores_v1";
 const LS_PATRON     = "liga_quinta_patrocinador_v1";
+const LS_EQUIPOS    = "liga_quinta_equipos_v1";
 
+let EQUIPOS    = cargar(LS_EQUIPOS, BASE);
 let RESULTADOS = cargar(LS_RESULTADOS, JORNADAS);
 let GOLES      = cargar(LS_GOLEADORES, GOLEADORES);
 let PATRON     = cargar(LS_PATRON, CONFIG.patrocinador);
-let jornadaVista = 29;
+let jornadaVista = RESULTADOS.some(j => j.num === 29) ? 29 : (RESULTADOS[0] ? RESULTADOS[0].num : 1);
 
 function cargar(clave, porDefecto) {
   try {
@@ -25,7 +27,7 @@ function guardar(clave, valor) {
 /* -------------------- 1) CÁLCULO DE LA TABLA -------------------- */
 function calcularTabla(hastaJornada) {
   const map = {};
-  BASE.forEach(b => map[b.equipo] = { ...b });
+  EQUIPOS.forEach(b => map[b.equipo] = { ...b });
   for (const j of RESULTADOS) {
     if (j.num > hastaJornada) break;
     for (const p of j.partidos) aplicarPartido(map, p);
@@ -110,10 +112,12 @@ function renderGoleadores() {
 
 function llenarSelectEquipos() {
   const sel = document.getElementById("g-equipo");
-  if (sel.options.length) return;
-  BASE.map(b => b.equipo).sort((a, b) => a.localeCompare(b)).forEach(nom => {
+  const actual = sel.value;
+  sel.innerHTML = "";
+  EQUIPOS.map(b => b.equipo).sort((a, b) => a.localeCompare(b)).forEach(nom => {
     const o = document.createElement("option"); o.value = nom; o.textContent = nom; sel.appendChild(o);
   });
+  if (actual) sel.value = actual;
 }
 function addGoleador() {
   const nombre = document.getElementById("g-nombre").value.trim();
@@ -409,6 +413,105 @@ function guardarPatron() {
   aviso("✅ Patrocinador guardado. Vuelve a generar la imagen.");
 }
 
+/* -------------------- 8) ADMIN: equipos y rol -------------------- */
+function renderEquipos() {
+  const cont = document.getElementById("equipos-body");
+  cont.innerHTML = "";
+  EQUIPOS.forEach((t, idx) => {
+    const row = document.createElement("div");
+    row.className = "eq-row";
+    row.innerHTML = `
+      <span class="eq-nom">${t.equipo}</span>
+      <span class="eq-rec tnum">${t.pts} pts</span>
+      <button class="mini del" data-eqdel="${idx}" aria-label="Borrar ${t.equipo}">🗑</button>`;
+    cont.appendChild(row);
+  });
+  document.getElementById("eq-count").textContent = `${EQUIPOS.length} equipos`;
+}
+function addEquipo() {
+  const inp = document.getElementById("eq-nombre");
+  const nom = inp.value.trim();
+  if (!nom) { aviso("Escribe el nombre del equipo."); return; }
+  if (EQUIPOS.some(e => e.equipo.toLowerCase() === nom.toLowerCase())) { aviso("Ese equipo ya existe."); return; }
+  EQUIPOS.push({ equipo: nom, jg: 0, je: 0, jp: 0, gf: 0, gc: 0, pts: 0 });
+  guardar(LS_EQUIPOS, EQUIPOS);
+  inp.value = "";
+  llenarSelectEquipos(); renderTodo();
+  aviso(`✅ Equipo agregado: ${nom}`);
+}
+function delEquipo(idx) {
+  if (!EQUIPOS[idx]) return;
+  if (!confirm(`¿Borrar al equipo ${EQUIPOS[idx].equipo}?`)) return;
+  EQUIPOS.splice(idx, 1); guardar(LS_EQUIPOS, EQUIPOS);
+  llenarSelectEquipos(); renderTodo();
+}
+/* Round-robin (método del círculo): todos contra todos, alternando local/visitante. */
+function roundRobin(nombres) {
+  const t = nombres.slice();
+  if (t.length % 2) t.push("— descansa —");
+  const n = t.length, rondas = n - 1, mitad = n / 2;
+  let arr = t.slice();
+  const jornadas = [];
+  for (let r = 0; r < rondas; r++) {
+    const partidos = [];
+    for (let i = 0; i < mitad; i++) {
+      const a = arr[i], b = arr[n - 1 - i];
+      if (a.startsWith("— descansa") || b.startsWith("— descansa")) continue;
+      const [loc, vis] = r % 2 ? [b, a] : [a, b];
+      partidos.push({ loc, gl: null, gv: null, vis });
+    }
+    jornadas.push({ num: r + 1, fecha: "", partidos });
+    arr = [arr[0], arr[n - 1], ...arr.slice(1, n - 1)];
+  }
+  return jornadas;
+}
+function generarRolNuevo() {
+  const nombres = EQUIPOS.map(e => e.equipo);
+  if (nombres.length < 2) { aviso("Agrega al menos 2 equipos."); return; }
+  if (!confirm(`Se creará un rol de todos contra todos con ${nombres.length} equipos y se reiniciará la temporada en 0. ¿Continuar?`)) return;
+  RESULTADOS = roundRobin(nombres);
+  EQUIPOS.forEach(e => { e.jg = e.je = e.jp = e.gf = e.gc = e.pts = 0; });
+  guardar(LS_RESULTADOS, RESULTADOS); guardar(LS_EQUIPOS, EQUIPOS);
+  jornadaVista = RESULTADOS[0] ? RESULTADOS[0].num : 1;
+  rebuildSelector(); renderTodo();
+  document.getElementById("rol-completo").hidden = true;
+  aviso(`✅ Rol generado: ${RESULTADOS.length} jornadas.`);
+}
+function rolATexto() {
+  let out = `${CONFIG.liga}\n${CONFIG.lema} · Categoría ${CONFIG.categoria}\nROL DE JUEGOS\n`;
+  RESULTADOS.forEach(j => {
+    out += `\n== Jornada ${j.num}${j.fecha ? " (" + j.fecha + ")" : ""} ==\n`;
+    j.partidos.forEach(p => {
+      const marc = (p.gl != null && p.gv != null) ? `${p.gl}-${p.gv}` : "vs";
+      const meta = [p.hora, p.campo, p.def ? "default" : ""].filter(Boolean).join(" · ");
+      out += `${p.loc} ${marc} ${p.vis}${meta ? "  [" + meta + "]" : ""}\n`;
+    });
+  });
+  return out;
+}
+function descargarRol() {
+  const a = document.createElement("a");
+  a.href = "data:text/plain;charset=utf-8," + encodeURIComponent(rolATexto());
+  a.download = `rol-${CONFIG.categoria.toLowerCase()}.txt`;
+  document.body.appendChild(a); a.click(); a.remove();
+  aviso("⬇️ Rol descargado.");
+}
+function verRolCompleto() {
+  const box = document.getElementById("rol-completo");
+  if (!box.hidden) { box.hidden = true; return; }
+  box.innerHTML = "";
+  RESULTADOS.forEach(j => {
+    const blk = document.createElement("div"); blk.className = "rc-jor";
+    blk.innerHTML = `<div class="rc-h">Jornada ${j.num}</div>` + j.partidos.map(p => {
+      const m = (p.gl != null && p.gv != null) ? `${p.gl}-${p.gv}` : "vs";
+      const meta = [p.hora, p.campo].filter(Boolean).join(" · ");
+      return `<div class="rc-p">${p.loc} <b>${m}</b> ${p.vis}${meta ? ` · ${meta}` : ""}</div>`;
+    }).join("");
+    box.appendChild(blk);
+  });
+  box.hidden = false;
+}
+
 /* -------------------- Pestañas, utilidades y arranque -------------------- */
 function initTabs() {
   const tabs = document.querySelectorAll(".tab");
@@ -428,25 +531,34 @@ function aviso(msg) {
 
 function resetTodo() {
   if (!confirm("¿Borrar tus capturas y volver a los datos originales?")) return;
-  [LS_RESULTADOS, LS_GOLEADORES, LS_PATRON].forEach(k => localStorage.removeItem(k));
+  [LS_RESULTADOS, LS_GOLEADORES, LS_PATRON, LS_EQUIPOS].forEach(k => localStorage.removeItem(k));
+  EQUIPOS = structuredClone(BASE);
   RESULTADOS = structuredClone(JORNADAS);
   GOLES = structuredClone(GOLEADORES);
   PATRON = structuredClone(CONFIG.patrocinador);
-  cargarPatronUI(); renderTodo();
+  jornadaVista = 29;
+  rebuildSelector(); cargarPatronUI(); llenarSelectEquipos(); renderTodo();
   aviso("↺ Datos restaurados.");
 }
 
-function renderTodo() { renderTabla(); renderGoleadores(); renderRol(); renderCaptura(); }
+function renderTodo() { renderTabla(); renderGoleadores(); renderRol(); renderCaptura(); renderEquipos(); }
 
-function initSelector() {
+function rebuildSelector() {
   const sel = document.getElementById("sel-jornada");
+  sel.innerHTML = "";
   RESULTADOS.forEach(j => {
     const o = document.createElement("option");
     o.value = j.num; o.textContent = `Jornada ${j.num}`;
     sel.appendChild(o);
   });
+  if (!RESULTADOS.some(j => j.num === jornadaVista) && RESULTADOS[0]) jornadaVista = RESULTADOS[0].num;
   sel.value = jornadaVista;
-  sel.addEventListener("change", () => { jornadaVista = +sel.value; renderTodo(); });
+}
+function initSelector() {
+  rebuildSelector();
+  document.getElementById("sel-jornada").addEventListener("change", e => {
+    jornadaVista = +e.target.value; renderTodo();
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -469,4 +581,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btn-compartir").addEventListener("click", compartirImagen);
   document.getElementById("btn-patron").addEventListener("click", guardarPatron);
   document.getElementById("btn-reset").addEventListener("click", resetTodo);
+  document.getElementById("btn-add-eq").addEventListener("click", addEquipo);
+  document.getElementById("btn-gen-rol").addEventListener("click", generarRolNuevo);
+  document.getElementById("btn-ver-rol").addEventListener("click", verRolCompleto);
+  document.getElementById("btn-desc-rol").addEventListener("click", descargarRol);
+  document.getElementById("equipos-body").addEventListener("click", e => {
+    const b = e.target.closest("button[data-eqdel]"); if (!b) return;
+    delEquipo(+b.dataset.eqdel);
+  });
 });

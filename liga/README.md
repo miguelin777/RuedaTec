@@ -10,8 +10,11 @@ abre `liga/index.html` en el navegador (celular o compu) y funciona.
 - **Goleadores** (top 10).
 - **Captura de resultados**: escribes los marcadores de una jornada y la tabla se recalcula sola.
   Se guarda en tu navegador (localStorage); el botón "Restaurar datos" vuelve a los originales.
-- **Imagen para WhatsApp**: genera un PNG de la tabla con la zona de clasificación marcada
-  y el **patrocinador al pie** (editable). Se puede descargar o compartir directo.
+- **Imágenes para WhatsApp**: PNG de la tabla, de resultados, de goleadores y del rol,
+  con la zona de clasificación marcada y el **patrocinador al pie** (editable).
+- **Admin**: gestiona **todos los equipos** (agregar al inicio de temporada, borrar),
+  **ve y descarga el rol** completo (.txt) y **genera un rol** de todos contra todos
+  (round-robin) que reinicia la temporada en 0.
 
 ## Cómo probarlo
 1. Abre `liga/index.html`.

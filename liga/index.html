@@ -29,6 +29,7 @@
     <button class="tab" data-tab="goleadores" role="tab" aria-selected="false">⚽ Goleadores</button>
     <button class="tab" data-tab="rol"        role="tab" aria-selected="false">📅 Rol</button>
     <button class="tab" data-tab="captura"     role="tab" aria-selected="false">✍️ Captura</button>
+    <button class="tab" data-tab="admin"       role="tab" aria-selected="false">🛠️ Admin</button>
   </nav>
 
   <main class="wrap">
@@ -123,6 +124,32 @@
         <p class="hint mb">Escribe los marcadores y guarda: la tabla se recalcula sola.</p>
         <div id="captura-body" class="captura"></div>
         <button id="btn-guardar" class="btn btn-green">Guardar jornada</button>
+      </div>
+    </section>
+
+    <!-- ============ ADMIN ============ -->
+    <section id="panel-admin" class="tabpanel" role="tabpanel" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2>Equipos de la liga</h2><span class="hint" id="eq-count"></span></div>
+        <div id="equipos-body" class="equipos"></div>
+        <div class="gol-form mt">
+          <input id="eq-nombre" type="text" placeholder="Nombre del equipo nuevo" aria-label="Equipo nuevo">
+          <button id="btn-add-eq" class="btn btn-green">Agregar equipo</button>
+        </div>
+        <p class="hint mt">Los equipos nuevos empiezan en 0. Útil al iniciar la temporada.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Rol / Calendario</h2></div>
+        <div class="img-botones">
+          <button id="btn-ver-rol" class="btn btn-line">Ver rol completo</button>
+          <button id="btn-desc-rol" class="btn btn-green">Descargar rol (.txt)</button>
+        </div>
+        <div id="rol-completo" class="rol-completo" hidden></div>
+        <hr class="sep">
+        <h3 class="sub-h">Generar rol nuevo</h3>
+        <p class="hint mb">Crea un calendario de todos contra todos con los equipos de arriba y reinicia la temporada en 0.</p>
+        <button id="btn-gen-rol" class="btn btn-amber">Generar rol (todos contra todos)</button>
       </div>
     </section>
 
