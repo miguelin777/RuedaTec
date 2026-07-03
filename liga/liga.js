@@ -637,6 +637,32 @@ function partidosDeEquipo(nombre) {
   }));
   return out;
 }
+function partidosRestantes(nombre) {
+  return partidosDeEquipo(nombre).filter(p => p.gf == null || p.ga == null).length;
+}
+/* Escenario de clasificación (condiciones matemáticas SUFICIENTES, sin simular todo). */
+function escenarioClasificacion(nombre) {
+  const tabla = calcularTabla(ultimaJornadaNum());
+  const pos = tabla.findIndex(t => t.equipo === nombre) + 1;
+  const T = tabla[pos - 1];
+  if (!T) return null;
+  const K = CONFIG.clasifican;
+  const rem = {}; tabla.forEach(t => rem[t.equipo] = partidosRestantes(t.equipo));
+  const maxPts = t => t.pts + 2 * (rem[t.equipo] || 0);
+  const remT = rem[nombre] || 0, maxT = T.pts + 2 * remT;
+  const eliminado = tabla.filter(t => t.equipo !== nombre && t.pts >= maxT).length >= K;
+  const asegurado = tabla.filter(t => t.equipo !== nombre && maxPts(t) >= T.pts).length < K;
+  let gapMsg;
+  if (pos <= K) {
+    const abajo = tabla[K];
+    gapMsg = abajo ? `El ${K + 1}º (${esc(abajo.equipo)}) está a ${T.pts - abajo.pts} pt(s).`
+                   : "Nadie por debajo puede alcanzarte.";
+  } else {
+    const corte = tabla[K - 1];
+    gapMsg = `A ${Math.max(0, corte.pts - T.pts)} pt(s) del ${K}º (${esc(corte.equipo)}).`;
+  }
+  return { remT, maxT, eliminado, asegurado, gapMsg, enZona: pos <= K };
+}
 function renderMiEquipoSelect() {
   const sel = document.getElementById("sel-equipo-mi");
   const actual = sel.value;
@@ -674,6 +700,32 @@ function renderMiEquipo() {
   const plHtml = js.length
     ? js.map(j => `<div class="mi-jug"><span class="pl-num tnum">${j.numero ?? "–"}</span>${esc(j.nombre)}</div>`).join("")
     : `<p class="hint">Sin jugadores. Agrégalos en la pestaña Plantillas.</p>`;
+  const E = escenarioClasificacion(nombre);
+  let escHtml = "";
+  if (E) {
+    let verdicto, clase;
+    if (E.eliminado) { verdicto = "Sin posibilidades matemáticas"; clase = "malo"; }
+    else if (E.asegurado) { verdicto = "¡Clasificación asegurada!"; clase = "bueno"; }
+    else if (E.enZona) { verdicto = "En zona de clasificación"; clase = "bueno"; }
+    else { verdicto = "Peleando la clasificación"; clase = "neutro"; }
+    let proy = "";
+    if (prox) {
+      const proj = tabla.map(r => ({ ...r }));
+      const meP = proj.find(r => r.equipo === nombre);
+      if (meP) { meP.pts += 2; meP.dif += 1; meP.gf += 1; }
+      proj.sort((a, b) => { for (const c of CONFIG.desempates) { if (b[c] !== a[c]) return b[c] - a[c]; } return a.equipo.localeCompare(b.equipo); });
+      const np = proj.findIndex(r => r.equipo === nombre) + 1;
+      proy = `<div class="esc-proy">Si ganas tu próximo (y lo demás sigue igual): <b>puesto ${np}º</b></div>`;
+    }
+    escHtml = `
+      <div class="mi-card esc-${clase}">
+        <h3>¿Qué necesita ${esc(nombre)}?</h3>
+        <div class="esc-verdicto">${verdicto}</div>
+        <div class="esc-datos">${E.remT} partido(s) por jugar · ${2 * E.remT} pts en juego</div>
+        <div class="esc-gap">${E.gapMsg}</div>
+        ${proy}
+      </div>`;
+  }
   cont.innerHTML = `
     <div class="mi-hero ${zona ? "clasif" : ""}">
       <div class="mi-pos">${pos || "–"}<small>°</small></div>
@@ -683,6 +735,7 @@ function renderMiEquipo() {
         <div class="mi-tag">${zona ? "✓ En zona de clasificación" : "Fuera de clasificación"}</div>
       </div>
     </div>
+    ${escHtml}
     <div class="mi-card"><h3>Próximo partido</h3>${proxHtml}</div>
     <div class="mi-card"><h3>Últimos resultados</h3><div class="forma">${forma || '<span class="hint">Aún sin partidos jugados.</span>'}</div></div>
     <div class="mi-card"><h3>Plantilla (${eq.jugadores.length})</h3><div class="mi-plantilla">${plHtml}</div></div>`;

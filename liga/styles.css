@@ -146,6 +146,18 @@ main.wrap{padding-top:16px; padding-bottom:24px; display:grid; gap:16px}
 .mi-jug{display:flex; align-items:center; gap:10px; background:var(--paper); border:1px solid var(--line);
   border-radius:9px; padding:8px 12px; font-weight:700; color:var(--ink); font-size:.9rem}
 
+/* ---- escenario de clasificación ---- */
+.esc-verdicto{font-family:var(--sans); font-weight:800; font-size:1.12rem; margin-bottom:8px}
+.esc-bueno .esc-verdicto{color:var(--green)}
+.esc-malo .esc-verdicto{color:var(--crit)}
+.esc-neutro .esc-verdicto{color:var(--amber)}
+.esc-datos, .esc-gap{font-size:.9rem; color:var(--ink-soft); margin-top:3px}
+.esc-proy{margin-top:12px; padding:10px 13px; background:var(--green-tint); border-radius:9px;
+  font-size:.92rem; color:#0B3D28}
+.mi-card.esc-bueno{border-left:4px solid var(--green)}
+.mi-card.esc-malo{border-left:4px solid var(--crit)}
+.mi-card.esc-neutro{border-left:4px solid var(--amber)}
+
 /* ---- ajustes móviles (auditoría UX) ---- */
 @media (max-width:560px){
   .tabs{flex-wrap:wrap; overflow:visible}
