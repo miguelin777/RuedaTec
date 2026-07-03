@@ -132,10 +132,11 @@ $$(".tab").find(t => t.dataset.tab === "tabla").dispatchEvent(new window.Event("
 const todos0 = $$("#tabla-body tr").every(tr => tr.querySelectorAll("td")[9].textContent === "0");
 check("temporada reiniciada (todos 0 pts)", todos0);
 
-console.log("— Respaldo export/import —");
+console.log("— Respaldo export/import (formato completo) —");
 const bkp = JSON.parse(JSON.stringify(window.respaldoData()));
-check("respaldo trae equipos y resultados", Array.isArray(bkp.equipos) && Array.isArray(bkp.resultados));
-bkp.equipos[0].equipo = "RESPALDO FC";
+check("respaldo trae todas las categorías y sus datos", Array.isArray(bkp.categorias) && !!bkp.datos);
+const cat0 = bkp.activa;
+bkp.datos[cat0].equipos[0].equipo = "RESPALDO FC";
 check("importar respaldo válido devuelve true", window.aplicarRespaldo(bkp) === true);
 $$(".tab").find(t => t.dataset.tab === "admin").dispatchEvent(new window.Event("click", { bubbles: true }));
 check("importar aplica los cambios", $$("#equipos-body .eq-nom").some(el => el.textContent === "RESPALDO FC"));

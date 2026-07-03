@@ -297,12 +297,13 @@ function generarImagenTabla() {
   const H = headH + rowH * filas.length + 150 + 24;
   const cv = document.getElementById("lienzo"); cv.width = W; cv.height = H;
   const c = cv.getContext("2d");
-  fondo(c, W, H, jugada(jornadaVista) ? `Tabla tras la Jornada ${jornadaVista}` : `Jornada ${jornadaVista}`);
+  const base = jugada(jornadaVista) ? `Tabla tras la Jornada ${jornadaVista}` : `Jornada ${jornadaVista}`;
+  fondo(c, W, H, `${base}  ·  Primeros ${CONFIG.clasifican} clasifican`);
 
   const yCols = headH - 22;
   c.fillStyle = "#8FB6A0"; c.font = "700 24px system-ui, Arial";
   c.textAlign = "left"; c.fillText("#", PAD, yCols); c.fillText("EQUIPO", PAD + 56, yCols);
-  c.textAlign = "right"; c.fillText("PJ", W - 300, yCols); c.fillText("DIF", W - 170, yCols); c.fillText("PTS", W - PAD, yCols);
+  c.textAlign = "right"; c.fillText("JJ", W - 300, yCols); c.fillText("DIF", W - 170, yCols); c.fillText("PTS", W - PAD, yCols);
 
   filas.forEach((t, i) => {
     const pos = i + 1, y = headH + i * rowH, cla = pos <= CONFIG.clasifican;
@@ -324,10 +325,6 @@ function generarImagenTabla() {
     c.fillStyle = cla ? "#FBFDFB" : "#C9D8CE"; c.font = "800 34px ui-monospace, monospace";
     c.fillText(String(t.pts), W - PAD, midY);
   });
-
-  const yCorte = headH + CONFIG.clasifican * rowH;
-  c.textAlign = "left"; c.fillStyle = "#12905A"; c.font = "700 20px system-ui, Arial";
-  c.fillText(`▲  ZONA DE CLASIFICACIÓN (primeros ${CONFIG.clasifican})`, PAD, yCorte + 30);
 
   footer(c, W, H);
   mostrarImagen(cv, `tabla-${slug(catActiva)}-j${jornadaVista}`);
@@ -476,12 +473,14 @@ function guardarPatron() {
 function renderEquipos() {
   const cont = document.getElementById("equipos-body");
   cont.innerHTML = "";
+  const tabla = calcularTabla(ultimaJornadaNum());
+  const ptsDe = {}; tabla.forEach(t => ptsDe[t.equipo] = t.pts);
   EQUIPOS.forEach((t, idx) => {
     const row = document.createElement("div");
     row.className = "eq-row";
     row.innerHTML = `
       <span class="eq-nom">${esc(t.equipo)}</span>
-      <span class="eq-rec tnum">${t.pts} pts</span>
+      <span class="eq-rec tnum">${ptsDe[t.equipo] ?? t.pts} pts</span>
       <button class="mini del" data-eqdel="${idx}" aria-label="Borrar ${esc(t.equipo)}">🗑</button>`;
     cont.appendChild(row);
   });
@@ -580,8 +579,16 @@ function verRolCompleto() {
 
 /* -------------------- 8b) RESPALDO (exportar / importar) -------------------- */
 function respaldoData() {
-  return { app: "liga", version: 1, categoria: catActiva,
-    equipos: EQUIPOS, resultados: RESULTADOS, goleadores: GOLES, patrocinador: PATRON };
+  guardarCategoriaActual();
+  const datos = {};
+  CATS.forEach(c => {
+    datos[c] = {
+      equipos: cargar(`liga_cat_${c}_equipos`, seedEq(c)),
+      resultados: cargar(`liga_cat_${c}_resultados`, seedRes(c)),
+      goleadores: cargar(`liga_cat_${c}_goleadores`, seedGol(c))
+    };
+  });
+  return { app: "liga", version: 2, categorias: CATS.slice(), activa: catActiva, patrocinador: PATRON, datos };
 }
 function exportarRespaldo() {
   const a = document.createElement("a");
@@ -591,17 +598,49 @@ function exportarRespaldo() {
   aviso("⬇️ Respaldo descargado.");
 }
 function aplicarRespaldo(d) {
-  if (!d || !Array.isArray(d.equipos) || !Array.isArray(d.resultados)) { aviso("⚠️ Archivo de respaldo no válido."); return false; }
-  EQUIPOS = d.equipos; normalizeEquipos();
-  RESULTADOS = d.resultados;
-  GOLES = Array.isArray(d.goleadores) ? d.goleadores : [];
-  PATRON = (d.patrocinador && d.patrocinador.nombre) ? d.patrocinador : structuredClone(CONFIG.patrocinador);
-  guardar(LS_EQUIPOS, EQUIPOS); guardar(LS_RESULTADOS, RESULTADOS);
-  guardar(LS_GOLEADORES, GOLES); guardar(LS_PATRON, PATRON);
-  jornadaVista = jornadaPorDefecto();
-  rebuildSelector(); cargarPatronUI(); llenarSelectEquipos(); renderTodo();
-  aviso("✅ Respaldo importado.");
-  return true;
+  if (!d) { aviso("⚠️ Archivo de respaldo no válido."); return false; }
+  // Formato completo v2: todas las categorías
+  if (d.datos && Array.isArray(d.categorias) && d.categorias.length) {
+    if (!confirm("Esto reemplazará TODAS las categorías y sus datos con los del respaldo. ¿Continuar?")) return false;
+    Object.keys(localStorage).filter(k => k.startsWith("liga_cat_")).forEach(k => localStorage.removeItem(k));
+    CATS = d.categorias.slice();
+    CATS.forEach(c => {
+      const dd = d.datos[c] || {};
+      localStorage.setItem(`liga_cat_${c}_equipos`, JSON.stringify(dd.equipos || []));
+      localStorage.setItem(`liga_cat_${c}_resultados`, JSON.stringify(dd.resultados || []));
+      localStorage.setItem(`liga_cat_${c}_goleadores`, JSON.stringify(dd.goleadores || []));
+    });
+    guardar(K_CATS, CATS);
+    catActiva = CATS.includes(d.activa) ? d.activa : CATS[0];
+    setCatKeys(catActiva); guardar(K_ACTIVA, catActiva);
+    if (d.patrocinador && d.patrocinador.nombre) { PATRON = d.patrocinador; guardar(LS_PATRON, PATRON); }
+    EQUIPOS = cargar(LS_EQUIPOS, []); normalizeEquipos();
+    RESULTADOS = cargar(LS_RESULTADOS, []); GOLES = cargar(LS_GOLEADORES, []);
+    jornadaVista = jornadaPorDefecto();
+    document.title = `${catActiva} · ${CONFIG.lema}`;
+    rebuildCatSelect(); rebuildSelector(); cargarPatronUI(); llenarSelectEquipos(); renderTodo();
+    aviso("✅ Respaldo completo importado.");
+    return true;
+  }
+  // Formato de una categoría (compatibilidad): se enruta a su categoría
+  if (Array.isArray(d.equipos) && Array.isArray(d.resultados)) {
+    const cat = (d.categoria && String(d.categoria)) || catActiva;
+    if (!confirm(`Se reemplazarán los datos de la categoría "${cat}". ¿Continuar?`)) return false;
+    if (!CATS.includes(cat)) { CATS.push(cat); guardar(K_CATS, CATS); }
+    catActiva = cat; setCatKeys(cat); guardar(K_ACTIVA, catActiva);
+    EQUIPOS = d.equipos; normalizeEquipos();
+    RESULTADOS = d.resultados;
+    GOLES = Array.isArray(d.goleadores) ? d.goleadores : [];
+    if (d.patrocinador && d.patrocinador.nombre) PATRON = d.patrocinador;
+    guardarCategoriaActual(); guardar(LS_PATRON, PATRON);
+    jornadaVista = jornadaPorDefecto();
+    document.title = `${catActiva} · ${CONFIG.lema}`;
+    rebuildCatSelect(); rebuildSelector(); cargarPatronUI(); llenarSelectEquipos(); renderTodo();
+    aviso(`✅ Respaldo importado en ${cat}.`);
+    return true;
+  }
+  aviso("⚠️ Archivo de respaldo no válido.");
+  return false;
 }
 function importarRespaldo(file) {
   if (!file) return;
@@ -622,6 +661,7 @@ function cambiarCategoria(cat) {
   if (!CATS.includes(cat)) return;
   guardarCategoriaActual();
   catActiva = cat; setCatKeys(cat); guardar(K_ACTIVA, catActiva);
+  document.title = `${catActiva} · ${CONFIG.lema}`;
   EQUIPOS = cargar(LS_EQUIPOS, seedEq(cat)); normalizeEquipos();
   RESULTADOS = cargar(LS_RESULTADOS, seedRes(cat));
   GOLES = cargar(LS_GOLEADORES, seedGol(cat));
@@ -721,13 +761,13 @@ function addJugador() {
   guardar(LS_EQUIPOS, EQUIPOS);
   document.getElementById("pl-nombre").value = "";
   document.getElementById("pl-num").value = "";
-  renderPlantilla();
+  renderPlantilla(); renderMiEquipo();
   aviso(`✅ ${nom} agregado a ${eq.equipo}`);
 }
 function delJugador(idx) {
   const eq = EQUIPOS.find(e => e.equipo === equipoSelPl());
   if (!eq || !eq.jugadores[idx]) return;
-  eq.jugadores.splice(idx, 1); guardar(LS_EQUIPOS, EQUIPOS); renderPlantilla();
+  eq.jugadores.splice(idx, 1); guardar(LS_EQUIPOS, EQUIPOS); renderPlantilla(); renderMiEquipo();
 }
 function generarImagenPlantilla() {
   const eq = EQUIPOS.find(e => e.equipo === equipoSelPl());
@@ -759,6 +799,7 @@ function ultimaJornadaNum() { return RESULTADOS.length ? RESULTADOS[RESULTADOS.l
 function partidosDeEquipo(nombre) {
   const out = [];
   RESULTADOS.forEach(j => j.partidos.forEach(p => {
+    if (p.bye) return;
     if (p.loc === nombre) out.push({ jor: j.num, rival: p.vis, local: true, gf: p.gl, ga: p.gv, hora: p.hora, campo: p.campo });
     else if (p.vis === nombre) out.push({ jor: j.num, rival: p.loc, local: false, gf: p.gv, ga: p.gl, hora: p.hora, campo: p.campo });
   }));
@@ -777,7 +818,7 @@ function escenarioClasificacion(nombre) {
   const rem = {}; tabla.forEach(t => rem[t.equipo] = partidosRestantes(t.equipo));
   const maxPts = t => t.pts + 2 * (rem[t.equipo] || 0);
   const remT = rem[nombre] || 0, maxT = T.pts + 2 * remT;
-  const eliminado = tabla.filter(t => t.equipo !== nombre && t.pts >= maxT).length >= K;
+  const eliminado = tabla.filter(t => t.equipo !== nombre && t.pts > maxT).length >= K;
   const asegurado = tabla.filter(t => t.equipo !== nombre && maxPts(t) >= T.pts).length < K;
   let gapMsg;
   if (pos <= K) {
@@ -939,6 +980,7 @@ function initSelector() {
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("liga-nombre").textContent = CONFIG.liga;
   document.getElementById("liga-cat").textContent = `${CONFIG.lema} · ${CONFIG.temporada}`;
+  document.title = `${catActiva} · ${CONFIG.lema}`;
   normalizeEquipos();
   rebuildCatSelect();
   initSelector(); initTabs(); llenarSelectEquipos(); cargarPatronUI();
