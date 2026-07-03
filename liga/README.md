@@ -4,6 +4,11 @@ Prototipo funcional del sistema de la liga. **No necesita servidor ni internet**
 abre `liga/index.html` en el navegador (celular o compu) y funciona.
 
 ## Qué hace hoy
+
+- **Multi-categoría**: maneja varias categorías (Quinta, Cuarta, …) a la vez. Cada una
+  tiene sus **propios** equipos, jugadores, rol, resultados y goleadores. Se cambia con el
+  selector "Categoría" del encabezado y se administran en Admin. Los datos de la versión
+  anterior (una sola categoría) se migran solos a la categoría "Quinta".
 - **Tabla de posiciones automática** con las reglas de la liga: 2 ganar / 1 empatar / 0 perder,
   el default como 2 pts + 1 gol, y los puntos base de la J25 tal cual la hoja (con sus ajustes ✓/X).
 - **Selector de jornada**: ve cómo iba la tabla tras la J26, 27, 28, 29… o la 30 pendiente.

@@ -3,14 +3,41 @@
    Sin librerías externas: corre en cualquier navegador.
    ======================================================================= */
 
-const LS_RESULTADOS = "liga_quinta_resultados_v1";
-const LS_GOLEADORES = "liga_quinta_goleadores_v1";
-const LS_PATRON     = "liga_quinta_patrocinador_v1";
-const LS_EQUIPOS    = "liga_quinta_equipos_v1";
+/* Multi-categoría: cada categoría tiene sus propios equipos/rol/goleadores.
+   El patrocinador es común a toda la liga. */
+const K_CATS = "liga_cats_v1", K_ACTIVA = "liga_cat_activa_v1", LS_PATRON = "liga_patron_v1";
+let LS_EQUIPOS, LS_RESULTADOS, LS_GOLEADORES;
+function setCatKeys(cat) {
+  LS_EQUIPOS = `liga_cat_${cat}_equipos`;
+  LS_RESULTADOS = `liga_cat_${cat}_resultados`;
+  LS_GOLEADORES = `liga_cat_${cat}_goleadores`;
+}
+function seedEq(cat)  { return cat === CONFIG.categoria ? BASE : []; }
+function seedRes(cat) { return cat === CONFIG.categoria ? JORNADAS : []; }
+function seedGol(cat) { return cat === CONFIG.categoria ? GOLEADORES : []; }
+/* Migra los datos de la versión de una sola categoría (claves liga_quinta_*). */
+function migrarViejo() {
+  const cat = CONFIG.categoria;
+  if (localStorage.getItem("liga_quinta_equipos_v1") && !localStorage.getItem(`liga_cat_${cat}_equipos`)) {
+    ["equipos", "resultados", "goleadores"].forEach(s => {
+      const v = localStorage.getItem(`liga_quinta_${s}_v1`);
+      if (v) localStorage.setItem(`liga_cat_${cat}_${s}`, v);
+    });
+    const p = localStorage.getItem("liga_quinta_patrocinador_v1");
+    if (p && !localStorage.getItem(LS_PATRON)) localStorage.setItem(LS_PATRON, p);
+  }
+}
 
-let EQUIPOS    = cargar(LS_EQUIPOS, BASE);
-let RESULTADOS = cargar(LS_RESULTADOS, JORNADAS);
-let GOLES      = cargar(LS_GOLEADORES, GOLEADORES);
+let CATS = cargar(K_CATS, [CONFIG.categoria]);
+if (!Array.isArray(CATS) || !CATS.length) CATS = [CONFIG.categoria];
+let catActiva = cargar(K_ACTIVA, CATS[0]);
+if (!CATS.includes(catActiva)) catActiva = CATS[0];
+setCatKeys(catActiva);
+migrarViejo();
+
+let EQUIPOS    = cargar(LS_EQUIPOS, seedEq(catActiva));
+let RESULTADOS = cargar(LS_RESULTADOS, seedRes(catActiva));
+let GOLES      = cargar(LS_GOLEADORES, seedGol(catActiva));
 let PATRON     = cargar(LS_PATRON, CONFIG.patrocinador);
 let jornadaVista = jornadaPorDefecto();
 /* Última jornada completa (todos sus partidos jugados); si no, la última con algún
@@ -39,6 +66,7 @@ function esc(s) {
   return String(s ?? "").replace(/[&<>"']/g,
     c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
+function slug(s) { return String(s).toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "") || "cat"; }
 
 /* -------------------- 1) CÁLCULO DE LA TABLA -------------------- */
 function calcularTabla(hastaJornada) {
@@ -243,7 +271,7 @@ function fondo(c, W, H, subtitulo) {
   c.fillStyle = "#7FD3A6"; c.font = "700 26px system-ui, Arial";
   c.fillText(CONFIG.lema.toUpperCase(), PAD, 70);
   c.fillStyle = "#FBFDFB"; c.font = "800 52px system-ui, Arial";
-  c.fillText(`Categoría ${CONFIG.categoria}`, PAD, 130);
+  c.fillText(`Categoría ${catActiva}`, PAD, 130);
   c.fillStyle = "#C9D8CE"; c.font = "600 30px system-ui, Arial";
   c.fillText(subtitulo, PAD, 176);
 }
@@ -302,7 +330,7 @@ function generarImagenTabla() {
   c.fillText(`▲  ZONA DE CLASIFICACIÓN (primeros ${CONFIG.clasifican})`, PAD, yCorte + 30);
 
   footer(c, W, H);
-  mostrarImagen(cv, `tabla-quinta-j${jornadaVista}`);
+  mostrarImagen(cv, `tabla-${slug(catActiva)}-j${jornadaVista}`);
 }
 
 function generarImagenResultados() {
@@ -340,7 +368,7 @@ function generarImagenResultados() {
   });
 
   footer(c, W, H);
-  mostrarImagen(cv, `resultados-quinta-j${jornadaVista}`);
+  mostrarImagen(cv, `resultados-${slug(catActiva)}-j${jornadaVista}`);
 }
 
 function generarImagenGoleadores() {
@@ -364,7 +392,7 @@ function generarImagenGoleadores() {
     c.fillText(String(g.goles), W - PAD, midY);
   });
   footer(c, W, H);
-  mostrarImagen(cv, "goleadores-quinta");
+  mostrarImagen(cv, `goleadores-${slug(catActiva)}`);
 }
 
 function generarImagenRol() {
@@ -394,7 +422,7 @@ function generarImagenRol() {
     if (meta) { c.textAlign = "center"; c.fillStyle = "#8FB6A0"; c.font = "500 22px system-ui, Arial"; c.fillText(meta, W / 2, midY + 30); }
   });
   footer(c, W, H);
-  mostrarImagen(cv, `rol-quinta-j${jornadaVista}`);
+  mostrarImagen(cv, `rol-${slug(catActiva)}-j${jornadaVista}`);
 }
 
 function recorta(s, max = 18) { return s.length > max ? s.slice(0, max - 1) + "…" : s; }
@@ -420,8 +448,8 @@ async function compartirImagen() {
     const blob = await new Promise(res => cv.toBlob(res, "image/png"));
     const file = new File([blob], `${cv._nombre || "liga"}.png`, { type: "image/png" });
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ files: [file], title: `Liga ${CONFIG.categoria}`,
-        text: `${CONFIG.lema} · Categoría ${CONFIG.categoria}` });
+      await navigator.share({ files: [file], title: `Liga ${catActiva}`,
+        text: `${CONFIG.lema} · Categoría ${catActiva}` });
     } else {
       aviso("Tu navegador no comparte directo. Usa “Descargar” y envíala por WhatsApp.");
     }
@@ -529,7 +557,7 @@ function rolATexto() {
 function descargarRol() {
   const a = document.createElement("a");
   a.href = "data:text/plain;charset=utf-8," + encodeURIComponent(rolATexto());
-  a.download = `rol-${CONFIG.categoria.toLowerCase()}.txt`;
+  a.download = `rol-${slug(catActiva)}.txt`;
   document.body.appendChild(a); a.click(); a.remove();
   aviso("⬇️ Rol descargado.");
 }
@@ -552,13 +580,13 @@ function verRolCompleto() {
 
 /* -------------------- 8b) RESPALDO (exportar / importar) -------------------- */
 function respaldoData() {
-  return { app: "liga", version: 1, categoria: CONFIG.categoria,
+  return { app: "liga", version: 1, categoria: catActiva,
     equipos: EQUIPOS, resultados: RESULTADOS, goleadores: GOLES, patrocinador: PATRON };
 }
 function exportarRespaldo() {
   const a = document.createElement("a");
   a.href = "data:application/json;charset=utf-8," + encodeURIComponent(JSON.stringify(respaldoData(), null, 2));
-  a.download = `respaldo-${CONFIG.categoria.toLowerCase()}.json`;
+  a.download = `respaldo-${slug(catActiva)}.json`;
   document.body.appendChild(a); a.click(); a.remove();
   aviso("⬇️ Respaldo descargado.");
 }
@@ -584,6 +612,69 @@ function importarRespaldo(file) {
   };
   reader.onerror = () => aviso("⚠️ No se pudo leer el archivo.");
   reader.readAsText(file);
+}
+
+/* -------------------- 8c) CATEGORÍAS -------------------- */
+function guardarCategoriaActual() {
+  guardar(LS_EQUIPOS, EQUIPOS); guardar(LS_RESULTADOS, RESULTADOS); guardar(LS_GOLEADORES, GOLES);
+}
+function cambiarCategoria(cat) {
+  if (!CATS.includes(cat)) return;
+  guardarCategoriaActual();
+  catActiva = cat; setCatKeys(cat); guardar(K_ACTIVA, catActiva);
+  EQUIPOS = cargar(LS_EQUIPOS, seedEq(cat)); normalizeEquipos();
+  RESULTADOS = cargar(LS_RESULTADOS, seedRes(cat));
+  GOLES = cargar(LS_GOLEADORES, seedGol(cat));
+  jornadaVista = jornadaPorDefecto();
+  rebuildCatSelect(); rebuildSelector(); llenarSelectEquipos(); renderTodo();
+}
+function addCategoria(nombre) {
+  nombre = (nombre || "").trim();
+  if (!nombre) { aviso("Escribe el nombre de la categoría."); return; }
+  if (CATS.some(c => c.toLowerCase() === nombre.toLowerCase())) { aviso("Esa categoría ya existe."); return; }
+  guardarCategoriaActual();
+  CATS.push(nombre); guardar(K_CATS, CATS);
+  document.getElementById("cat-nombre").value = "";
+  cambiarCategoria(nombre);
+  aviso(`✅ Categoría creada: ${nombre}`);
+}
+function delCategoria(cat) {
+  if (CATS.length <= 1) { aviso("Debe quedar al menos una categoría."); return; }
+  if (!confirm(`¿Borrar la categoría ${cat} y TODOS sus datos (equipos, jugadores, rol)?`)) return;
+  ["equipos", "resultados", "goleadores"].forEach(s => localStorage.removeItem(`liga_cat_${cat}_${s}`));
+  CATS = CATS.filter(c => c !== cat); guardar(K_CATS, CATS);
+  if (catActiva === cat) {
+    catActiva = CATS[0]; setCatKeys(catActiva); guardar(K_ACTIVA, catActiva);
+    EQUIPOS = cargar(LS_EQUIPOS, seedEq(catActiva)); normalizeEquipos();
+    RESULTADOS = cargar(LS_RESULTADOS, seedRes(catActiva));
+    GOLES = cargar(LS_GOLEADORES, seedGol(catActiva));
+    jornadaVista = jornadaPorDefecto();
+  }
+  rebuildCatSelect(); rebuildSelector(); llenarSelectEquipos(); renderTodo();
+  aviso(`Categoría ${cat} borrada.`);
+}
+function rebuildCatSelect() {
+  const sel = document.getElementById("sel-categoria");
+  if (!sel) return;
+  sel.innerHTML = "";
+  CATS.forEach(c => { const o = document.createElement("option"); o.value = c; o.textContent = c; sel.appendChild(o); });
+  sel.value = catActiva;
+}
+function renderCategorias() {
+  const cont = document.getElementById("categorias-body");
+  if (!cont) return;
+  cont.innerHTML = "";
+  CATS.forEach((c, i) => {
+    const row = document.createElement("div"); row.className = "eq-row";
+    row.innerHTML = `
+      <span class="eq-nom">${esc(c)}</span>
+      ${c === catActiva ? '<span class="cat-activa">activa</span>' : ''}
+      <button class="mini" data-act="ver" data-catidx="${i}">Ver</button>
+      <button class="mini del" data-act="del" data-catidx="${i}" aria-label="Borrar ${esc(c)}">🗑</button>`;
+    cont.appendChild(row);
+  });
+  const cnt = document.getElementById("cat-count");
+  if (cnt) cnt.textContent = `${CATS.length} categoría(s)`;
 }
 
 /* -------------------- 9) PLANTILLAS (jugadores por equipo) -------------------- */
@@ -809,21 +900,22 @@ function aviso(msg) {
 }
 
 function resetTodo() {
-  if (!confirm("¿Borrar tus capturas y volver a los datos originales?")) return;
-  [LS_RESULTADOS, LS_GOLEADORES, LS_PATRON, LS_EQUIPOS].forEach(k => localStorage.removeItem(k));
+  if (!confirm("¿Borrar TODO (todas las categorías) y volver a los datos originales?")) return;
+  Object.keys(localStorage).filter(k => k.startsWith("liga_")).forEach(k => localStorage.removeItem(k));
+  CATS = [CONFIG.categoria]; catActiva = CONFIG.categoria; setCatKeys(catActiva);
   EQUIPOS = structuredClone(BASE); normalizeEquipos();
   RESULTADOS = structuredClone(JORNADAS);
   GOLES = structuredClone(GOLEADORES);
   PATRON = structuredClone(CONFIG.patrocinador);
   jornadaVista = jornadaPorDefecto();
-  rebuildSelector(); cargarPatronUI(); llenarSelectEquipos(); renderTodo();
+  rebuildCatSelect(); rebuildSelector(); cargarPatronUI(); llenarSelectEquipos(); renderTodo();
   aviso("↺ Datos restaurados.");
 }
 
 function renderTodo() {
   renderTabla(); renderGoleadores(); renderRol(); renderCaptura();
   renderEquipos(); renderPlantillaSelect(); renderPlantilla();
-  renderMiEquipoSelect(); renderMiEquipo();
+  renderMiEquipoSelect(); renderMiEquipo(); renderCategorias();
 }
 
 function rebuildSelector() {
@@ -846,9 +938,17 @@ function initSelector() {
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("liga-nombre").textContent = CONFIG.liga;
-  document.getElementById("liga-cat").textContent = `Categoría ${CONFIG.categoria} · ${CONFIG.temporada}`;
+  document.getElementById("liga-cat").textContent = `${CONFIG.lema} · ${CONFIG.temporada}`;
   normalizeEquipos();
+  rebuildCatSelect();
   initSelector(); initTabs(); llenarSelectEquipos(); cargarPatronUI();
+  document.getElementById("sel-categoria").addEventListener("change", e => cambiarCategoria(e.target.value));
+  document.getElementById("btn-add-cat").addEventListener("click", () => addCategoria(document.getElementById("cat-nombre").value));
+  document.getElementById("categorias-body").addEventListener("click", e => {
+    const b = e.target.closest("button[data-catidx]"); if (!b) return;
+    const c = CATS[+b.dataset.catidx]; if (!c) return;
+    if (b.dataset.act === "ver") cambiarCategoria(c); else delCategoria(c);
+  });
   document.getElementById("btn-guardar").addEventListener("click", guardarCaptura);
   document.getElementById("btn-img-tabla").addEventListener("click", generarImagenTabla);
   document.getElementById("btn-img-result").addEventListener("click", generarImagenResultados);

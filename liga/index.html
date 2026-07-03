@@ -17,9 +17,15 @@
           <p id="liga-cat" class="eyebrow">Categoría Quinta</p>
         </div>
       </div>
-      <div class="jornada-pick">
-        <label for="sel-jornada">Ver</label>
-        <select id="sel-jornada" aria-label="Elegir jornada"></select>
+      <div class="picks">
+        <div class="jornada-pick">
+          <label for="sel-categoria">Categoría</label>
+          <select id="sel-categoria" aria-label="Elegir categoría"></select>
+        </div>
+        <div class="jornada-pick">
+          <label for="sel-jornada">Ver</label>
+          <select id="sel-jornada" aria-label="Elegir jornada"></select>
+        </div>
       </div>
     </div>
   </header>
@@ -162,7 +168,17 @@
     <!-- ============ ADMIN ============ -->
     <section id="panel-admin" class="tabpanel" role="tabpanel" hidden>
       <div class="panel">
-        <div class="panel-head"><h2>Equipos de la liga</h2><span class="hint" id="eq-count"></span></div>
+        <div class="panel-head"><h2>Categorías</h2><span class="hint" id="cat-count"></span></div>
+        <div id="categorias-body" class="equipos"></div>
+        <div class="gol-form mt">
+          <input id="cat-nombre" type="text" placeholder="Nombre de la categoría nueva" aria-label="Categoría nueva">
+          <button id="btn-add-cat" class="btn btn-green">Crear categoría</button>
+        </div>
+        <p class="hint mt">Cada categoría tiene sus propios equipos, jugadores, rol y goleadores.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Equipos de la categoría</h2><span class="hint" id="eq-count"></span></div>
         <div id="equipos-body" class="equipos"></div>
         <div class="gol-form mt">
           <input id="eq-nombre" type="text" placeholder="Nombre del equipo nuevo" aria-label="Equipo nuevo">

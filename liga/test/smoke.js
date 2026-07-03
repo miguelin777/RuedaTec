@@ -59,7 +59,7 @@ const posSp = +sp30.querySelectorAll("td")[0].textContent, posAm = +am30.querySe
 check("Sparta gana y sube a 35 pts", sp30.querySelectorAll("td")[9].textContent === "35",
   sp30.querySelectorAll("td")[9].textContent);
 check("Sparta queda arriba de América", posSp < posAm, `Sparta ${posSp}, América ${posAm}`);
-check("persistió en localStorage", !!window.localStorage.getItem("liga_quinta_resultados_v1"));
+check("persistió en localStorage", !!window.localStorage.getItem("liga_cat_Quinta_resultados"));
 
 console.log("— Goleadores editables —");
 $$(".tab").find(t => t.dataset.tab === "goleadores").dispatchEvent(new window.Event("click"));
@@ -140,6 +140,20 @@ check("importar respaldo válido devuelve true", window.aplicarRespaldo(bkp) ===
 $$(".tab").find(t => t.dataset.tab === "admin").dispatchEvent(new window.Event("click", { bubbles: true }));
 check("importar aplica los cambios", $$("#equipos-body .eq-nom").some(el => el.textContent === "RESPALDO FC"));
 check("importar inválido no crashea (devuelve false)", window.aplicarRespaldo({ foo: 1 }) === false);
+
+console.log("— Multi-categoría —");
+$$(".tab").find(t => t.dataset.tab === "admin").dispatchEvent(new window.Event("click", { bubbles: true }));
+const origCat = $$("#sel-categoria option")[0].value;
+$("#cat-nombre").value = "Cuarta"; $("#btn-add-cat").dispatchEvent(new window.Event("click"));
+check("categoría creada y activa", $("#sel-categoria").value === "Cuarta", $("#sel-categoria").value);
+check("categoría nueva arranca vacía (0 equipos)", $("#eq-count").textContent === "0 equipos", $("#eq-count").textContent);
+$("#eq-nombre").value = "Equipo Cuarta 1"; $("#btn-add-eq").dispatchEvent(new window.Event("click"));
+check("Cuarta: 1 equipo", $("#eq-count").textContent === "1 equipos", $("#eq-count").textContent);
+$("#sel-categoria").value = origCat; $("#sel-categoria").dispatchEvent(new window.Event("change"));
+check("volver a la categoría original conserva sus equipos", +$("#eq-count").textContent.split(" ")[0] > 1,
+  $("#eq-count").textContent);
+check("aislamiento: equipo de Cuarta no aparece en la otra categoría",
+  !$$("#equipos-body .eq-nom").some(el => el.textContent === "Equipo Cuarta 1"));
 
 console.log("\n" + (fails === 0 ? "✅ TODO OK (" + $$(".tab").length + " secciones)" : "❌ " + fails + " fallos"));
 process.exit(fails ? 1 : 0);

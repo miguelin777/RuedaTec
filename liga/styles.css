@@ -29,11 +29,14 @@ h1,h2{margin:0; letter-spacing:-.02em}
   display:grid; place-items:center; flex:none}
 .brand h1{font-size:1.1rem; color:#FBFDFB; font-weight:800; line-height:1.2}
 .brand .eyebrow{color:#8FB6A0}
+.picks{display:flex; gap:10px; flex-wrap:wrap}
 .jornada-pick{display:flex; align-items:center; gap:8px}
 .jornada-pick label{font-family:var(--mono); font-size:.72rem; letter-spacing:.1em;
   text-transform:uppercase; color:#8FB6A0}
-#sel-jornada{font-family:var(--sans); font-weight:700; font-size:1rem; color:#0C1E15;
+#sel-jornada, #sel-categoria{font-family:var(--sans); font-weight:700; font-size:1rem; color:#0C1E15;
   background:#EFF3EE; border:0; border-radius:10px; padding:9px 12px; cursor:pointer}
+.cat-activa{font-family:var(--mono); font-size:.7rem; text-transform:uppercase; letter-spacing:.06em;
+  color:#0B5B39; background:var(--green-tint); padding:3px 8px; border-radius:100px}
 
 /* ---- tabs + layout ---- */
 .tabs{display:flex; gap:6px; padding:14px 18px 0; overflow-x:auto; scrollbar-width:none}
