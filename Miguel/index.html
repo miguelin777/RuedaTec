@@ -149,7 +149,7 @@
       .services__card:hover .services__icon i { transform: scale(1.15); }
 
       /* Mini-fotos de RuedaTec (prototipo, premios, constancias) encimadas en la foto de inicio */
-      .home__image { position: relative; }
+      .home__image { position: relative; transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
       .home__proto {
         position: absolute;
         z-index: 11;
@@ -300,6 +300,27 @@
       .cert-year { display: inline-block; margin-top: .45rem; background: var(--first-color); color: #fff; font-weight: 800; padding: .32rem 1.05rem; border-radius: 999px; width: max-content; font-size: .85rem; letter-spacing: .04em; }
       .logro__cert--star::before { content: ""; position: absolute; top: 0; left: -80%; width: 60%; height: 100%; background: linear-gradient(105deg, transparent, hsla(0, 0%, 100%, .12), transparent); animation: chipShine 3.4s ease-in-out infinite; pointer-events: none; }
 
+      /* ===== Inicio ampliado (absorbe "Sobre Mí") ===== */
+      .home__badge { display: inline-flex; align-items: center; gap: .55rem; background: var(--container-color); border: 2px solid var(--title-color); color: var(--title-color); border-radius: 999px; padding: .45rem 1.05rem; font-weight: 800; font-size: .8rem; letter-spacing: .03em; text-decoration: none; margin-bottom: 1rem; transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s; }
+      .home__badge:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(0,0,0,.18); }
+      .home__badge-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--first-color); box-shadow: 0 0 0 0 hsla(214,98%,50%,.55); animation: badgePulse 2.2s ease-out infinite; }
+      body.dark-theme .home__badge-dot { box-shadow: 0 0 0 0 hsla(14,80%,50%,.55); }
+      @keyframes badgePulse { 70% { box-shadow: 0 0 0 9px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+      .home__rotator { font-weight: 800; color: var(--title-color); font-size: clamp(1.05rem, 2.2vw, 1.35rem); margin: 0 0 .8rem; line-height: 1.3; }
+      .rotator { position: relative; display: inline-grid; vertical-align: bottom; }
+      .rotator__word { grid-area: 1 / 1; color: var(--first-color); opacity: 0; transform: translateY(.5em); transition: opacity .45s ease, transform .45s cubic-bezier(.2,.8,.2,1); white-space: nowrap; }
+      .rotator__word.is-on { opacity: 1; transform: none; }
+      @media (max-width: 560px) { .rotator__word { white-space: normal; } .rotator { display: block; min-height: 2.6em; } }
+      .home__facts { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem .9rem; margin: 1rem 0 0; padding: 0; }
+      .home__facts li { color: var(--text-color); font-size: .86rem; line-height: 1.35; background: var(--container-color); border-radius: 12px; padding: .5rem .8rem; }
+      .home__facts strong { color: var(--title-color); font-weight: 900; font-size: 1.05rem; margin-right: .2rem; }
+      .home__skills { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0 0; }
+      .home__skills span { font-size: .75rem; font-weight: 700; letter-spacing: .05em; color: var(--text-color); border: 1.5px solid var(--text-color-light, #9a9a9a); border-radius: 999px; padding: .25rem .7rem; opacity: .9; transition: color .25s, border-color .25s, transform .25s; }
+      .home__skills span:hover { color: var(--first-color); border-color: var(--first-color); transform: translateY(-2px); }
+      .home__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.4rem; }
+      .home__cta-ghost { display: inline-flex; align-items: center; gap: .45rem; width: auto; padding: 0 1.3rem; height: 48px; }
+      @media (max-width: 1149px) { .home__facts, .home__skills, .home__cta { justify-content: center; } .home__badge { display: inline-flex; } }
+
       /* ===== Explora: tiles estilo link-in-bio (antes de Sobre Mí) ===== */
       .explora.section { padding-block: 4.5rem 3.5rem; }
       .explora__intro { text-align: center; max-width: 640px; margin: .5rem auto 0; color: var(--text-color); }
@@ -349,7 +370,10 @@
       .video-poster { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; color: #d7e2ea; background: radial-gradient(120% 120% at 30% 20%, #2a2a30 0%, #101014 60%, #060608 100%); }
       .video-play { width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; font-size: 2.4rem; color: #0c0c0c; background: #d7e2ea; transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s; box-shadow: 0 10px 30px rgba(0, 0, 0, .45); }
       .video-poster:hover .video-play { transform: scale(1.14); box-shadow: 0 16px 40px rgba(0, 0, 0, .6); }
-      .video-poster-label { font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: .85rem; opacity: .85; }
+      .video-poster-label { font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: .85rem; opacity: .85; position: relative; z-index: 2; }
+      .video-poster-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; transition: opacity .35s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
+      .video-poster:hover .video-poster-img { opacity: .75; transform: scale(1.05); }
+      .video-poster .video-play { position: relative; z-index: 2; }
 
       /* Respeto a quien prefiere menos movimiento */
       @media (prefers-reduced-motion: reduce) {
@@ -382,7 +406,7 @@
             </li>
 
             <li class="nav__item">
-              <a href="#about" class="nav__link">Sobre Mí</a>
+              <a href="#explora" class="nav__link">Explora</a>
             </li>
 
             <li class="nav__item">
@@ -483,18 +507,49 @@
           </div>
 
           <div class="home__info">
-            <p class="home__description">
-              <b>Estudiante de Mecatrónica</b> en el Tec de Monterrey y fundador de <b>RuedaTec</b>, un adaptador que
-              vuelve eléctrica una silla de ruedas manual. Me la paso resolviendo problemas reales con tecnología.
+            <a class="home__badge" href="#logros">
+              <span class="home__badge-dot"></span>
+              Finalista estatal · Premio de Juventudes 2026
+            </a>
+
+            <p class="home__rotator">
+              Construyo
+              <span class="rotator" id="home-rot" aria-live="polite">
+                <span class="rotator__word is-on">tecnología que da independencia</span>
+                <span class="rotator__word">comunidad desde Cortázar</span>
+                <span class="rotator__word">apps y sitios que sí sirven</span>
+                <span class="rotator__word">cosas que no existían</span>
+              </span>
             </p>
 
-            <a href="#about" class="home__scroll">
+            <p class="home__description">
+              <b>Estudiante de Mecatrónica</b> en el Tec de Monterrey —becado por <b>BTEM</b> y la <b>Fundación BBVA</b>—
+              y fundador de <b>RuedaTec</b>, un adaptador que vuelve eléctrica una silla de ruedas manual.
+              También fundé <b>Sonríe México</b>. Me la paso resolviendo problemas reales con tecnología.
+            </p>
+
+            <ul class="home__facts">
+              <li><strong>2.º</strong> lugar internacional · Invention Convention</li>
+              <li><strong>+36k</strong> en la comunidad de Sonríe</li>
+              <li><strong>2</strong> apps publicadas en la App Store</li>
+            </ul>
+
+            <p class="home__skills">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Flutter</span><span>Dart</span><span>Python</span><span>Arduino</span><span>Figma</span><span>Impresión 3D</span>
+            </p>
+
+            <div class="home__cta">
+              <a href="./assets/MiguelCV/index.html" class="button"><i class="ri-file-user-line"></i> Ve a mi CV</a>
+              <a href="#explora" class="button__ghost home__cta-ghost"><i class="ri-compass-3-line"></i> Explora mi trabajo</a>
+            </div>
+
+            <a href="#explora" class="home__scroll">
               <div class="home__scroll-box">
                 <i class="ri-arrow-down-s-line"></i>
               </div>
 
               <span class="home__scroll-text">Baja</span>
-            </a>          
+            </a>
           </div>
         </div>
       </section>
@@ -604,66 +659,6 @@
         </div>
       </section>
 
-      <!--==================== ABOUT ====================-->
-      <section class="about section" id="about">
-        <div class="about__container container grid">
-          <h2 class="section__title-1">
-            <span>Sobre Mí.</span>
-          </h2>
-
-          <div class="about__perfil">
-            <div class="about__image">
-              <img
-                src="./assets/img/MigParado.jpg"
-                alt="image"
-                class="about__img"
-              />
-
-              <div class="about__shadow"></div>
-
-              <div class="geometric-box"></div>
-
-              <img
-                src="./assets/img/random-lines.svg"
-                alt=""
-                class="about__line"
-              />
-              <div class="about__box"></div>
-            </div>
-          </div>
-
-          <div class="about__info">
-            <p class="about__description">
-              
-              Hola, soy <b>Miguel Huizache</b>. Estudio <b>Mecatrónica</b> en el Tec de Monterrey, becado por la
-              <b>Fundación BBVA</b>, y desde la prepa ando metido en proyectos de
-              <b>tecnología, impacto social</b> y <b>emprendimiento</b> como <a href="https://ruedatec.com"><b> RuedaTec</b></a> y <a href="https://www.instagram.com/sonrie_cortazargto?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><b> Sonríe</b></a>.
-            </p>
-
-            <ul class="about__list">
-              <li class="about__item">
-                <b>Conozco sobre:</b> HTML, CSS, JavaScript, Git &
-                GitHub, Bootstrap, Dart, Flutter & Figma, Python, Java, Arduino.
-              </li>
-            </ul>
-
-            <div class="about__buttons">
-              <a href="./assets/MiguelCV/index.html" class="button">
-                <i class="ri-send-plane-line"></i> Ve a mi CV
-              </a>
-
-              <a
-                href="https://www.instagram.com/miguueelito/"
-                target="_blank"
-                class="button__ghost"
-              >
-                <i class="ri-instagram-line"></i>
-
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
 
       
       
@@ -722,13 +717,14 @@
           </p>
           <div class="videos__row">
             <div class="video-card">
-              <div class="video-frame" data-video="https://drive.google.com/file/d/1OpqI_2lF-0YYnn8HZyyGZ-0fgcQaF72O/preview" data-title="Video RuedaTec — Beca al Talento Emprendedor">
+              <div class="video-frame" data-video="https://www.youtube-nocookie.com/embed/OlDnQTKXnVc?autoplay=1&amp;rel=0" data-title="Video RuedaTec — Innovación y Tecnología">
                 <button class="video-poster" type="button" aria-label="Reproducir video de RuedaTec">
+                  <img class="video-poster-img" src="./assets/img/yt-ruedatec.jpg" alt="" loading="lazy" />
                   <span class="video-play"><i class="ri-play-fill"></i></span>
                   <span class="video-poster-label">Ver video</span>
                 </button>
               </div>
-              <span class="video-cap">RuedaTec · Beca al Talento Emprendedor</span>
+              <span class="video-cap">RuedaTec · Innovación y Tecnología</span>
             </div>
             <div class="video-card">
               <div class="video-frame" data-video="https://drive.google.com/file/d/1OKACifhDYcyvTute86hRTinSMSsGh4aE/preview" data-title="Video Sonríe México">
@@ -1832,7 +1828,7 @@
     <footer class="footer">
       <div class="footer__container container grid">
         <ul class="footer__links">
-          <li><a href="#about" class="footer__link">Sobre Mí</a></li>
+          <li><a href="#explora" class="footer__link">Sobre Mí</a></li>
           <li><a href="#projects" class="footer__link">Proyectos</a></li>
           <li><a href="./assets/MiguelCV/index.html" class="footer__link">CV</a></li>
         </ul>
@@ -1959,6 +1955,39 @@
             btn.remove();
           });
         });
+
+        /* Inicio: rotador de frases */
+        var rot = document.getElementById("home-rot");
+        if (rot && !reduce) {
+          var words = rot.querySelectorAll(".rotator__word");
+          var wi = 0;
+          setInterval(function () {
+            words[wi].classList.remove("is-on");
+            wi = (wi + 1) % words.length;
+            words[wi].classList.add("is-on");
+          }, 2800);
+        }
+
+        /* Inicio: parallax suave de la foto y las mini-fotos con el mouse */
+        var homeImg = document.querySelector(".home__image");
+        if (homeImg && !reduce && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+          var protoTL = document.getElementById("proto-tl");
+          var protoBR = document.getElementById("proto-br");
+          var hero = document.querySelector(".home");
+          hero.addEventListener("mousemove", function (e) {
+            var r = hero.getBoundingClientRect();
+            var dx = (e.clientX - r.left) / r.width - 0.5;
+            var dy = (e.clientY - r.top) / r.height - 0.5;
+            homeImg.style.transform = "translate(" + (dx * 14).toFixed(1) + "px," + (dy * 12).toFixed(1) + "px)";
+            if (protoTL) protoTL.style.translate = (dx * -26).toFixed(1) + "px " + (dy * -20).toFixed(1) + "px";
+            if (protoBR) protoBR.style.translate = (dx * 26).toFixed(1) + "px " + (dy * 20).toFixed(1) + "px";
+          });
+          hero.addEventListener("mouseleave", function () {
+            homeImg.style.transform = "";
+            if (protoTL) protoTL.style.translate = "";
+            if (protoBR) protoBR.style.translate = "";
+          });
+        }
 
         /* Barra de progreso de scroll */
         var bar = document.createElement("div");
