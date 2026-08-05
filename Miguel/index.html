@@ -300,6 +300,25 @@
       .cert-year { display: inline-block; margin-top: .45rem; background: var(--first-color); color: #fff; font-weight: 800; padding: .32rem 1.05rem; border-radius: 999px; width: max-content; font-size: .85rem; letter-spacing: .04em; }
       .logro__cert--star::before { content: ""; position: absolute; top: 0; left: -80%; width: 60%; height: 100%; background: linear-gradient(105deg, transparent, hsla(0, 0%, 100%, .12), transparent); animation: chipShine 3.4s ease-in-out infinite; pointer-events: none; }
 
+      /* ===== Explora: tiles estilo link-in-bio (antes de Sobre Mí) ===== */
+      .explora.section { padding-block: 4.5rem 3.5rem; }
+      .explora__intro { text-align: center; max-width: 640px; margin: .5rem auto 0; color: var(--text-color); }
+      .explora__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1.1rem; max-width: 1100px; margin: 2.4rem auto 0; }
+      @media (min-width: 700px) { .explora__grid { grid-template-columns: repeat(3, 1fr); gap: 2.1rem 1.6rem; } }
+      @media (min-width: 1150px) { .explora__grid { grid-template-columns: repeat(4, 1fr); } }
+      .exp-tile { display: block; text-decoration: none; color: inherit; text-align: center; }
+      .exp-tile__media { display: block; position: relative; aspect-ratio: 4 / 5; border-radius: 24px; overflow: hidden; background: var(--container-color); border: 2px solid var(--title-color); box-shadow: 0 10px 26px rgba(0, 0, 0, .14); transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease; }
+      .exp-tile__media img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+      .exp-tile:hover .exp-tile__media { transform: translateY(-7px); box-shadow: 0 20px 44px rgba(0, 0, 0, .24); }
+      .exp-tile:hover .exp-tile__media img { transform: scale(1.06); }
+      .exp-tile__badge { position: absolute; top: .7rem; right: .7rem; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--first-color); color: #fff; font-size: 1.1rem; opacity: 0; transform: translateY(-6px); transition: opacity .3s, transform .3s; }
+      .exp-tile:hover .exp-tile__badge { opacity: 1; transform: none; }
+      .exp-tile__play { position: absolute; inset: 0; display: grid; place-items: center; }
+      .exp-tile__play span { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: rgba(12, 12, 12, .72); color: #d7e2ea; font-size: 1.7rem; border: 2px solid #d7e2ea; transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), background-color .3s, border-color .3s; }
+      .exp-tile:hover .exp-tile__play span { transform: scale(1.15); background: var(--first-color); border-color: transparent; }
+      .exp-tile__label { display: block; margin-top: .85rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--title-color); font-size: clamp(.82rem, 1.6vw, .98rem); }
+      .exp-tile__sub { display: block; margin-top: .15rem; color: var(--text-color); font-size: .8rem; }
+
       .rv.rv-l { transform: translateX(-44px); }
       .rv.rv-r { transform: translateX(44px); }
       .rv.rv-l.in, .rv.rv-r.in { transform: none; }
@@ -501,6 +520,89 @@
           </div>
         </div>
       </div>
+
+      <!--==================== EXPLORA (TILES) ====================-->
+      <section class="explora section" id="explora">
+        <div class="container">
+          <h2 class="section__title-2"><span>Explora.</span></h2>
+          <p class="explora__intro">Mis mundos en un solo lugar: proyectos, redes y videos. Pícale a cualquiera.</p>
+          <div class="explora__grid">
+
+            <a class="exp-tile rv" href="https://sonriemexico.org/" target="_blank" rel="noopener">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonriem.png" alt="Sitio oficial de Sonríe México" loading="lazy" />
+                <span class="exp-tile__badge"><i class="ri-arrow-right-up-line"></i></span>
+              </span>
+              <span class="exp-tile__label">Sitio de Sonríe</span>
+              <span class="exp-tile__sub">sonriemexico.org</span>
+            </a>
+
+            <a class="exp-tile rv rv-d1" href="https://www.instagram.com/sonrie_mexico/" target="_blank" rel="noopener">
+              <span class="exp-tile__media">
+                <img src="assets/img/evid-01.jpg" alt="Instagram de Sonríe México" loading="lazy" />
+                <span class="exp-tile__badge"><i class="ri-instagram-line"></i></span>
+              </span>
+              <span class="exp-tile__label">Instagram Sonríe</span>
+              <span class="exp-tile__sub">@sonrie_mexico · +36,000</span>
+            </a>
+
+            <a class="exp-tile rv rv-d2" href="https://drive.google.com/file/d/1OKACifhDYcyvTute86hRTinSMSsGh4aE/view" target="_blank" rel="noopener">
+              <span class="exp-tile__media">
+                <img src="assets/img/evid-02.jpg" alt="Video de Sonríe México" loading="lazy" />
+                <span class="exp-tile__play"><span><i class="ri-play-fill"></i></span></span>
+              </span>
+              <span class="exp-tile__label">Video Sonríe</span>
+              <span class="exp-tile__sub">Conoce la comunidad</span>
+            </a>
+
+            <a class="exp-tile rv rv-d3" href="https://youtu.be/OlDnQTKXnVc" target="_blank" rel="noopener">
+              <span class="exp-tile__media">
+                <img src="assets/img/yt-ruedatec.jpg" alt="Video de RuedaTec — Innovación y Tecnología" loading="lazy" />
+                <span class="exp-tile__play"><span><i class="ri-play-fill"></i></span></span>
+              </span>
+              <span class="exp-tile__label">Video RuedaTec</span>
+              <span class="exp-tile__sub">Innovación y Tecnología · YouTube</span>
+            </a>
+
+            <a class="exp-tile rv" href="https://miguelin777.github.io/RuedaTec/index.html" target="_blank" rel="noopener">
+              <span class="exp-tile__media">
+                <img src="assets/img/ev-rt.jpg" alt="La historia de RuedaTec" loading="lazy" />
+                <span class="exp-tile__badge"><i class="ri-arrow-right-up-line"></i></span>
+              </span>
+              <span class="exp-tile__label">Historia RuedaTec</span>
+              <span class="exp-tile__sub">Cómo nació el proyecto</span>
+            </a>
+
+            <a class="exp-tile rv rv-d1" href="https://apps.apple.com/mx/app/ruedatec/id6759914211" target="_blank" rel="noopener">
+              <span class="exp-tile__media">
+                <img src="assets/img/app-rt.jpg" alt="App de RuedaTec en la App Store" loading="lazy" />
+                <span class="exp-tile__badge"><i class="ri-app-store-line"></i></span>
+              </span>
+              <span class="exp-tile__label">App RuedaTec</span>
+              <span class="exp-tile__sub">App Store · control Bluetooth</span>
+            </a>
+
+            <a class="exp-tile rv rv-d2" href="https://www.instagram.com/miguueelito/" target="_blank" rel="noopener">
+              <span class="exp-tile__media">
+                <img src="assets/img/MIg.jpg" alt="Instagram personal de Miguel" loading="lazy" />
+                <span class="exp-tile__badge"><i class="ri-instagram-line"></i></span>
+              </span>
+              <span class="exp-tile__label">Mi Instagram</span>
+              <span class="exp-tile__sub">@miguueelito</span>
+            </a>
+
+            <a class="exp-tile rv rv-d3" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
+              <span class="exp-tile__media">
+                <img src="assets/img/rt-gal-31.jpg" alt="Evidencias y reconocimientos" loading="lazy" />
+                <span class="exp-tile__badge"><i class="ri-file-pdf-2-line"></i></span>
+              </span>
+              <span class="exp-tile__label">Evidencias</span>
+              <span class="exp-tile__sub">Constancias y premios (PDF)</span>
+            </a>
+
+          </div>
+        </div>
+      </section>
 
       <!--==================== ABOUT ====================-->
       <section class="about section" id="about">
