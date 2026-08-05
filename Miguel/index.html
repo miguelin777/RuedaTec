@@ -263,6 +263,43 @@
       @keyframes chipShine { 0%, 55% { left: -80%; } 100% { left: 130%; } }
       @media (max-width: 768px) { .tl2__chips { grid-template-columns: 1fr; } }
 
+      /* ===== Mi camino v4: viaje HORIZONTAL al hacer scroll (vertical en móvil / sin JS) ===== */
+      .camino.section { padding-block: 4.5rem 0; }
+      .cam2 { position: relative; margin-top: 2.2rem; }
+      .cam2__stage { position: relative; }
+      .cam2__track { display: flex; flex-direction: column; gap: 1.6rem; padding: 0.6rem 1rem 3.5rem; max-width: 640px; margin: 0 auto; }
+      .cam2__card { position: relative; display: block; background: var(--container-color); border: 2px solid var(--title-color); border-radius: 22px; padding: 1.7rem 1.5rem 1.4rem; color: inherit; text-decoration: none; transition: box-shadow .3s ease, border-color .3s ease; }
+      .cam2__card:hover { box-shadow: 0 18px 40px rgba(0, 0, 0, .24); border-color: var(--first-color); }
+      .cam2__chip { position: absolute; top: -14px; left: 1.2rem; background: var(--black-color); color: var(--white-color); font-weight: 800; font-size: .76rem; letter-spacing: .14em; padding: .32rem .85rem; border-radius: 999px; }
+      .cam2__bg, .cam2__rail, .cam2__hint { display: none; }
+      /* — Modo horizontal (lo activa el JS en escritorio) — */
+      .cam2--h .cam2__stage { position: sticky; top: 0; height: 100vh; overflow: clip; display: flex; align-items: center; }
+      .cam2--h .cam2__track { flex-direction: row; align-items: center; gap: 2.2rem; padding: 0 14vw 0 10vw; max-width: none; margin: 0; will-change: transform; }
+      .cam2--h .cam2__card { flex: 0 0 auto; width: 430px; will-change: transform, opacity; transition: box-shadow .3s ease, border-color .3s ease; }
+      .cam2--h .cam2__bg { display: grid; position: absolute; inset: 0; place-items: center; font-weight: 900; font-size: clamp(14rem, 32vw, 28rem); line-height: 1; color: transparent; -webkit-text-stroke: 2.5px var(--title-color); opacity: .06; pointer-events: none; user-select: none; }
+      .cam2--h .cam2__rail { display: block; position: absolute; left: 10vw; right: 10vw; bottom: 7vh; height: 3px; }
+      .cam2__rail-line { position: absolute; inset: 0; background: var(--title-color); opacity: .15; border-radius: 2px; }
+      .cam2__rail-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--first-color); border-radius: 2px; }
+      .cam2__dot { position: absolute; top: -38px; transform: translateX(-50%); background: transparent; border: 0; color: var(--title-color); opacity: .55; font-family: inherit; font-weight: 800; font-size: .85rem; letter-spacing: .08em; cursor: pointer; padding: .3rem .45rem; transition: opacity .25s, transform .25s, color .25s; }
+      .cam2__dot::after { content: ""; position: absolute; left: 50%; transform: translateX(-50%); bottom: -13px; width: 9px; height: 9px; border-radius: 50%; background: var(--title-color); opacity: .4; transition: background-color .25s, box-shadow .25s; }
+      .cam2__dot.act { opacity: 1; color: var(--first-color); transform: translateX(-50%) scale(1.18); }
+      .cam2__dot.act::after { background: var(--first-color); opacity: 1; box-shadow: 0 0 0 4px hsla(214, 98%, 50%, .2); }
+      body.dark-theme .cam2__dot.act::after { box-shadow: 0 0 0 4px hsla(14, 80%, 50%, .2); }
+      .cam2--h .cam2__hint { display: flex; position: absolute; top: 11vh; right: 10vw; align-items: center; gap: .5rem; color: var(--text-color); font-weight: 700; font-size: .85rem; letter-spacing: .06em; }
+      .cam2__hint i { animation: hintBob 1.6s ease-in-out infinite; font-size: 1.15rem; }
+      @keyframes hintBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+      @media (prefers-reduced-motion: reduce) { .cam2__hint i { animation: none; } }
+
+      /* ===== Logros 10-13: panel tipo constancia (sin foto, hasta tener los diplomas) ===== */
+      .logro__cert { position: relative; width: 100%; min-height: clamp(230px, 38vh, 340px); border-radius: 40px; background: #131318; border: 1px solid rgba(215, 226, 234, .25); overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: .55rem; padding: 2rem 2.4rem; }
+      @media (min-width: 768px) { .logro__cert { border-radius: 60px; padding: 2.4rem 3rem; } }
+      .cert-mark { position: absolute; right: -1rem; bottom: -1.8rem; font-size: clamp(8rem, 24vh, 13rem); color: #d7e2ea; opacity: .08; pointer-events: none; }
+      .cert-entity { color: #8fa3b0; text-transform: uppercase; letter-spacing: .18em; font-size: .78rem; font-weight: 700; }
+      .cert-name { color: #d7e2ea; font-weight: 900; font-size: clamp(1.35rem, 3vw, 2.2rem); line-height: 1.15; }
+      .cert-desc { color: #aab8c2; max-width: 600px; line-height: 1.55; font-size: .95rem; margin: 0; }
+      .cert-year { display: inline-block; margin-top: .45rem; background: var(--first-color); color: #fff; font-weight: 800; padding: .32rem 1.05rem; border-radius: 999px; width: max-content; font-size: .85rem; letter-spacing: .04em; }
+      .logro__cert--star::before { content: ""; position: absolute; top: 0; left: -80%; width: 60%; height: 100%; background: linear-gradient(105deg, transparent, hsla(0, 0%, 100%, .12), transparent); animation: chipShine 3.4s ease-in-out infinite; pointer-events: none; }
+
       .rv.rv-l { transform: translateX(-44px); }
       .rv.rv-r { transform: translateX(44px); }
       .rv.rv-l.in, .rv.rv-r.in { transform: none; }
@@ -826,182 +863,234 @@
               </div>
             </article>
           </div>
+
+          <div class="logro__sticky">
+            <article class="logro__card" data-index="9">
+              <div class="logro__top">
+                <div class="logro__top-left">
+                  <span class="logro__num">10</span>
+                  <div class="logro__meta">
+                    <span class="logro__cat">Beca nacional · Tec de Monterrey</span>
+                    <span class="logro__name">Becado BTEM — Talento Emprendedor</span>
+                  </div>
+                </div>
+                <a class="logro__live" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">Evidencia</a>
+              </div>
+              <div class="logro__cert">
+                <i class="ri-graduation-cap-line cert-mark"></i>
+                <span class="cert-entity">Tecnológico de Monterrey · Campus Querétaro</span>
+                <span class="cert-name">Beca al Talento Emprendedor (BTEM)</span>
+                <p class="cert-desc">Estudio Ingeniería Mecatrónica becado por mi trayectoria emprendedora, además de la beca BBVA “Chavos que Inspiran”.</p>
+                <span class="cert-year">2026 — Actualidad</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="logro__sticky">
+            <article class="logro__card" data-index="10">
+              <div class="logro__top">
+                <div class="logro__top-left">
+                  <span class="logro__num">11</span>
+                  <div class="logro__meta">
+                    <span class="logro__cat">Aceleración · Tec de Monterrey</span>
+                    <span class="logro__name">Venture Basecamp</span>
+                  </div>
+                </div>
+              </div>
+              <div class="logro__cert">
+                <i class="ri-rocket-2-line cert-mark"></i>
+                <span class="cert-entity">Instituto de Emprendimiento Eugenio Garza Lagüera</span>
+                <span class="cert-name">Venture Basecamp</span>
+                <p class="cert-desc">Programa intensivo de validación temprana con enfoque evidence-based: ejecución y avance en el modelo y la propuesta de valor de RuedaTec.</p>
+                <span class="cert-year">Sep — Nov 2025</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="logro__sticky">
+            <article class="logro__card" data-index="11">
+              <div class="logro__top">
+                <div class="logro__top-left">
+                  <span class="logro__num">12</span>
+                  <div class="logro__meta">
+                    <span class="logro__cat">Ecosistema emprendedor · Tec Querétaro</span>
+                    <span class="logro__name">LiftOff — Campus Day</span>
+                  </div>
+                </div>
+              </div>
+              <div class="logro__cert">
+                <i class="ri-flight-takeoff-line cert-mark"></i>
+                <span class="cert-entity">IEEGL · Tec de Monterrey Campus Querétaro</span>
+                <span class="cert-name">LiftOff — Campus Day</span>
+                <p class="cert-desc">Reconocimiento por competir y contribuir al fortalecimiento del ecosistema emprendedor.</p>
+                <span class="cert-year">Mayo 2026</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="logro__sticky">
+            <article class="logro__card" data-index="12">
+              <div class="logro__top">
+                <div class="logro__top-left">
+                  <span class="logro__num">13</span>
+                  <div class="logro__meta">
+                    <span class="logro__cat">Premio estatal · Guanajuato</span>
+                    <span class="logro__name">Finalista — Premio de Juventudes 2026</span>
+                  </div>
+                </div>
+              </div>
+              <div class="logro__cert logro__cert--star">
+                <i class="ri-award-line cert-mark"></i>
+                <span class="cert-entity">Instituto de las Juventudes · Guanajuato</span>
+                <span class="cert-name">Finalista Estatal — Innovación y Tecnología</span>
+                <p class="cert-desc">RuedaTec me llevó a la final estatal del Premio de Juventudes de Guanajuato 2026.</p>
+                <span class="cert-year">2026</span>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
-      <!--==================== MI CAMINO (LÍNEA DE TIEMPO) ====================-->
+      <!--==================== MI CAMINO (VIAJE HORIZONTAL) ====================-->
       <section class="camino section" id="camino">
         <h2 class="section__title-1"><span>Mi camino.</span></h2>
-        <p class="camino__intro">De un problema en casa a construir desde Cortázar. Año por año, con evidencia de cada paso.</p>
-        <div class="tl2 container">
-          <div class="tl2__line"></div>
-          <div class="tl2__fill" id="tl2-fill"></div>
-          <div class="tl2__tip" id="tl2-tip"></div>
+        <p class="camino__intro">De un problema en casa a construir desde Cortázar. Sigue bajando: el camino avanza contigo.</p>
+        <div class="cam2" id="cam2">
+          <div class="cam2__stage">
+            <div class="cam2__bg" id="cam2-bg">2022</div>
+            <div class="cam2__track" id="cam2-track">
 
-          <div class="tl2__year">2022</div>
-          <div class="tl2__item tl2__item--l rv rv-l">
-            <div class="tl2__card">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-graduation-cap-line"></i></span><span class="tl2__tag">Beca</span></div>
-              <h3 class="tl2__title">Chavo que Inspira — Fundación BBVA</h3>
-              <p class="tl2__text">Vengo becado desde secundaria (antes de esta historia) por la Fundación BBVA con “Chavos que Inspiran”: la base que me impulsó a construir todo lo demás.</p>
-            </div>
-          </div>
-          <div class="tl2__item tl2__item--r rv rv-r">
-            <div class="tl2__card">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-lightbulb-flash-line"></i></span><span class="tl2__tag">Origen</span></div>
-              <h3 class="tl2__title">Nace RuedaTec</h3>
-              <p class="tl2__text">Mi tío pierde la movilidad y una silla eléctrica cuesta más de $20,000. Armo el primer adaptador en casa: motor, batería e impresión 3D.</p>
-            </div>
-          </div>
-
-          <div class="tl2__year">2023</div>
-          <div class="tl2__item tl2__item--l rv rv-l">
-            <a class="tl2__card" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-flask-line"></i></span><span class="tl2__tag">Concurso nacional</span></div>
-              <h3 class="tl2__title">México Inventa</h3>
-              <p class="tl2__text">Participamos en el evento nacional de jóvenes inventores (Inventores Maker · México Inventa): el programa que nos abrió la puerta a la etapa internacional.</p>
-              <span class="tl2__go">Ver evidencia <i class="ri-arrow-right-up-line"></i></span>
-            </a>
-          </div>
-          <div class="tl2__item tl2__item--r rv rv-r">
-            <a class="tl2__card" href="https://inhub.thehenryford.org/docs/default-source/icw-documents/americas/americas-winners-list-final-2023.pdf?sfvrsn=a444f6c0_4" target="_blank" rel="noopener">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-trophy-line"></i></span><span class="tl2__tag">Premio internacional</span></div>
-              <h3 class="tl2__title">2.º lugar internacional — Invention Convention Americas</h3>
-              <p class="tl2__text">En EE. UU., entre 146 finalistas de más de 170,000 participantes. Verificable en la lista oficial de The Henry Ford.</p>
-              <span class="tl2__go">Comprobar <i class="ri-arrow-right-up-line"></i></span>
-            </a>
-          </div>
-          <div class="tl2__item tl2__item--l rv rv-l">
-            <div class="tl2__card">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-medal-line"></i></span><span class="tl2__tag">Podio estatal</span></div>
-              <h3 class="tl2__title">3.er lugar — Cumbre de Emprendimiento GTO</h3>
-              <p class="tl2__text">RuedaTec sube al podio del emprendimiento joven de Guanajuato.</p>
-            </div>
-          </div>
-          <div class="tl2__item tl2__item--r rv rv-r">
-            <div class="tl2__card">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-seedling-line"></i></span><span class="tl2__tag">Incubación</span></div>
-              <h3 class="tl2__title">1.ª Incubación tecnológica — IDEA GTO</h3>
-              <p class="tl2__text">Seleccionado para la primera generación de la incubación digital de IDEA GTO y Juventudes Guanajuato.</p>
-            </div>
-          </div>
-          <div class="tl2__item tl2__item--l rv rv-l">
-            <div class="tl2__card">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-funds-line"></i></span><span class="tl2__tag">Capital</span></div>
-              <h3 class="tl2__title">Startup Capital — Silao</h3>
-              <p class="tl2__text">Programa de capital emprendedor de IDEA GTO: taller de preparación para el Demo Day y aceleración en León.</p>
-            </div>
-          </div>
-          <div class="tl2__item tl2__item--r rv rv-r">
-            <a class="tl2__card" href="https://www.instagram.com/sonrie_mexico/" target="_blank" rel="noopener">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-heart-3-line"></i></span><span class="tl2__tag">Comunidad</span></div>
-              <h3 class="tl2__title">Nace Sonríe México</h3>
-              <p class="tl2__text">Fundo Sonríe: comunidad juvenil de acción social y ambiental que hoy suma más de 36,000 personas en redes.</p>
-              <span class="tl2__go">Conocer Sonríe <i class="ri-arrow-right-up-line"></i></span>
-            </a>
-          </div>
-
-          <div class="tl2__year">2024</div>
-          <div class="tl2__item tl2__item--l rv rv-l">
-            <a class="tl2__card" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-vip-crown-line"></i></span><span class="tl2__tag">1.er lugar</span></div>
-              <h3 class="tl2__title">Oro en TALENT-TIC</h3>
-              <p class="tl2__text">Premiación de Oro en León, en el evento de ENTIX —con constancia de CANIETI y el clúster CLUTIG—: ganamos como equipo de prepa frente a universidades.</p>
-              <span class="tl2__go">Ver evidencia <i class="ri-arrow-right-up-line"></i></span>
-            </a>
-          </div>
-          <div class="tl2__item tl2__item--r rv rv-r">
-            <div class="tl2__card">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-robot-line"></i></span><span class="tl2__tag">Hackathon</span></div>
-              <h3 class="tl2__title">Hack AI — IDEA GTO</h3>
-              <p class="tl2__text">Hackathon de inteligencia artificial en León, en el Día de la Mentefactura.</p>
-            </div>
-          </div>
-          <div class="tl2__item tl2__item--l rv rv-l">
-            <div class="tl2__card">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-tv-line"></i></span><span class="tl2__tag">Televisión</span></div>
-              <h3 class="tl2__title">Entrevista en TV4</h3>
-              <p class="tl2__text">Nuestra historia llega a la televisión de Guanajuato.</p>
-            </div>
-          </div>
-          <div class="tl2__item tl2__item--r rv rv-r">
-            <a class="tl2__card" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-mic-line"></i></span><span class="tl2__tag">Podcast</span></div>
-              <h3 class="tl2__title">“Sin Miedo al Éxito” — Spotify</h3>
-              <p class="tl2__text">Nos invitan a contar cómo nació RuedaTec, como creadores del proyecto ganador.</p>
-              <span class="tl2__go">Ver evidencia <i class="ri-arrow-right-up-line"></i></span>
-            </a>
-          </div>
-          <div class="tl2__item tl2__item--l rv rv-l">
-            <a class="tl2__card" href="https://sonriemexico.org/" target="_blank" rel="noopener">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-global-line"></i></span><span class="tl2__tag">Sonríe + web</span></div>
-              <h3 class="tl2__title">Sonríe escala con tecnología</h3>
-              <p class="tl2__text">Desarrollo los sitios web y campañas de Sonríe para difundir y recaudar fondos: torneos deportivos, un mes de 31 campañas seguidas y presencia en más de 7 municipios de Guanajuato y Querétaro.</p>
-              <span class="tl2__go">Ver sitio <i class="ri-arrow-right-up-line"></i></span>
-            </a>
-          </div>
-
-          <div class="tl2__year">2025</div>
-          <div class="tl2__item tl2__item--l rv rv-l">
-            <div class="tl2__card">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-wheelchair-line"></i></span><span class="tl2__tag">El hito más personal</span></div>
-              <h3 class="tl2__title">La primera unidad: la de mi tío</h3>
-              <p class="tl2__text">Tras probar el adaptador con 13 usuarios reales en calle, la primera unidad terminada fue para quien lo empezó todo.</p>
-            </div>
-          </div>
-          <div class="tl2__item tl2__item--r rv rv-r">
-            <a class="tl2__card" href="https://apps.apple.com/mx/app/ruedatec/id6759914211" target="_blank" rel="noopener">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-app-store-line"></i></span><span class="tl2__tag">Apps</span></div>
-              <h3 class="tl2__title">RuedaTec y Echo-Campus en la App Store</h3>
-              <p class="tl2__text">Publico la app de control de la silla (Flutter/Dart) y una app social de campus hecha en equipo.</p>
-              <span class="tl2__go">Ver en App Store <i class="ri-arrow-right-up-line"></i></span>
-            </a>
-          </div>
-
-          <div class="tl2__year">2026</div>
-          <div class="tl2__item tl2__item--l rv rv-l">
-            <a class="tl2__card" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
-              <div class="tl2__head"><span class="tl2__ico"><i class="ri-hand-coin-line"></i></span><span class="tl2__tag">Venta</span></div>
-              <h3 class="tl2__title">Primera venta cerrada</h3>
-              <p class="tl2__text">RuedaTec deja de ser solo un proyecto: alguien confió y pagó por él. Y esto apenas empieza.</p>
-              <span class="tl2__go">Ver todas las evidencias <i class="ri-arrow-right-up-line"></i></span>
-            </a>
-          </div>
-
-          <button class="tl2__more-btn rv" type="button" id="tl2-more-btn" aria-expanded="false" aria-controls="tl2-more">
-            <i class="ri-add-line"></i>&nbsp;Ver más de mi camino
-          </button>
-          <div class="tl2__more" id="tl2-more">
-            <div class="tl2__chips">
-              <div class="tl2__chip">
-                <span class="tl2__ico"><i class="ri-school-line"></i></span>
-                <div>
-                  <div class="tl2__chip-t">Becado BTEM — Tec de Monterrey</div>
-                  <p class="tl2__chip-x">Estudio Ingeniería Mecatrónica en el Campus Querétaro con la Beca al Talento Emprendedor (BTEM), además de la beca BBVA.</p>
-                </div>
+              <div class="cam2__card rv" data-year="2022">
+                <span class="cam2__chip">2022</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-graduation-cap-line"></i></span><span class="tl2__tag">Beca</span></div>
+                <h3 class="tl2__title">Chavo que Inspira — Fundación BBVA</h3>
+                <p class="tl2__text">Vengo becado desde secundaria (antes de esta historia) por la Fundación BBVA con “Chavos que Inspiran”: la base que me impulsó a construir todo lo demás.</p>
               </div>
-              <div class="tl2__chip">
-                <span class="tl2__ico"><i class="ri-rocket-2-line"></i></span>
-                <div>
-                  <div class="tl2__chip-t">Venture Basecamp (2025)</div>
-                  <p class="tl2__chip-x">Programa intensivo del Tec (IEEGL): validación evidence-based del modelo y la propuesta de valor de RuedaTec.</p>
-                </div>
+
+              <div class="cam2__card rv" data-year="2022">
+                <span class="cam2__chip">2022</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-lightbulb-flash-line"></i></span><span class="tl2__tag">Origen</span></div>
+                <h3 class="tl2__title">Nace RuedaTec</h3>
+                <p class="tl2__text">Mi tío pierde la movilidad y una silla eléctrica cuesta más de $20,000. Armo el primer adaptador en casa: motor, batería e impresión 3D.</p>
               </div>
-              <div class="tl2__chip">
-                <span class="tl2__ico"><i class="ri-flight-takeoff-line"></i></span>
-                <div>
-                  <div class="tl2__chip-t">LiftOff — Campus Day (2026)</div>
-                  <p class="tl2__chip-x">Compitiendo y sumando al ecosistema emprendedor del Tec Querétaro.</p>
-                </div>
+
+              <a class="cam2__card rv" data-year="2023" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
+                <span class="cam2__chip">2023</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-flask-line"></i></span><span class="tl2__tag">Concurso nacional</span></div>
+                <h3 class="tl2__title">México Inventa</h3>
+                <p class="tl2__text">Participamos en el evento nacional de jóvenes inventores (Inventores Maker · México Inventa): el programa que nos abrió la puerta a la etapa internacional.</p>
+                <span class="tl2__go">Ver evidencia <i class="ri-arrow-right-up-line"></i></span>
+              </a>
+
+              <a class="cam2__card rv" data-year="2023" href="https://inhub.thehenryford.org/docs/default-source/icw-documents/americas/americas-winners-list-final-2023.pdf?sfvrsn=a444f6c0_4" target="_blank" rel="noopener">
+                <span class="cam2__chip">2023</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-trophy-line"></i></span><span class="tl2__tag">Premio internacional</span></div>
+                <h3 class="tl2__title">2.º lugar internacional — Invention Convention Americas</h3>
+                <p class="tl2__text">En EE. UU., entre 146 finalistas de más de 170,000 participantes. Verificable en la lista oficial de The Henry Ford.</p>
+                <span class="tl2__go">Comprobar <i class="ri-arrow-right-up-line"></i></span>
+              </a>
+
+              <div class="cam2__card rv" data-year="2023">
+                <span class="cam2__chip">2023</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-medal-line"></i></span><span class="tl2__tag">Podio estatal</span></div>
+                <h3 class="tl2__title">3.er lugar — Cumbre de Emprendimiento GTO</h3>
+                <p class="tl2__text">RuedaTec sube al podio del emprendimiento joven de Guanajuato.</p>
               </div>
-              <div class="tl2__chip tl2__chip--star">
-                <span class="tl2__ico"><i class="ri-award-line"></i></span>
-                <div>
-                  <div class="tl2__chip-t">Finalista estatal — Premio de Juventudes 2026</div>
-                  <p class="tl2__chip-x">RuedaTec me llevó a ser finalista del Premio Estatal de Juventudes de Guanajuato, en Innovación y Tecnología.</p>
-                </div>
+
+              <div class="cam2__card rv" data-year="2023">
+                <span class="cam2__chip">2023</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-seedling-line"></i></span><span class="tl2__tag">Incubación</span></div>
+                <h3 class="tl2__title">1.ª Incubación tecnológica — IDEA GTO</h3>
+                <p class="tl2__text">Seleccionado para la primera generación de la incubación digital de IDEA GTO y Juventudes Guanajuato.</p>
               </div>
+
+              <div class="cam2__card rv" data-year="2023">
+                <span class="cam2__chip">2023</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-funds-line"></i></span><span class="tl2__tag">Capital</span></div>
+                <h3 class="tl2__title">Startup Capital — Silao</h3>
+                <p class="tl2__text">Programa de capital emprendedor de IDEA GTO: taller de preparación para el Demo Day y aceleración en León.</p>
+              </div>
+
+              <a class="cam2__card rv" data-year="2023" href="https://www.instagram.com/sonrie_mexico/" target="_blank" rel="noopener">
+                <span class="cam2__chip">2023</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-heart-3-line"></i></span><span class="tl2__tag">Comunidad</span></div>
+                <h3 class="tl2__title">Nace Sonríe México</h3>
+                <p class="tl2__text">Fundo Sonríe: comunidad juvenil de acción social y ambiental que hoy suma más de 36,000 personas en redes.</p>
+                <span class="tl2__go">Conocer Sonríe <i class="ri-arrow-right-up-line"></i></span>
+              </a>
+
+              <a class="cam2__card rv" data-year="2024" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
+                <span class="cam2__chip">2024</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-vip-crown-line"></i></span><span class="tl2__tag">1.er lugar</span></div>
+                <h3 class="tl2__title">Oro en TALENT-TIC</h3>
+                <p class="tl2__text">Premiación de Oro en León, en el evento de ENTIX —con constancia de CANIETI y el clúster CLUTIG—: ganamos como equipo de prepa frente a universidades.</p>
+                <span class="tl2__go">Ver evidencia <i class="ri-arrow-right-up-line"></i></span>
+              </a>
+
+              <div class="cam2__card rv" data-year="2024">
+                <span class="cam2__chip">2024</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-robot-line"></i></span><span class="tl2__tag">Hackathon</span></div>
+                <h3 class="tl2__title">Hack AI — IDEA GTO</h3>
+                <p class="tl2__text">Hackathon de inteligencia artificial en León, en el Día de la Mentefactura.</p>
+              </div>
+
+              <div class="cam2__card rv" data-year="2024">
+                <span class="cam2__chip">2024</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-tv-line"></i></span><span class="tl2__tag">Televisión</span></div>
+                <h3 class="tl2__title">Entrevista en TV4</h3>
+                <p class="tl2__text">Nuestra historia llega a la televisión de Guanajuato.</p>
+              </div>
+
+              <a class="cam2__card rv" data-year="2024" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
+                <span class="cam2__chip">2024</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-mic-line"></i></span><span class="tl2__tag">Podcast</span></div>
+                <h3 class="tl2__title">“Sin Miedo al Éxito” — Spotify</h3>
+                <p class="tl2__text">Nos invitan a contar cómo nació RuedaTec, como creadores del proyecto ganador.</p>
+                <span class="tl2__go">Ver evidencia <i class="ri-arrow-right-up-line"></i></span>
+              </a>
+
+              <a class="cam2__card rv" data-year="2024" href="https://sonriemexico.org/" target="_blank" rel="noopener">
+                <span class="cam2__chip">2024</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-global-line"></i></span><span class="tl2__tag">Sonríe + web</span></div>
+                <h3 class="tl2__title">Sonríe escala con tecnología</h3>
+                <p class="tl2__text">Desarrollo los sitios web y campañas de Sonríe para difundir y recaudar fondos: torneos deportivos, un mes de 31 campañas seguidas y presencia en más de 7 municipios de Guanajuato y Querétaro.</p>
+                <span class="tl2__go">Ver sitio <i class="ri-arrow-right-up-line"></i></span>
+              </a>
+
+              <div class="cam2__card rv" data-year="2025">
+                <span class="cam2__chip">2025</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-wheelchair-line"></i></span><span class="tl2__tag">El hito más personal</span></div>
+                <h3 class="tl2__title">La primera unidad: la de mi tío</h3>
+                <p class="tl2__text">Tras probar el adaptador con 13 usuarios reales en calle, la primera unidad terminada fue para quien lo empezó todo.</p>
+              </div>
+
+              <a class="cam2__card rv" data-year="2025" href="https://apps.apple.com/mx/app/ruedatec/id6759914211" target="_blank" rel="noopener">
+                <span class="cam2__chip">2025</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-app-store-line"></i></span><span class="tl2__tag">Apps</span></div>
+                <h3 class="tl2__title">RuedaTec y Echo-Campus en la App Store</h3>
+                <p class="tl2__text">Publico la app de control de la silla (Flutter/Dart) y una app social de campus hecha en equipo.</p>
+                <span class="tl2__go">Ver en App Store <i class="ri-arrow-right-up-line"></i></span>
+              </a>
+
+              <a class="cam2__card rv" data-year="2026" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
+                <span class="cam2__chip">2026</span>
+                <div class="tl2__head"><span class="tl2__ico"><i class="ri-hand-coin-line"></i></span><span class="tl2__tag">Venta</span></div>
+                <h3 class="tl2__title">Primera venta cerrada</h3>
+                <p class="tl2__text">RuedaTec deja de ser solo un proyecto: alguien confió y pagó por él. Y esto apenas empieza.</p>
+                <span class="tl2__go">Ver todas las evidencias <i class="ri-arrow-right-up-line"></i></span>
+              </a>
+
             </div>
+            <div class="cam2__rail">
+              <div class="cam2__rail-line" aria-hidden="true"></div>
+              <div class="cam2__rail-fill" id="cam2-fill" aria-hidden="true"></div>
+              <button class="cam2__dot" type="button" data-year="2022" data-idx="0" style="left: 0%;" aria-label="Ir al año 2022 del camino">2022</button>
+              <button class="cam2__dot" type="button" data-year="2023" data-idx="2" style="left: 14%;" aria-label="Ir al año 2023 del camino">2023</button>
+              <button class="cam2__dot" type="button" data-year="2024" data-idx="8" style="left: 53%;" aria-label="Ir al año 2024 del camino">2024</button>
+              <button class="cam2__dot" type="button" data-year="2025" data-idx="13" style="left: 87%;" aria-label="Ir al año 2025 del camino">2025</button>
+              <button class="cam2__dot" type="button" data-year="2026" data-idx="15" style="left: 100%;" aria-label="Ir al año 2026 del camino">2026</button>
+            </div>
+            <div class="cam2__hint"><i class="ri-arrow-down-line"></i> Sigue bajando</div>
           </div>
         </div>
       </section>
@@ -1671,7 +1760,7 @@
         var cards = Array.prototype.slice.call(list.querySelectorAll('.logro__card'));
         var N = cards.length;
         if (!N) return;
-        for (var k = 0; k < N; k++) { cards[k].style.top = (k * 28) + 'px'; }
+        for (var k = 0; k < N; k++) { cards[k].style.top = (Math.min(k, 7) * 28) + 'px'; }
         var ticking = false;
         function update() {
           ticking = false;
@@ -1785,54 +1874,82 @@
         }, { passive: true });
         prog();
 
-        /* Línea de tiempo: la línea se "dibuja" conforme bajas */
-        var tl2 = document.querySelector(".tl2");
-        var tlFill = document.getElementById("tl2-fill");
-        var tlTip = document.getElementById("tl2-tip");
-        if (tl2 && tlFill && tlTip) {
-          var tlItems = tl2.querySelectorAll(".tl2__item");
-          var tlYears = tl2.querySelectorAll(".tl2__year");
-          var tlTick = false;
-          function tlDraw() {
-            tlTick = false;
-            var r = tl2.getBoundingClientRect();
-            var passed = Math.min(Math.max(innerHeight * 0.6 - r.top, 0), r.height);
-            var p = r.height > 0 ? passed / r.height : 0;
-            tlFill.style.transform = "scaleY(" + p + ")";
-            tlTip.style.top = (passed - 8) + "px";
-            tlTip.classList.toggle("on", p > 0.01 && p < 0.995);
-            /* Checkpoints: puntos que se encienden al pasar la línea */
-            var tipAbs = r.top + passed;
-            tlItems.forEach(function (it) {
-              it.classList.toggle("past", it.getBoundingClientRect().top + 30 <= tipAbs);
+        /* Mi camino: viaje HORIZONTAL manejado por el scroll (escritorio) */
+        var cam2 = document.getElementById("cam2");
+        if (cam2) {
+          var track2 = document.getElementById("cam2-track");
+          var bg2 = document.getElementById("cam2-bg");
+          var fill2 = document.getElementById("cam2-fill");
+          var cards2 = Array.prototype.slice.call(track2.querySelectorAll(".cam2__card"));
+          var dots2 = Array.prototype.slice.call(cam2.querySelectorAll(".cam2__dot"));
+          var horiz2 = false, range2 = 0, tick2 = false;
+          function cam2Draw() {
+            tick2 = false;
+            if (!horiz2) return;
+            var top = cam2.getBoundingClientRect().top;
+            var prog = range2 > 0 ? Math.min(Math.max(-top / range2, 0), 1) : 0;
+            track2.style.transform = "translateX(" + (-prog * range2).toFixed(1) + "px)";
+            /* Enfoque: la tarjeta al centro crece, las lejanas se atenúan */
+            var cx = innerWidth / 2;
+            cards2.forEach(function (c) {
+              var r = c.getBoundingClientRect();
+              var d = Math.abs(r.left + r.width / 2 - cx) / innerWidth;
+              c.style.transform = "scale(" + Math.max(0.9, 1 - d * 0.15).toFixed(3) + ")";
+              c.style.opacity = Math.max(0.5, 1 - d * 0.8).toFixed(2);
             });
-            /* Año activo: el badge del bloque en curso se pinta de acento */
-            var act = null;
-            tlYears.forEach(function (yp) {
-              yp.classList.remove("act");
-              if (yp.getBoundingClientRect().top - 40 <= tipAbs) act = yp;
-            });
-            if (act) act.classList.add("act");
+            /* Año gigante de fondo + riel de años */
+            var idx = Math.round(prog * (cards2.length - 1));
+            var y = cards2[idx] ? cards2[idx].dataset.year : "";
+            if (y && bg2.textContent !== y) bg2.textContent = y;
+            if (fill2) fill2.style.width = (prog * 100) + "%";
+            dots2.forEach(function (d) { d.classList.toggle("act", d.dataset.year === y); });
+          }
+          function cam2Setup() {
+            horiz2 = window.matchMedia("(min-width: 769px)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            cam2.classList.toggle("cam2--h", horiz2);
+            if (horiz2) {
+              range2 = Math.max(track2.scrollWidth - innerWidth, 0);
+              cam2.style.height = (range2 + innerHeight) + "px";
+            } else {
+              range2 = 0;
+              cam2.style.height = "";
+              track2.style.transform = "";
+              cards2.forEach(function (c) { c.style.transform = ""; c.style.opacity = ""; });
+            }
+            cam2Draw();
           }
           window.addEventListener("scroll", function () {
-            if (!tlTick) { tlTick = true; requestAnimationFrame(tlDraw); }
+            if (!tick2) { tick2 = true; requestAnimationFrame(cam2Draw); }
           }, { passive: true });
-          window.addEventListener("resize", tlDraw);
-          tlDraw();
-        }
-
-        /* "Ver más de mi camino": expandir/cerrar los logros extra */
-        var moreBtn = document.getElementById("tl2-more-btn");
-        var moreBox = document.getElementById("tl2-more");
-        if (moreBtn && moreBox) {
-          moreBtn.addEventListener("click", function () {
-            var open = moreBox.classList.toggle("open");
-            moreBtn.classList.toggle("open", open);
-            moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
-            moreBtn.innerHTML = open
-              ? '<i class="ri-add-line"></i>&nbsp;Ver menos'
-              : '<i class="ri-add-line"></i>&nbsp;Ver más de mi camino';
+          window.addEventListener("resize", cam2Setup);
+          dots2.forEach(function (d) {
+            d.addEventListener("click", function () {
+              var i = parseInt(d.dataset.idx, 10) || 0;
+              if (horiz2) {
+                var camTop = cam2.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
+                var p = cards2.length > 1 ? i / (cards2.length - 1) : 0;
+                window.scrollTo({ top: camTop + p * range2, behavior: "smooth" });
+              } else if (cards2[i]) {
+                cards2[i].scrollIntoView({ behavior: "smooth", block: "center" });
+              }
+            });
           });
+          /* Si cambia la preferencia de movimiento del sistema, re-evaluar */
+          var mqRed2 = window.matchMedia("(prefers-reduced-motion: reduce)");
+          if (mqRed2.addEventListener) mqRed2.addEventListener("change", cam2Setup);
+          /* Teclado: al enfocar una tarjeta lejana, llevar el scroll a su posición (el stage usa overflow clip) */
+          track2.addEventListener("focusin", function (e) {
+            if (!horiz2 || !e.target.closest) return;
+            var card = e.target.closest(".cam2__card");
+            var i = cards2.indexOf(card);
+            if (i < 0) return;
+            var camTop = cam2.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
+            var p = cards2.length > 1 ? i / (cards2.length - 1) : 0;
+            window.scrollTo({ top: camTop + p * range2, behavior: "smooth" });
+          });
+          cam2Setup();
+          setTimeout(cam2Setup, 700);
+          window.addEventListener("load", cam2Setup);
         }
 
         /* Nombre letra por letra (agrupado por palabra para que no se corte a mitad) */
