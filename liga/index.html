@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liga 100% Familiar · Categoría Quinta</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">
+        <span class="dot">⚽</span>
+        <div>
+          <h1 id="liga-nombre">Liga Municipal de Fútbol</h1>
+          <p id="liga-cat" class="eyebrow">Categoría Quinta</p>
+        </div>
+      </div>
+      <div class="picks">
+        <div class="jornada-pick">
+          <label for="sel-categoria">Categoría</label>
+          <select id="sel-categoria" aria-label="Elegir categoría"></select>
+        </div>
+        <div class="jornada-pick">
+          <label for="sel-jornada">Ver</label>
+          <select id="sel-jornada" aria-label="Elegir jornada"></select>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs wrap" role="tablist" aria-label="Secciones">
+    <button class="tab active" data-tab="tabla"      role="tab" aria-selected="true">📊 Tabla</button>
+    <button class="tab" data-tab="miequipo"   role="tab" aria-selected="false">🙋 Mi equipo</button>
+    <button class="tab" data-tab="goleadores" role="tab" aria-selected="false">⚽ Goleadores</button>
+    <button class="tab" data-tab="rol"        role="tab" aria-selected="false">📅 Rol</button>
+    <button class="tab" data-tab="plantillas"  role="tab" aria-selected="false">👥 Plantillas</button>
+    <button class="tab" data-tab="captura"     role="tab" aria-selected="false">✍️ Captura</button>
+    <button class="tab" data-tab="admin"       role="tab" aria-selected="false">🛠️ Admin</button>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- ============ TABLA ============ -->
+    <section id="panel-tabla" class="tabpanel" role="tabpanel">
+      <div class="panel">
+        <div class="panel-head">
+          <h2 id="tabla-titulo">Tabla</h2>
+          <span class="hint">Zona verde = clasifican (primeros 7)</span>
+        </div>
+        <div class="tablewrap">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th class="pos">#</th><th class="eq">Equipo</th>
+                <th title="Juegos jugados">JJ</th>
+                <th class="d-none-sm" title="Ganados">JG</th><th class="d-none-sm" title="Empatados">JE</th><th class="d-none-sm" title="Perdidos">JP</th>
+                <th class="d-none-sm" title="Goles a favor">GF</th><th class="d-none-sm" title="Goles en contra">GC</th>
+                <th title="Diferencia de goles">DIF</th><th class="pts" title="Puntos">PTS</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-body"></tbody>
+          </table>
+        </div>
+        <p class="leyenda hint">JJ = jugados · JG = ganados · JE = empatados · JP = perdidos · GF = goles a favor · GC = en contra · DIF = diferencia · PTS = puntos (incluye ajustes por default de la J25)</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Imagen para WhatsApp</h2></div>
+        <details class="patron">
+          <summary>Patrocinador (aparece al pie de las imágenes)</summary>
+          <div class="patron-form">
+            <label>Nombre <input id="p-nombre" type="text" placeholder="Tu Tienda Deportiva"></label>
+            <label>WhatsApp <input id="p-tel" type="text" placeholder="461 000 0000"></label>
+            <label>Lema <input id="p-lema" type="text" placeholder="Uniformes • Balones • Tacos"></label>
+            <button id="btn-patron" class="btn btn-amber sm">Guardar patrocinador</button>
+          </div>
+        </details>
+        <div class="img-botones">
+          <button id="btn-img-tabla" class="btn btn-green">Imagen de la tabla</button>
+          <button id="btn-img-result" class="btn btn-green">Imagen de resultados</button>
+        </div>
+        <div class="preview-box">
+          <p id="preview-hint" class="hint">Aquí verás la imagen lista para compartir.</p>
+          <img id="preview" alt="Vista previa" style="display:none">
+        </div>
+        <div id="acciones-img" class="acciones" style="display:none">
+          <a id="btn-descargar" class="btn btn-line" download>Descargar PNG</a>
+          <button id="btn-compartir" class="btn btn-green">Compartir a WhatsApp</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GOLEADORES ============ -->
+    <section id="panel-goleadores" class="tabpanel" role="tabpanel" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2>Goleadores</h2><span class="hint">Toca +1 cada gol</span></div>
+        <div class="tablewrap">
+          <table class="tabla gol">
+            <thead><tr><th class="pos">#</th><th class="eq">Jugador</th><th class="pts">G</th><th class="acc">Ajustar</th></tr></thead>
+            <tbody id="gol-body"></tbody>
+          </table>
+        </div>
+        <button id="btn-img-gol" class="btn btn-green mt">Imagen de goleadores</button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Agregar / sumar goles</h2></div>
+        <p class="hint mb">Si el jugador ya existe, se le suman los goles.</p>
+        <div class="gol-form">
+          <input id="g-nombre" type="text" placeholder="Nombre del jugador" aria-label="Nombre">
+          <select id="g-equipo" aria-label="Equipo"></select>
+          <input id="g-goles" type="number" min="1" value="1" aria-label="Goles">
+          <button id="btn-add-gol" class="btn btn-green">Agregar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ROL / CALENDARIO ============ -->
+    <section id="panel-rol" class="tabpanel" role="tabpanel" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2 id="rol-titulo">Rol de la jornada</h2></div>
+        <div id="rol-body" class="rol"></div>
+        <button id="btn-img-rol" class="btn btn-green mt">Imagen del rol</button>
+      </div>
+    </section>
+
+    <!-- ============ MI EQUIPO ============ -->
+    <section id="panel-miequipo" class="tabpanel" role="tabpanel" hidden>
+      <div class="panel">
+        <div class="pl-pick">
+          <label for="sel-equipo-mi">Mi equipo</label>
+          <select id="sel-equipo-mi" aria-label="Elegir mi equipo"></select>
+        </div>
+        <div id="miequipo-body" class="miequipo"></div>
+      </div>
+    </section>
+
+    <!-- ============ PLANTILLAS ============ -->
+    <section id="panel-plantillas" class="tabpanel" role="tabpanel" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2>Plantillas</h2><span class="hint" id="pl-count"></span></div>
+        <div class="pl-pick">
+          <label for="sel-equipo-pl">Equipo</label>
+          <select id="sel-equipo-pl" aria-label="Elegir equipo"></select>
+        </div>
+        <div id="plantilla-body" class="plantilla"></div>
+        <div class="pl-form mt">
+          <input id="pl-num" type="number" min="0" placeholder="#" aria-label="Número">
+          <input id="pl-nombre" type="text" placeholder="Nombre del jugador" aria-label="Nombre del jugador">
+          <button id="btn-add-jug" class="btn btn-green">Agregar</button>
+        </div>
+        <button id="btn-img-plantilla" class="btn btn-line mt">Imagen de la plantilla</button>
+      </div>
+    </section>
+
+    <!-- ============ CAPTURA ============ -->
+    <section id="panel-captura" class="tabpanel" role="tabpanel" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2 id="captura-titulo">Capturar</h2></div>
+        <p class="hint mb">Escribe los marcadores y guarda: la tabla se recalcula sola.</p>
+        <div id="captura-body" class="captura"></div>
+        <button id="btn-guardar" class="btn btn-green">Guardar jornada</button>
+      </div>
+    </section>
+
+    <!-- ============ ADMIN ============ -->
+    <section id="panel-admin" class="tabpanel" role="tabpanel" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2>Categorías</h2><span class="hint" id="cat-count"></span></div>
+        <div id="categorias-body" class="equipos"></div>
+        <div class="gol-form mt">
+          <input id="cat-nombre" type="text" placeholder="Nombre de la categoría nueva" aria-label="Categoría nueva">
+          <button id="btn-add-cat" class="btn btn-green">Crear categoría</button>
+        </div>
+        <p class="hint mt">Cada categoría tiene sus propios equipos, jugadores, rol y goleadores.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Equipos de la categoría</h2><span class="hint" id="eq-count"></span></div>
+        <div id="equipos-body" class="equipos"></div>
+        <div class="gol-form mt">
+          <input id="eq-nombre" type="text" placeholder="Nombre del equipo nuevo" aria-label="Equipo nuevo">
+          <button id="btn-add-eq" class="btn btn-green">Agregar equipo</button>
+        </div>
+        <p class="hint mt">Los equipos nuevos empiezan en 0. Útil al iniciar la temporada.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Rol / Calendario</h2></div>
+        <div class="img-botones">
+          <button id="btn-ver-rol" class="btn btn-line">Ver rol completo</button>
+          <button id="btn-desc-rol" class="btn btn-green">Descargar rol (.txt)</button>
+        </div>
+        <div id="rol-completo" class="rol-completo" hidden></div>
+        <hr class="sep">
+        <h3 class="sub-h">Generar rol nuevo</h3>
+        <p class="hint mb">Crea un calendario de todos contra todos con los equipos de arriba y reinicia la temporada en 0.</p>
+        <button id="btn-gen-rol" class="btn btn-danger btn-gen">⚠️ Generar rol (reinicia la temporada)</button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Respaldo de datos</h2></div>
+        <p class="hint mb">Los datos viven en este navegador. Descarga un respaldo para no perderlos o para pasarlos a otro dispositivo (compártelo por WhatsApp y ábrelo en el otro celular).</p>
+        <div class="img-botones">
+          <button id="btn-export" class="btn btn-green">Descargar respaldo (.json)</button>
+          <label class="btn btn-line" for="file-import">Importar respaldo…</label>
+          <input id="file-import" type="file" accept="application/json,.json" hidden>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot wrap">
+    <span>Prototipo Fase 1 · <b>Liga 100% Familiar</b> · Cortázar, Gto.</span>
+    <button id="btn-reset" class="btn btn-line xs">Restaurar datos</button>
+  </footer>
+
+  <div id="aviso" class="toast" role="status" aria-live="polite"></div>
+  <canvas id="lienzo" style="display:none"></canvas>
+
+  <script src="./data.js"></script>
+  <script src="./liga.js"></script>
+</body>
+</html>
