@@ -366,6 +366,18 @@
       .exp-tile__label { display: block; margin-top: .85rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--title-color); font-size: clamp(.82rem, 1.6vw, .98rem); }
       .exp-tile__sub { display: block; margin-top: .15rem; color: var(--text-color); font-size: .8rem; }
 
+      /* Sonríe en acción */
+      .sonrie.section { padding-block: 4.5rem 5rem; }
+      .sonrie__intro { text-align: center; max-width: 760px; margin: .8rem auto 0; color: var(--text-color); line-height: 1.6; }
+      .sonrie__intro b { color: var(--title-color); }
+      .sonrie__grid { grid-template-columns: repeat(2, 1fr); }
+      @media (min-width: 700px) { .sonrie__grid { grid-template-columns: repeat(3, 1fr); } }
+      @media (min-width: 1150px) { .sonrie__grid { grid-template-columns: repeat(3, 1fr); max-width: 1000px; } }
+      .sonrie__grid .exp-tile__media { aspect-ratio: 4 / 3; }
+      .sonrie__grid .exp-tile__label { letter-spacing: .08em; }
+      .sonrie__grid .exp-tile__sub { font-size: .84rem; line-height: 1.5; max-width: 34ch; margin-inline: auto; }
+      .sonrie__cta { margin-top: 2.6rem; text-align: center; }
+
       .rv.rv-l { transform: translateX(-44px); }
       .rv.rv-r { transform: translateX(44px); }
       .rv.rv-l.in, .rv.rv-r.in { transform: none; }
@@ -445,6 +457,10 @@
 
             <li class="nav__item">
               <a href="#camino" class="nav__link">Camino</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="#sonrie" class="nav__link">Sonríe</a>
             </li>
 
             <li class="nav__item">
@@ -595,7 +611,7 @@
 
             <a class="exp-tile rv rv-d1" href="https://www.instagram.com/sonrie_mexico/" target="_blank" rel="noopener">
               <span class="exp-tile__media">
-                <img src="assets/img/evid-01.jpg" alt="Instagram de Sonríe México" loading="lazy" />
+                <img src="assets/img/sonrie-act-13.jpg" alt="Voluntarios de Sonríe México con la lona del proyecto" loading="lazy" />
                 <span class="exp-tile__badge"><i class="ri-instagram-line"></i></span>
               </span>
               <span class="exp-tile__label">Instagram Sonríe</span>
@@ -604,7 +620,7 @@
 
             <a class="exp-tile rv rv-d2" href="https://drive.google.com/file/d/1OKACifhDYcyvTute86hRTinSMSsGh4aE/view" target="_blank" rel="noopener">
               <span class="exp-tile__media">
-                <img src="assets/img/evid-02.jpg" alt="Video de Sonríe México" loading="lazy" />
+                <img src="assets/img/sonrie-act-01.jpg" alt="Primera campaña de Sonríe México, abril 2023" loading="lazy" />
                 <span class="exp-tile__play"><span><i class="ri-play-fill"></i></span></span>
               </span>
               <span class="exp-tile__label">Video Sonríe</span>
@@ -702,8 +718,8 @@
               <span class="stat__label">de vistas alcanzó un solo video de Sonríe México</span>
             </div>
             <div class="stat rv rv-d4">
-              <span class="stat__num" data-count="7" data-suffix="+">0</span>
-              <span class="stat__label">municipios alcanzados por Sonríe entre Guanajuato y Querétaro</span>
+              <span class="stat__num" data-count="70" data-suffix="+">0</span>
+              <span class="stat__label">campañas de acción social en 7+ municipios de Guanajuato y Querétaro</span>
             </div>
           </div>
         </div>
@@ -1125,7 +1141,7 @@
 
               <a class="cam2__card rv" data-year="2023" href="https://www.instagram.com/sonrie_mexico/" target="_blank" rel="noopener">
                 <span class="cam2__chip">2023</span>
-                <span class="cam2__ph"><img src="assets/img/evid-01.jpg" alt="" loading="lazy" /></span>
+                <span class="cam2__ph"><img src="assets/img/sonrie-act-01.jpg" alt="" loading="lazy" /></span>
                 <div class="tl2__head"><span class="tl2__ico"><i class="ri-heart-3-line"></i></span><span class="tl2__tag">Comunidad</span></div>
                 <h3 class="tl2__title">Nace Sonríe México</h3>
                 <p class="tl2__text">Fundo Sonríe: comunidad juvenil de acción social y ambiental que hoy suma más de 36,000 personas en redes.</p>
@@ -1168,10 +1184,10 @@
 
               <a class="cam2__card rv" data-year="2024" href="https://sonriemexico.org/" target="_blank" rel="noopener">
                 <span class="cam2__chip">2024</span>
-                <span class="cam2__ph"><img src="assets/img/evid-02.jpg" alt="" loading="lazy" /></span>
+                <span class="cam2__ph"><img src="assets/img/sonrie-act-04.jpg" alt="" loading="lazy" /></span>
                 <div class="tl2__head"><span class="tl2__ico"><i class="ri-global-line"></i></span><span class="tl2__tag">Sonríe + web</span></div>
                 <h3 class="tl2__title">Sonríe escala con tecnología</h3>
-                <p class="tl2__text">Desarrollo los sitios web y campañas de Sonríe para difundir y recaudar fondos: torneos deportivos, un mes de 31 campañas seguidas y presencia en más de 7 municipios de Guanajuato y Querétaro.</p>
+                <p class="tl2__text">Desarrollo los sitios web y campañas de Sonríe para difundir y recaudar fondos: más de 70 campañas, torneos deportivos, un mes de 31 campañas seguidas y presencia en más de 7 municipios de Guanajuato y Querétaro.</p>
                 <span class="tl2__go">Ver sitio <i class="ri-arrow-right-up-line"></i></span>
               </a>
 
@@ -1212,6 +1228,148 @@
               <button class="cam2__dot" type="button" data-year="2026" data-idx="15" style="left: 100%;" aria-label="Ir al año 2026 del camino">2026</button>
             </div>
             <div class="cam2__hint"><i class="ri-arrow-down-line"></i> Sigue bajando</div>
+          </div>
+        </div>
+      </section>
+
+      <!--==================== SONRÍE EN ACCIÓN ====================-->
+      <section class="sonrie section" id="sonrie">
+        <div class="container">
+          <h2 class="section__title-2"><span>Sonríe en acción.</span></h2>
+          <p class="sonrie__intro">
+            Más de <b>70 campañas</b> hechas por jóvenes voluntarios en <b>2 estados y 7+ municipios</b>.
+            Nadie nos financia: nos paramos a las <b>5 de la mañana</b> a vender ropa, café, pan y fruta
+            para fondear cada campaña. Aquí van algunas, tal como pasaron:
+          </p>
+
+          <div class="explora__grid sonrie__grid">
+
+            <div class="exp-tile rv">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-01.jpg" alt="Primera campaña de Sonríe, abril 2023" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">La 1ª campaña · 2023</span>
+              <span class="exp-tile__sub">Abril de 2023: juguetes y sonrisas en la Deportiva Sur. Aquí empezó todo.</span>
+            </div>
+
+            <div class="exp-tile rv rv-d1">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-02.jpg" alt="Voluntario plantando un árbol" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">Reforestación</span>
+              <span class="exp-tile__sub">25+ árboles plantados en espacios públicos de Cortázar.</span>
+            </div>
+
+            <div class="exp-tile rv rv-d2">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-03.jpg" alt="Donación de ropa en comunidad rural" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">1,000+ prendas</span>
+              <span class="exp-tile__sub">Ropa donada a ranchos: El Zapote, Mandinga, La Minilla y La Gavia.</span>
+            </div>
+
+            <div class="exp-tile rv">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-04.jpg" alt="Equipo campeón de la Sonríe Fútbol Cup levantando el trofeo" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">Sonríe Fútbol Cup</span>
+              <span class="exp-tile__sub">2 torneos con 18+ equipos y más de 400 chavos; lo recaudado se convierte en despensas. También hubo torneo de vóley.</span>
+            </div>
+
+            <div class="exp-tile rv rv-d1">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-05.jpg" alt="Niño recibiendo despensa de Sonríe" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">Despensas</span>
+              <span class="exp-tile__sub">Entregadas casa por casa en comunidades de Cortázar.</span>
+            </div>
+
+            <div class="exp-tile rv rv-d2">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-06.jpg" alt="Entrega de juguetes a niños" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">Reyes y Día del Niño</span>
+              <span class="exp-tile__sub">370+ juguetes regalados en comunidades y colonias.</span>
+            </div>
+
+            <div class="exp-tile rv">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-07.jpg" alt="Voluntarios alimentando perritos de la calle" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">Perritos de la calle</span>
+              <span class="exp-tile__sub">Comida y croquetas en varias campañas, con colectas dedicadas para ellos.</span>
+            </div>
+
+            <div class="exp-tile rv rv-d1">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-08.jpg" alt="Niños del kínder en el festejo de Sonríe" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">Un kínder completo</span>
+              <span class="exp-tile__sub">200+ niños: juguetes, piñatas, rally con agua, ~$3,000 en material didáctico… y pintamos TODO el kínder.</span>
+            </div>
+
+            <div class="exp-tile rv rv-d2">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-09.jpg" alt="Lona de Sonríe al atardecer en carretera" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">31 días seguidos</span>
+              <span class="exp-tile__sub">Un mes entero con una campaña diaria. Todo quedó documentado.</span>
+            </div>
+
+            <div class="exp-tile rv">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-10.jpg" alt="Mesa de venta para recaudar fondos" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">¿Y el dinero?</span>
+              <span class="exp-tile__sub">Sale de nosotros: ventas de ropa, café, canela, pan, raspados y fruta desde las 5 am.</span>
+            </div>
+
+            <div class="exp-tile rv rv-d1">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-11.jpg" alt="Entrega de apoyo en comunidad" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">Alianzas</span>
+              <span class="exp-tile__sub">CECYTEG libera servicio social a voluntarios y dona; también CBTIS, CONALEP, Bomberos Cortázar y Sowing Life.</span>
+            </div>
+
+            <div class="exp-tile rv rv-d2">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-12.jpg" alt="Voluntariado TECHO con el Tec de Monterrey" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">TECHO · Tec</span>
+              <span class="exp-tile__sub">Y en el Tec sigo igual: responsable social construyendo vivienda con familias.</span>
+            </div>
+
+            <div class="exp-tile rv rv-d1">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-gal-04.jpg" alt="Regalo personalizado de una dinámica de Sonríe" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">Dinámicas que regresan</span>
+              <span class="exp-tile__sub">La chamarra de la suerte, regalos personalizados y comprarle TODO su puesto a vendedores locales.</span>
+            </div>
+
+            <div class="exp-tile rv rv-d2">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-14.jpg" alt="Colaboración de Sonríe con Unidos-Impacto" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">Con Unidos-Impacto</span>
+              <span class="exp-tile__sub">3 años colaborando: comida a las personas, casa hogar, Día del Niño y maestros por 2 días.</span>
+            </div>
+
+            <div class="exp-tile rv">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-act-15.jpg" alt="Curso de Lengua de Señas Mexicana en sonriemexico.org" loading="lazy" />
+              </span>
+              <span class="exp-tile__label">Curso de LSM</span>
+              <span class="exp-tile__sub">Lengua de Señas Mexicana gratis en sonriemexico.org — hecho por nosotros.</span>
+            </div>
+
+          </div>
+
+          <div class="sonrie__cta">
+            <a href="./assets/Sonrie-AccionSocial.pdf" target="_blank" rel="noopener" class="evid-cta-btn">
+              <i class="ri-file-pdf-2-line"></i> Ver el portafolio completo de acción social (PDF)
+            </a>
           </div>
         </div>
       </section>
