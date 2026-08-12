@@ -519,9 +519,9 @@
 
               <div class="geometric-box"></div>
 
-              <!-- Mini-fotos del prototipo RuedaTec (rotan solas) -->
+              <!-- Mini-fotos de RuedaTec y Sonríe (rotan solas) -->
               <img src="./assets/img/ev-rt.jpg" alt="Prototipo RuedaTec" class="home__proto home__proto--tl" id="proto-tl" />
-              <img src="./assets/img/rt-gal-01.jpg" alt="Prototipo RuedaTec" class="home__proto home__proto--br" id="proto-br" />
+              <img src="./assets/img/sonrie-act-13.jpg" alt="Voluntarios de Sonríe México" class="home__proto home__proto--br" id="proto-br" />
             </div>
 
             <div class="home__social">
@@ -600,7 +600,16 @@
           <p class="explora__intro">Mis mundos en un solo lugar: proyectos, redes y videos. Pícale a cualquiera.</p>
           <div class="explora__grid">
 
-            <a class="exp-tile rv" href="https://sonriemexico.org/" target="_blank" rel="noopener">
+            <a class="exp-tile rv" href="./assets/Sonrie-AccionSocial.pdf" target="_blank" rel="noopener">
+              <span class="exp-tile__media">
+                <img src="assets/img/sonrie-pdf-cover.jpg" alt="Portada del portafolio de evidencias de acción social" loading="lazy" />
+                <span class="exp-tile__badge"><i class="ri-file-pdf-2-line"></i></span>
+              </span>
+              <span class="exp-tile__label">Portafolio Acción Social</span>
+              <span class="exp-tile__sub">PDF · 37 páginas de evidencias de Sonríe</span>
+            </a>
+
+            <a class="exp-tile rv rv-d1" href="https://sonriemexico.org/" target="_blank" rel="noopener">
               <span class="exp-tile__media">
                 <img src="assets/img/sonriem.png" alt="Sitio oficial de Sonríe México" loading="lazy" />
                 <span class="exp-tile__badge"><i class="ri-arrow-right-up-line"></i></span>
@@ -1083,7 +1092,7 @@
 
               <div class="cam2__card rv" data-year="2022">
                 <span class="cam2__chip">2022</span>
-                <span class="cam2__ph cam2__ph--grad"><i class="ri-graduation-cap-line"></i></span>
+                <span class="cam2__ph"><img src="assets/img/MigParado.jpg" alt="" loading="lazy" /></span>
                 <div class="tl2__head"><span class="tl2__ico"><i class="ri-graduation-cap-line"></i></span><span class="tl2__tag">Beca</span></div>
                 <h3 class="tl2__title">Chavo que Inspira — Fundación BBVA</h3>
                 <p class="tl2__text">Vengo becado desde secundaria (antes de esta historia) por la Fundación BBVA con “Chavos que Inspiran”: la base que me impulsó a construir todo lo demás.</p>
@@ -1099,7 +1108,7 @@
 
               <a class="cam2__card rv" data-year="2023" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
                 <span class="cam2__chip">2023</span>
-                <span class="cam2__ph cam2__ph--grad"><i class="ri-flask-line"></i></span>
+                <span class="cam2__ph"><img src="assets/img/22.jpeg" alt="" loading="lazy" /></span>
                 <div class="tl2__head"><span class="tl2__ico"><i class="ri-flask-line"></i></span><span class="tl2__tag">Concurso nacional</span></div>
                 <h3 class="tl2__title">México Inventa</h3>
                 <p class="tl2__text">Participamos en el evento nacional de jóvenes inventores (Inventores Maker · México Inventa): el programa que nos abrió la puerta a la etapa internacional.</p>
@@ -1117,7 +1126,7 @@
 
               <div class="cam2__card rv" data-year="2023">
                 <span class="cam2__chip">2023</span>
-                <span class="cam2__ph cam2__ph--grad"><i class="ri-medal-line"></i></span>
+                <span class="cam2__ph"><img src="assets/img/rt-gal-27.jpg" alt="" loading="lazy" /></span>
                 <div class="tl2__head"><span class="tl2__ico"><i class="ri-medal-line"></i></span><span class="tl2__tag">Podio estatal</span></div>
                 <h3 class="tl2__title">3.er lugar — Cumbre de Emprendimiento GTO</h3>
                 <p class="tl2__text">RuedaTec sube al podio del emprendimiento joven de Guanajuato.</p>
@@ -1210,7 +1219,7 @@
 
               <a class="cam2__card rv" data-year="2026" href="./assets/Evidencias_Miguel.pdf" target="_blank" rel="noopener">
                 <span class="cam2__chip">2026</span>
-                <span class="cam2__ph cam2__ph--grad"><i class="ri-hand-coin-line"></i></span>
+                <span class="cam2__ph"><img src="assets/img/ev-prototipo-rt.jpg" alt="" loading="lazy" /></span>
                 <div class="tl2__head"><span class="tl2__ico"><i class="ri-hand-coin-line"></i></span><span class="tl2__tag">Venta</span></div>
                 <h3 class="tl2__title">Primera venta cerrada</h3>
                 <p class="tl2__text">RuedaTec deja de ser solo un proyecto: alguien confió y pagó por él. Y esto apenas empieza.</p>
@@ -2064,21 +2073,25 @@
     <!--=============== MAIN JS ===============-->
     <script src="assets/js/main.js"></script>
 
-    <!--=============== MINI-FOTOS RUEDATEC (prototipo, premios, constancias — rotan solas) ===============-->
+    <!--=============== MINI-FOTOS RUEDATEC + SONRÍE (prototipo, premios, campañas — rotan solas) ===============-->
     <script>
       (function () {
         var protos = [
           "./assets/img/ev-rt.jpg",            // prototipo
+          "./assets/img/sonrie-act-13.jpg",    // Sonríe: lona con voluntarios
           "./assets/img/ev-premiacion-oro.jpg",// premio
+          "./assets/img/sonrie-act-04.jpg",    // Sonríe: trofeo Fútbol Cup
           "./assets/img/rt-gal-09.jpg",        // prototipo
+          "./assets/img/sonrie-act-08.jpg",    // Sonríe: kínder
           "./assets/img/rt-gal-21.jpg",        // premiación TalentTIC
-          "./assets/img/rt-gal-06.jpg",        // prototipo (detalle)
+          "./assets/img/sonrie-act-01.jpg",    // Sonríe: 1a campaña
           "./assets/img/rt-gal-17.jpg",        // Invention Convention 2.º
+          "./assets/img/sonrie-act-02.jpg",    // Sonríe: reforestación
           "./assets/img/rt-gal-01.jpg",        // prototipo en silla
           "./assets/img/rt-gal-20.jpg",        // constancia
           "./assets/img/rt-gal-25.jpg",        // mecanismo
+          "./assets/img/sonrie-act-05.jpg",    // Sonríe: despensas
           "./assets/img/ev-equipo.jpg",        // equipo
-          "./assets/img/ev-prototipo-rt.jpg",  // prototipo
           "./assets/img/rt-gal-24.jpg"         // entrevista/medios
         ];
         protos.forEach(function (s) { var im = new Image(); im.src = s; });
@@ -2101,7 +2114,7 @@
           el.addEventListener("mouseenter", stop);
           el.addEventListener("mouseleave", start);
           el.addEventListener("click", function () { tick(1); });
-          el.title = "Click para ver más fotos de RuedaTec";
+          el.title = "Click para ver más fotos de RuedaTec y Sonríe";
         });
         start();
       })();
